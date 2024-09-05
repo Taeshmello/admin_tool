@@ -1,33 +1,26 @@
 import './SideBar.css';
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 
 const SideBar = () => {
-  const { t } = useTranslation();
-
   return (
     <div className='MainPage-container'>
       <aside className="sidebar">
-        <header><h3>{t('admin_tool')}</h3></header>
+        <header><h3>admin_tool</h3></header>
         <nav className="sidebar-nav">
           <ul>
             <li>
-              <a>
-                <span>{t('user_management')}</span>
-              </a>
+              <span>user_management</span>
               <ul>
                 <li>
-                  <a>{t('derps')}</a>
+                  <a>권한</a>
                 </li>
               </ul>
             </li>
             <li>
-              <a href="#">
-                <span>{t('forum_management')}</span>
-              </a>
+              <span>forum_management</span>
               <ul>
                 <li>
-                  <a>{t('watch')}</a>
+                  <a>게시판 글 관리</a>
                 </li>
               </ul>
             </li>

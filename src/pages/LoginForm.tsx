@@ -25,9 +25,7 @@ const LoginForm: React.FC = () => {
           id="id"
           type="text" 
           {...register("id", { required: "ID를 입력해주세요." })}
-          className={`input`}
-/>
-
+          className={`input`}/>
           {errors.id && <p className="error-message">{errors.id.message}</p>}
         </div>
 
@@ -42,6 +40,7 @@ const LoginForm: React.FC = () => {
           </div>
 
         <button type="submit" className="login-button">Login</button>
+        
       </form>
     </div>
     </div>

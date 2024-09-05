@@ -74,8 +74,13 @@ Sidebar Nav
 
 
 .sidebar-nav span{
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 450;
+  display: block;
+  padding: 10px;
+  position: relative;
+  color: white;
+  border: 1px white solid;
 }
 
 .sidebar-nav li {
