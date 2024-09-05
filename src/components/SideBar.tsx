@@ -12,12 +12,12 @@ const SideBar = () => {
         <nav className="sidebar-nav">
           <ul>
             <li>
-              <a href="#">
+              <a>
                 <span>{t('user_management')}</span>
               </a>
               <ul>
                 <li>
-                  <a href="#">{t('derps')}</a>
+                  <a>{t('derps')}</a>
                 </li>
               </ul>
             </li>
@@ -27,7 +27,7 @@ const SideBar = () => {
               </a>
               <ul>
                 <li>
-                  <a href="#">{t('watch')}</a>
+                  <a>{t('watch')}</a>
                 </li>
               </ul>
             </li>
