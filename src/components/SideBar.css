@@ -1,0 +1,96 @@
+/* Google Fonts는 <head>에 추가하는 것이 좋습니다. */
+
+
+body {
+  font-family: sans-serif;
+  font-size: 100%;
+  overflow: hidden;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.6s ease;
+}
+
+a:hover {
+  transition: all 0.6s ease;
+}
+
+.MainPage-container {
+  height: 100vh;
+  display: flex; /* MainPage의 컨텐츠가 사이드바 옆에 나란히 배치되도록 함 */
+}
+
+/* -------------
+Sidebar
+----------------*/
+.sidebar {
+  position: fixed; 
+  width: 13em;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #19222a;
+  visibility: visible;
+}
+
+.sidebar header {
+  background-color: #5865f2;
+  height: 7.5vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
+
+/* -------------
+Sidebar Nav
+----------------*/
+.sidebar-nav {
+  position: absolute; 
+  top: 3.5em; 
+  width: 100%; 
+  background-color: #19222a;
+  height: 100%;
+  font-weight: 400;
+  font-size: 1.2em;
+  padding-bottom: 6em;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+.sidebar-nav span{
+  font-size: 19px;
+  font-weight: 450;
+}
+
+.sidebar-nav li {
+  width: 100%;
+}
+
+.sidebar-nav li a {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75em;
+  padding: 1.05em 1em;
+  display: block;
+  position: relative;
+}
+
+.sidebar-nav li a:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+  transition: all 0.6s ease;
+}

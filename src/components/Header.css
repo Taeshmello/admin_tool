@@ -1,0 +1,24 @@
+.header {
+    position: relative; /* select의 절대 배치를 위해 relative로 설정 */
+    padding: 10px;
+    background-color: #19222a;;
+    color: white;
+    display: flex;
+    justify-content: space-between; /* 양 끝에 요소를 배치 */
+    align-items: center;
+    height: 5.2vh;
+    
+  }
+
+  
+  .language {
+    position: relative;
+    margin-left: auto; /* 오른쪽으로 밀어냄 */
+    padding: 5px;
+    color: white;
+    background-color: #19222a;
+    border: black 2px solid;
+    border-radius: 4px;
+    margin-right: 17px;
+  }
+  
