@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage';
 import Layout from './components/Layout';
 import UserManage from './pages/UserManage';
 import ForumManage from './pages/ForumManage';
+import FaqManage from './pages/FaqManage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="mainpage" element={<MainPage />} />
         <Route path="userManage" element={<UserManage />} />
         <Route path="ForumManage" element={<ForumManage/>} />
+        <Route path='faqmanage' element={<FaqManage/>}/>
       </Route>
     </Routes>
   );

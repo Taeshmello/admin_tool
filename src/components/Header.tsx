@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <span className="title">Admin Tool</span>
+        <span className="title"><a href="mainpage">VFUN-Admin</a></span>
       </div>
 
       <div className="header-right">
