@@ -13,7 +13,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 45vh;
+    height: 60vh;
     background-color: #36393f; 
     color: white;
     border: black 1px solid;
@@ -116,7 +116,20 @@
   }
   
   .singup:hover {
-    text-decoration: underline; /* Optional: underline on hover */
+    text-decoration: underline;
   }
   
+  .signUpContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px; 
+  }
+  
+  .signup-link {
+    text-decoration: none;
+  }
+  
+  .signup-link:hover {
+    text-decoration: underline;
+  }
   
