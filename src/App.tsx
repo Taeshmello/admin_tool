@@ -7,11 +7,11 @@ import UserManage from './pages/UserManage';
 import ForumManage from './pages/ForumManage';
 import FaqManage from './pages/FaqManage';
 import SiginUp from './pages/SiginUp';
+import SendTest from './pages/SendTest';
 function App() {
   return (
     <Routes>
-      <Route path="signin" element={<LoginForm />} />
-      {/* Layout 안에 Header와 SideBar가 포함됨 */}
+      <Route path="/" element={<LoginForm />} />
       <Route path='signup' element={<SiginUp/>}/>
       <Route element={<Layout />}>
         <Route path="mainpage" element={<MainPage />} />

@@ -17,6 +17,11 @@ const Header = () => {
       </div>
 
       <div className="header-right">
+      <select className="language-select">
+          <option value="kr">Korean</option>
+          <option value="en">English</option>
+          <option value="cn">Chinese</option>
+        </select>
         <div className="profile-container" onClick={toggleDropdown}>
         <img src="/asset/profile.jpg" className="profile-icon" />
 

@@ -33,7 +33,7 @@ const SideBar = () => {
             )}
           </li>
           <li className="nav-item" onClick={() => handleNavItemClick(2)}>
-            <span className="nav-text">커뮤니티 관리</span>
+            <span className="nav-text">메인화면 관리</span>
             {activeItem === 2 && (
               <ul className="sub-menu">
                 <li><a href="ForumManage">게시판 글 관리</a></li>
@@ -41,12 +41,7 @@ const SideBar = () => {
             )}
           </li>
         </ul>
-        <select className="language-select">
-          <option>select</option>
-          <option value="kr">Korean</option>
-          <option value="en">English</option>
-          <option value="cn">Chinese</option>
-        </select>
+       
       </nav>
     </div>
   );

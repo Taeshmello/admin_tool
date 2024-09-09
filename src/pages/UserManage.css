@@ -1,18 +1,99 @@
-/* 페이지 컨테이너 스타일 */
+
 .page-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    margin-left: 250px; /* 사이드바 너비만큼 여백 추가 */
-    margin-top: 50px; /* 헤더 높이만큼 여백 추가 */
-    overflow: hidden; /* 부모 컨테이너에서 스크롤 숨김 */
+    margin-left: 250px;
+    margin-top: 50px; 
+    overflow: hidden;
+    
   }
+
   
-  /* 페이지 콘텐츠 스타일 */
+  
+ 
   .page-content {
     flex: 1;
     padding: 20px;
-    overflow-y: auto; /* 페이지 콘텐츠에서 세로 스크롤 활성화 */
+    overflow-y: auto; 
     box-sizing: border-box;
   }
+
+  h3{
+    color: white;
+  }
+
+  .user-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80vw;
+    align-items: center;
+
+  }
+
+  .select{
+   margin-left: 10px;
+  }
+
+  #games{
+    margin-right: 50px;
+  }
+
+
+  .user-search{
+      display: flex;
+      flex-direction: row;
+  }
+  
+
+  .table-container {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .user-table th,
+  .user-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  .user-table td {
+    background-color: #fff;
+  }
+  
+  .input-cell {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .input-cell:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .user-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
   

@@ -1,5 +1,5 @@
 body{
-  background-color: #222e38;
+  background-color: #2f3136;
 
 }
 
@@ -21,3 +21,8 @@ body{
   box-sizing: border-box;
 }
 
+
+.title-container{
+  display: flex;
+  flex-direction: row;
+}
