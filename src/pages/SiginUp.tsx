@@ -87,7 +87,8 @@ const SignUp: React.FC = () => {
           </div>
 
           <div className='signUpContainer'>
-            <a href="/" className='/'>이미 계정이 있나요? 로그인</a>
+              <h4>이미 계정이 있나요?</h4>
+            <a href="/" className='login'> 로그인</a>
           </div>
 
           <button type="submit" className="login-button">Sign Up</button>

@@ -124,12 +124,10 @@
     justify-content: flex-end;
     margin-top: 10px; 
   }
-  
-  .signup-link {
-    text-decoration: none;
+  h4{
+    margin-right: 10px;
   }
-  
-  .signup-link:hover {
-    text-decoration: underline;
-  }
+.login:hover{
+  text-decoration: underline;
+}
   

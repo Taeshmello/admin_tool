@@ -1,7 +1,5 @@
 import './UserManage.css';
 
-let date = new Date();
-
 const UserManage = () => {
     return (
         <div className="page-container">
