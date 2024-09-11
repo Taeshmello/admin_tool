@@ -2,23 +2,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #28292e; 
-  color: #ffffff; 
+  background-color: #28292e;
+  color: #ffffff;
   padding: 10px 20px;
   border-bottom: 1px solid #40444b;
   box-sizing: border-box;
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; 
-  z-index: 1000; 
+  width: 100%;
+  z-index: 1000;
   height: 50px;
 }
 
 
 
 
-.header-left, .header-center, .header-right {
+.header-left,
+.header-center,
+.header-right {
   display: flex;
   align-items: center;
 }
@@ -43,9 +45,9 @@
 }
 
 .search-input {
-  background-color: #40444b; 
+  background-color: #40444b;
   color: #b9bbbe;
-  border: 1px solid #4f545c; 
+  border: 1px solid #4f545c;
   border-radius: 5px;
   padding: 5px 10px;
   width: 100%;
@@ -81,7 +83,7 @@
 
 .dropdown-menu {
   position: absolute;
-  top: 50px; 
+  top: 50px;
   right: 0;
   background-color: #2f3136;
   border: 1px solid #40444b;
@@ -90,6 +92,10 @@
   z-index: 1000;
   padding: 10px;
   width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .dropdown-menu .logout-button {
@@ -113,12 +119,12 @@
   }
 
   .search-input {
-    max-width: 200px; 
+    max-width: 200px;
   }
 
   .logout-button {
-    font-size: 12px; 
-    padding: 5px 8px; 
+    font-size: 12px;
+    padding: 5px 8px;
   }
 }
 
@@ -129,7 +135,9 @@
     padding: 10px 5px;
   }
 
-  .header-left, .header-center, .header-right {
+  .header-left,
+  .header-center,
+  .header-right {
     width: 100%;
     justify-content: center;
     margin-bottom: 10px;
@@ -146,26 +154,29 @@
 
   .logout-button {
     width: 100%;
-    font-size: 14px; 
-    padding: 10px; 
+    font-size: 14px;
+    padding: 10px;
   }
 
   .dropdown-menu {
     right: auto;
     left: 0;
-    width: 100%; 
+    width: 100%;
   }
 }
 
 
-  .language-select {
-    width: 20%;
-    border: none;
-    background-color: #202225;
-    color: #b9bbbe;
-    padding: 8px;
-    font-size: 12px; 
-    border-top: 1px solid #40444b;
-    margin-right: 30px;
-  }
+.language-select {
+  width: 20%;
+  border: none;
+  background-color: #202225;
+  color: #b9bbbe;
+  padding: 8px;
+  font-size: 12px;
+  border-top: 1px solid #40444b;
+  margin-right: 30px;
+}
 
+.profile-name {
+  font-size: 18px;
+}

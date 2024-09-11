@@ -43,9 +43,10 @@ const UserManage = () => {
                                 <th>등록일</th>
                                 <th>변경</th>
                             </tr>
+
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>

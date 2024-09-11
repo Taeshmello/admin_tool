@@ -1,18 +1,17 @@
-/* 페이지 컨테이너 스타일 */
 .page-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    margin-left: 250px; /* 사이드바 너비만큼 여백 추가 */
-    margin-top: 50px; /* 헤더 높이만큼 여백 추가 */
-    overflow: hidden; /* 부모 컨테이너에서 스크롤 숨김 */
+    margin-left: 250px;
+    margin-top: 50px; 
+    overflow: hidden; 
   }
   
-  /* 페이지 콘텐츠 스타일 */
+
   .page-content {
     flex: 1;
     padding: 20px;
-    overflow-y: auto; /* 페이지 콘텐츠에서 세로 스크롤 활성화 */
+    overflow-y: auto; 
     box-sizing: border-box;
   }
   

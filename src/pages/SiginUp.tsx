@@ -16,7 +16,7 @@ const SignUp: React.FC = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[!@#])[\da-zA-Z!@#]{8,}$/;
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log('Submitting data:', data); // 데이터 확인용 로그
+    console.log('Submitting data:', data); // 데이터 확인용으로 로그 찍어봄..
     try {
       const response = await fetch("http://localhost:5000/auth/send", {
         method: "POST",
@@ -26,7 +26,7 @@ const SignUp: React.FC = () => {
         body: JSON.stringify(data),
       });
   
-      console.log('Response status:', response.status); // 응답 상태 확인용 로그
+      console.log('Response status:', response.status); // 응답 상태 확인용으로 로그 찍어봄....
   
       if (response.ok) {
         alert("데이터가 성공적으로 전송되었습니다.");

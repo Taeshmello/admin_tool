@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import './LoginForm.css'; 
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { refreshAccessToken } from '../utils/api';
 
 type FormValues = {
   id: string;
@@ -11,6 +13,7 @@ type FormValues = {
 const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(['accessToken']); // useCookies로 setCookie 가져오기
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
@@ -20,11 +23,16 @@ const LoginForm: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+        credentials: "include",
       });
-
+  
       if (response.ok) {
+        const result = await response.json();
         alert("로그인 성공!");
-        navigate('/mainpage'); // 로그인 성공 시 메인 페이지로 이동
+
+        
+        await refreshAccessToken(setCookie); // setCookie를 전달
+        navigate('/mainpage'); 
       } else {
         alert("ID 또는 비밀번호가 올바르지 않습니다.");
       }
