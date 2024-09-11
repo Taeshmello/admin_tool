@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { dropdownAtom } from '../state/atoms';
 import { useCookies } from 'react-cookie';
@@ -15,7 +15,7 @@ const Header = () => {
     const fetchUser = async () => {
       if (!cookies.accessToken) {
         // Access Token이 없을 때 Refresh Token으로 갱신
-        await refreshAccessToken(setCookie);
+        await refreshAccessToken(setCookie, removeCookie);
       }
 
       if (cookies.accessToken) {

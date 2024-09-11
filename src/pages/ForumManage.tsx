@@ -1,9 +1,9 @@
 import './ForumManage.css'
 const ForumManage = () => {
-    return(
+    return (
         <div className="page-container">
             <div className="page-content">
-               게시판 관리
+                게시판 관리
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import './FaqManage.css'
 const FaqManage = () => {
-    return(
+    return (
         <div className="page-container">
             <div className="page-content">
                 faq관리

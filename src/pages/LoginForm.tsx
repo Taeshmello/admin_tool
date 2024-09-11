@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import './LoginForm.css'; 
+import './LoginForm.css';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { refreshAccessToken } from '../utils/api';
@@ -25,15 +25,15 @@ const LoginForm: React.FC = () => {
         body: JSON.stringify(data),
         credentials: "include",
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         alert("로그인 성공!");
 
-        
+
         await refreshAccessToken(setCookie); // setCookie를 전달
-        navigate('/mainpage'); 
-      } else {
+        navigate('/mainpage');
+      } else {  
         alert("ID 또는 비밀번호가 올바르지 않습니다.");
       }
     } catch (error) {
@@ -51,7 +51,7 @@ const LoginForm: React.FC = () => {
             <label htmlFor="id">ID</label><br />
             <input
               id="id"
-              type="text" 
+              type="text"
               {...register("id", { required: "ID를 입력해주세요." })}
               className={`input`}
             />
@@ -76,7 +76,7 @@ const LoginForm: React.FC = () => {
           <button type="submit" className="login-button">Login</button>
         </form>
       </div>
-    </div>  
+    </div>
   );
 };
 

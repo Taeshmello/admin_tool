@@ -12,18 +12,18 @@ const SideBar = () => {
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <h3>menu</h3>
+        <h3 >menu</h3>
       </div>
       <nav className="sidebar-nav">
         <ul>
-        <li className="nav-item">
+          <li className="nav-item">
             <span className="nav-text"><a href="mainpage">VALOFE ADMIN TOOL</a></span>
           </li>
-          
-        <li className="nav-item">
+
+          <li className="nav-item">
             <span className="nav-text"><a href="userManage">사용자 관리</a></span>
           </li>
-          
+
           <li className="nav-item" onClick={() => handleNavItemClick(1)}>
             <span className="nav-text">고객센터 관리</span>
             {activeItem === 1 && (
@@ -41,7 +41,7 @@ const SideBar = () => {
             )}
           </li>
         </ul>
-       
+
       </nav>
     </div>
   );

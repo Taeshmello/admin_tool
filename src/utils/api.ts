@@ -4,16 +4,17 @@ export const fetchData = async (accessToken: string): Promise<any> => {
         const response = await fetch("http://localhost:5000/auth/protected-data", {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${accessToken}`,  // Access Token을 헤더에 포함
+                "Authorization": `Bearer ${accessToken}`,
                 "Content-Type": "application/json",
             },
+            credentials: "include" 
         });
 
         if (response.ok) {
-            const data = await response.json();
-            return data; 
+            return await response.json();
         } else {
             throw new Error("protected data를 가져오지 못함");
+
         }
     } catch (error) {
         console.error("protected data를 가져오는 중 오류 발생:", error);
@@ -21,32 +22,8 @@ export const fetchData = async (accessToken: string): Promise<any> => {
     }
 };
 
-
-// at를 갱신하는 함수
-export const refreshAccessToken = async (setCookie: Function): Promise<void> => {
-    try {
-        const response = await fetch("http://localhost:5000/auth/refresh-token", {
-            method: "POST",
-            credentials: "include",  // 쿠키를 함께 보내기 위한 옵션
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            setCookie('accessToken', result.accessToken, { path: '/', secure: true, httpOnly: false });  // 새로 받은 Access Token을 쿠키에 저장
-
-        } else {
-            console.error("액세스 토큰을 새로 고치지 못했습니다.", response.status);
-            throw new Error("Refresh token failed");
-        }
-    } catch (error) {
-        console.error("액세스 토큰을 새로 고치는 중 오류가 발생:", error);
-    }
-};
-
-
 // 로그아웃 처리 함수
 export const logout = (removeCookie: Function): void => {
-    // Access Token 쿠키 삭제
     removeCookie('accessToken', { path: '/' });
     fetch("http://localhost:5000/auth/logout", {
         method: "POST",
@@ -55,6 +32,7 @@ export const logout = (removeCookie: Function): void => {
         .then((response) => {
             if (response.ok) {
                 console.log("로그아웃 성공");
+                window.location.href = '/';
             } else {
                 console.error("로그아웃 실패", response.status);
             }
@@ -62,9 +40,71 @@ export const logout = (removeCookie: Function): void => {
         .catch((error) => {
             console.error("로그아웃 중 오류 발생:", error);
         });
-
-    // 로그인 페이지로 리다이렉트
-    window.location.href = '/';
 };
 
+// 유저 정보 불러오는 함수
+export const fetchUserData = async (): Promise<any> => {
+    try {
+        const response = await fetch("http://localhost:5000/auth/users", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include" // Ensure credentials are included
+        });
 
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error("사용자 정보를 불러오지 못했습니다.");
+        }
+    } catch (error) {
+        console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+        return null;
+    }
+};
+
+// 게임 장르를 가져오는 API 호출 함수
+export async function fetchGameGenres() {
+    
+    const response = await fetch('http://localhost:5000/auth/genres'); // 엔드포인트 수정
+    if (!response.ok) {
+        throw new Error('Failed to fetch game genres');
+    }
+    return response.json();
+}
+ // 게임을 가져오는 API 호출 함수
+export async function fetchGames() {
+   
+    const response = await fetch('http://localhost:5000/auth/games'); // 엔드포인트 수정
+    if (!response.ok) {
+        throw new Error('Failed to fetch games');
+    }
+    return response.json();
+}
+
+
+// Access Token 갱신 함수
+export const refreshAccessToken = async (setCookie: Function, removeCookie: Function): Promise<void> => {
+    try {
+        const response = await fetch("http://localhost:5000/auth/refresh-token", {
+            method: "POST",
+            credentials: "include",
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            setCookie('accessToken', result.accessToken, { path: '/', secure: false, httpOnly: false });
+        } else {
+            console.error("액세스 토큰을 새로 고치지 못했습니다.", response.status);
+            logout(removeCookie()) // 로그아웃 처리
+            window.location.href = '/';
+        }
+    } catch (error) {
+        console.error("액세스 토큰을 새로 고치는 중 오류가 발생:", error);
+        logout(removeCookie()) 
+        window.location.href = '/';
+    }
+};
+
+    
