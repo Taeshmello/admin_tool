@@ -151,11 +151,7 @@ export const assignPermissions = async (data: { user_Idx: number; gameId: string
         });
 
         // 성공 상태 코드 확인
-        if (response.status !== 200 && response.status !== 201) {
-            const errorData = await response.text(); // 에러 메시지를 텍스트로 받기
-            throw new Error(`Error: ${errorData}`); // 에러 메시지 출력
-        }
-
+       
         return await response.json(); // 응답 데이터 반환
     } catch (error) {
         console.error('API 호출 중 오류 발생:', error);

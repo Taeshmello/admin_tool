@@ -8,11 +8,11 @@ interface User {
 
 interface Permission {
     permissions: string;
-    id: number; // id를 필수로 설정
+    id: number;
 }
 
 interface UserDetailsProps {
-    user: User | null; // user prop 추가
+    user: User | null;
 }
 
 const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
@@ -33,14 +33,21 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
         };
 
         const loadPermissions = async () => {
+            if (!user) return;
             try {
                 const permissionsList: { permissions: string; id?: number }[] = await userPermissions();
                 const permissionsWithId: Permission[] = permissionsList.map((perm: { permissions: string; id?: number }, index: number) => ({
                     permissions: perm.permissions,
-                    id: index + 1, // 또는 다른 유효한 id를 설정
+                    id: index + 1,
                 }));
                 setPermissions(permissionsWithId);
-                setSelectedPermissions(new Array(permissionsWithId.length).fill(false));
+
+                // 데이터베이스에서 사용자의 권한을 불러와 체크박스 상태 설정
+                const currentPermissions = permissionsWithId.map(perm =>
+                    permissionsList.some(userPerm => userPerm.permissions === perm.permissions)
+                );
+                setSelectedPermissions(currentPermissions);
+                setAllSelected(currentPermissions.every(Boolean));
             } catch (error) {
                 console.error('권한 목록을 불러오는 데 실패했습니다:', error);
             }
@@ -48,9 +55,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
 
         loadGames();
         loadPermissions();
-
-        
-    }, []);
+    }, [user]);
 
     const handleSelectAll = () => {
         const newSelection = selectedPermissions.map(() => !allSelected);
@@ -65,10 +70,10 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
     };
 
     const handleGameChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedGame = games.find(game => game.name === event.target.value);
-      setSelectedGameId(selectedGame ? selectedGame.id : ''); // 선택된 게임의 ID로 설정
-  };
-  
+        const selectedGame = games.find(game => game.name === event.target.value);
+        setSelectedGameId(selectedGame ? selectedGame.id : '');
+    };
+
     const handleDeletePermissions = () => {
         setSelectedPermissions(new Array(permissions.length).fill(false));
         setAllSelected(false);
@@ -76,36 +81,32 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
     };
 
     const handleSavePermissions = async () => {
-      if (!user || !user.idx) {
-          alert('사용자 ID를 불러오는 데 실패했습니다.');
-          return;
-      }
-  
-      const selectedIds = permissions
-          .filter((_, index) => selectedPermissions[index])
-          .map(permission => Number(permission.id));
-  
-      const requestBody:any = {
-          userId: user.idx, // userId를 user_Idx로 변경
-          gameId: Number(selectedGameId), // gameId는 숫자로 설정
-          permissions: selectedIds,
+        if (!user || !user.idx) {
+            alert('사용자 ID를 불러오는 데 실패했습니다.');
+            return;
+        }
 
-          
-      };
-  
-      try {
-          await assignPermissions(requestBody); // requestBody 전달
-          alert('권한이 성공적으로 저장되었습니다.' );
-      } catch (error) {
-        
-          alert('권한 저장에 실패했습니다.');
-      }
-  };
-  
+        const selectedIds = permissions
+            .filter((_, index) => selectedPermissions[index])
+            .map(permission => Number(permission.id));
+
+        const requestBody: any = {
+            userId: user.idx,
+            gameId: Number(selectedGameId),
+            permissions: selectedIds,
+        };
+
+        try {
+            await assignPermissions(requestBody);
+            alert('권한이 성공적으로 저장되었습니다.');
+        } catch (error) {
+           
+        }
+    };
+
     return (
         <div className="modify-user-container">
             <h4>권한 보유 게임</h4>
-
             <h4>게임명</h4>
             
             <select className="game-select" onChange={handleGameChange}>
