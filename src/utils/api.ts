@@ -91,7 +91,7 @@ export const fetchData = async (accessToken: string): Promise<any> => {
 // 게임 장르를 가져오는 API 호출 함수
 export async function fetchGameGenres() {
 
-    const response = await fetch('http://localhost:5000/auth/genres'); // 엔드포인트 수정
+    const response = await fetch('http://localhost:5000/auth/genres');
     if (!response.ok) {
         throw new Error('Failed to fetch game genres');
     }
@@ -100,10 +100,10 @@ export async function fetchGameGenres() {
 // 게임을 가져오는 API 호출 함수
 export async function fetchGames() {
 
-    const response = await fetch('http://localhost:5000/auth/games'); // 엔드포인트 수정
+    const response = await fetch('http://localhost:5000/auth/games');
     if (!response.ok) {
         throw new Error('Failed to fetch games');
-    }
+    }   
     return response.json();
 }
 
@@ -135,6 +135,31 @@ export const refreshAccessToken = async (setCookie: Function): Promise<void> => 
     } catch (error) {
         console.error("액세스 토큰을 새로 고치는 중 오류가 발생:", error);
 
+    }
+};
+
+
+
+export const assignPermissions = async (data: { user_Idx: number; gameId: string; permissions: number[] }) => {
+    try {
+        const response = await fetch('http://localhost:5000/auth/assign-permissions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data), // 데이터 JSON으로 변환
+        });
+
+        // 성공 상태 코드 확인
+        if (response.status !== 200 && response.status !== 201) {
+            const errorData = await response.text(); // 에러 메시지를 텍스트로 받기
+            throw new Error(`Error: ${errorData}`); // 에러 메시지 출력
+        }
+
+        return await response.json(); // 응답 데이터 반환
+    } catch (error) {
+        console.error('API 호출 중 오류 발생:', error);
+        throw error; // 오류 재발생
     }
 };
 

@@ -1,16 +1,23 @@
 import React from 'react';
 import { Modal } from 'antd';
-import './Popup.css';
+import './Popup.css'
 import UserDetails from './User_details';
+
+interface User {
+    idx: number;
+    id: string;
+    signup_date: string;
+    game: string;
+}
 
 interface EditModalProps {
     visible: boolean;
     onClose: () => void;
     onOk: () => void;
-    userId: string | null; // userId prop 추가
+    user: User | null; // user prop 추가
 }
 
-const EditModal: React.FC<EditModalProps> = ({ visible, onClose, onOk, userId }) => {
+const EditModal: React.FC<EditModalProps> = ({ visible, onClose, onOk, user }) => {
     return (
         <Modal
             title="편집"
@@ -21,7 +28,7 @@ const EditModal: React.FC<EditModalProps> = ({ visible, onClose, onOk, userId })
             width={500}
             height={1000}
         >
-            <UserDetails/> {/* userId를 UserDetails에 전달 */}
+            <UserDetails user={user} /> {/* user prop 전달 */}
         </Modal>
     );
 };

@@ -4,6 +4,7 @@ import { fetchUserData, fetchGameGenres, fetchGames } from '../utils/api';
 import EditModal from '../components/Popup';
 
 interface User {
+    idx: number;
     id: string;
     signup_date: string;
     game: string;
@@ -23,20 +24,19 @@ const UserManage: React.FC = () => {
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // 선택된 유저 ID 상태 추가
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [genres, setGenres] = useState<Genre[]>([]);
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGenre, setSelectedGenre] = useState<string>('');
     const [selectedGame, setSelectedGame] = useState<string>('');
 
-    // 사용자 목록을 불러오는 함수
     useEffect(() => {
         const loadUserData = async () => {
             try {
                 const data = await fetchUserData();
                 if (data && Array.isArray(data)) {
                     setUsers(data);
-                    setFilteredUsers(data); // 초기에는 모든 사용자 표시
+                    setFilteredUsers(data);
                 } else {
                     console.error("유저 데이터 형식 오류:", data);
                 }
@@ -48,7 +48,6 @@ const UserManage: React.FC = () => {
         loadUserData();
     }, []);
 
-    // 게임 장르 및 게임 목록을 불러오는 함수
     useEffect(() => {
         const loadGameData = async () => {
             try {
@@ -72,7 +71,6 @@ const UserManage: React.FC = () => {
         loadGameData();
     }, []);
 
-    // 검색어가 변경될 때마다 필터링
     useEffect(() => {
         const lowercasedSearchTerm = searchTerm.toLowerCase();
         const filtered = users.filter(user =>
@@ -125,6 +123,7 @@ const UserManage: React.FC = () => {
                     <table className="user-table">
                         <thead>
                             <tr>
+                                <th>등록 번호</th>
                                 <th>유저 ID</th>
                                 <th>등록일</th>
                                 <th>변경</th>
@@ -137,18 +136,14 @@ const UserManage: React.FC = () => {
                                     : ' ';
                                 return (
                                     <tr key={index}>
+                                        <td>{user.idx}</td>
                                         <td>{user.id}</td>
                                         <td>{signupDate}</td>
                                         <td>
-                                            <button
-                                                className="edit-btn"
-                                                onClick={() => {
-                                                    setSelectedUserId(user.id); // 선택된 유저 ID 설정
-                                                    setIsModalOpen(true);
-                                                }}
-                                            >
-                                                수정
-                                            </button>
+                                            <button className="edit-btn" onClick={() => {
+                                                setSelectedUser(user);
+                                                setIsModalOpen(true);
+                                            }}>수정</button>
                                         </td>
                                     </tr>
                                 );
@@ -159,7 +154,7 @@ const UserManage: React.FC = () => {
                         visible={isModalOpen}
                         onClose={() => setIsModalOpen(false)}
                         onOk={() => setIsModalOpen(false)}
-                        userId={selectedUserId} // 선택된 유저 ID 전달
+                        user={selectedUser} // Pass the selected user to the modal
                     />
                 </div>
             </div>

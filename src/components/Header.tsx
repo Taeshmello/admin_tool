@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
-import { dropdownAtom } from '../state/atoms';
+import { dropdownAtom } from '../atoms/atoms';
 import { useCookies } from 'react-cookie';
 import { fetchData, refreshAccessToken, logout } from '../utils/api';
 import './Header.css';
