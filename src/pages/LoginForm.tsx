@@ -3,17 +3,17 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import './LoginForm.css';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { refreshAccessToken } from '../utils/api';
+import { refreshAccessToken, userStatusCheck } from '../utils/api';
 
 type FormValues = {
-  id: string;
+  email: string;
   password: string;
 };
 
 const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(['accessToken']); // useCookies로 setCookie 가져오기
+  const [cookies, setCookie] = useCookies(['accessToken']);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
@@ -28,12 +28,31 @@ const LoginForm: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
+      
         alert("로그인 성공!");
 
+        // 액세스 토큰을 새로 고치고 쿠키를 설정합니다.
+        await refreshAccessToken(setCookie);
 
-        await refreshAccessToken(setCookie); // setCookie를 전달
-        navigate('/mainpage');
-      } else {  
+        // 사용자 상태 확인
+        const statusResponse = await userStatusCheck();
+        if (statusResponse) {
+          const { UserStatus } = statusResponse;
+
+          
+
+          if (UserStatus === 0) {
+            // 상태가 0일 경우 Waiting 페이지로 이동
+            navigate('/waiting')
+          } else if (UserStatus === 1) {
+            // 상태가 1일 경우 메인 페이지로 이동
+            navigate('/mainpage');
+          } else if (UserStatus === 2) {
+            // 상태가 2일 경우 로그인 불가 알림
+            alert("로그인할 수 없습니다.");
+          }
+        }
+      } else {
         alert("ID 또는 비밀번호가 올바르지 않습니다.");
       }
     } catch (error) {
@@ -48,14 +67,14 @@ const LoginForm: React.FC = () => {
         <h2 className="login-title">Admin tool</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
           <div className="input-group">
-            <label htmlFor="id">ID</label><br />
+            <label htmlFor="email">email</label><br />
             <input
-              id="id"
+              id="email"
               type="text"
-              {...register("id", { required: "ID를 입력해주세요." })}
+              {...register("email", { required: "email를 입력해주세요." })}
               className={`input`}
             />
-            {errors.id && <p className="error-message">{errors.id.message}</p>}
+            {errors.email && <p className="error-message">{errors.email.message}</p>}
           </div>
 
           <div className="input-group">

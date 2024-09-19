@@ -6,7 +6,6 @@ import EditModal from '../components/Popup';
 interface User {
     id: string;
     signup_date: string;
-    // 예시로 추가한 필드
     game: string;
 }
 
@@ -24,6 +23,7 @@ const UserManage: React.FC = () => {
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null); // 선택된 유저 ID 상태 추가
     const [genres, setGenres] = useState<Genre[]>([]);
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGenre, setSelectedGenre] = useState<string>('');
@@ -80,20 +80,6 @@ const UserManage: React.FC = () => {
         );
         setFilteredUsers(filtered);
     }, [searchTerm, users]);
-
-    // 장르 또는 게임이 변경될 때 필터링
-    // useEffect(() => {
-    //     let filtered = users;
-    //     if (selectedGenre) {
-    //         filtered = filtered.filter(user =>
-    //             games.some(game => game.name === user.game && game.genre_name === selectedGenre)
-    //         );
-    //     }
-    //     if (selectedGame) {
-    //         filtered = filtered.filter(user => user.game === selectedGame);
-    //     }
-    //     setFilteredUsers(filtered);
-    // }, [selectedGenre, selectedGame, games, users]);
 
     return (
         <div className="page-container">
@@ -154,7 +140,15 @@ const UserManage: React.FC = () => {
                                         <td>{user.id}</td>
                                         <td>{signupDate}</td>
                                         <td>
-                                            <button className="edit-btn" onClick={() => setIsModalOpen(true)}>수정</button>
+                                            <button
+                                                className="edit-btn"
+                                                onClick={() => {
+                                                    setSelectedUserId(user.id); // 선택된 유저 ID 설정
+                                                    setIsModalOpen(true);
+                                                }}
+                                            >
+                                                수정
+                                            </button>
                                         </td>
                                     </tr>
                                 );
@@ -165,6 +159,7 @@ const UserManage: React.FC = () => {
                         visible={isModalOpen}
                         onClose={() => setIsModalOpen(false)}
                         onOk={() => setIsModalOpen(false)}
+                        userId={selectedUserId} // 선택된 유저 ID 전달
                     />
                 </div>
             </div>

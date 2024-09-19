@@ -13,22 +13,24 @@ const Header = () => {
   // 컴포넌트가 마운트될 때 유저 정보 가져오기
   useEffect(() => {
     const fetchUser = async () => {
-      if (!cookies.accessToken) {
-        // Access Token이 없을 때 Refresh Token으로 갱신
-        await refreshAccessToken(setCookie, removeCookie);
-      }
+      try {
+        if (!cookies.accessToken) {
+          // Access Token이 없을 때 Refresh Token으로 갱신
+          await refreshAccessToken(setCookie);
+        }
 
-      if (cookies.accessToken) {
-        // 쿠키에 저장된 Access Token을 fetchData 함수에 전달
-        const userData = await fetchData(cookies.accessToken);
-        setUserInfo(userData); // 유저 정보 저장  
+        // Access Token이 있는 경우에만 유저 정보 요청
+        if (cookies.accessToken) {
+          const userData = await fetchData(cookies.accessToken);
+          setUserInfo(userData); // 유저 정보 저장  
+        }
+      } catch (error) {
+        console.error("유저 정보를 가져오는 중 오류 발생:", error);
       }
     };
 
-
-
     fetchUser();
-  }, [cookies, setCookie]);
+  }, [cookies.accessToken, setCookie, removeCookie]); // accessToken만 의존성 배열에 포함
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -42,7 +44,6 @@ const Header = () => {
     <header className="header">
       <div className="header-left">
         <span className="title"><a href="/mainpage">VFUN-Admin</a></span>
-
       </div>
 
       <div className="header-right">
@@ -55,13 +56,9 @@ const Header = () => {
         <div className="profile-container" onClick={toggleDropdown}>
           <img src="/asset/profile.jpg" className="profile-icon" alt="Profile" />
 
-          {/* 유저 이름 표시 */}
-
-
           {isDropdownOpen && (
             <div className="dropdown-menu">
               {userInfo ? (
-
                 <div className='profileName-container'><span className="profile-name">{userInfo.name}님</span></div>
               ) : (
                 <span>Loading...</span>
