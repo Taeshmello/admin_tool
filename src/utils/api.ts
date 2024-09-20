@@ -103,14 +103,14 @@ export async function fetchGames() {
     const response = await fetch('http://localhost:5000/auth/games');
     if (!response.ok) {
         throw new Error('Failed to fetch games');
-    }   
+    }
     return response.json();
 }
 
-export async function userPermissions(){
+export async function userPermissions() {
 
     const response = await fetch('http://localhost:5000/auth/permissions')
-    if(!response.ok){
+    if (!response.ok) {
         throw new Error('Failed to fetch permissions')
     }
     return response.json()
@@ -151,7 +151,7 @@ export const assignPermissions = async (data: { user_Idx: number; gameId: string
         });
 
         // 성공 상태 코드 확인
-       
+
         return await response.json(); // 응답 데이터 반환
     } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
@@ -159,4 +159,39 @@ export const assignPermissions = async (data: { user_Idx: number; gameId: string
     }
 };
 
+export const deletePermissions = async (requestBody: { userId: number; gameId: number; permissionId: number }) => {
+    const response = await fetch('http://localhost:5000/auth/delete-permissions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+    });
+    if (!response.ok) {
+        throw new Error('권한 삭제 요청에 실패했습니다.');
+    }
+    return await response.json();
+};
 
+
+export const fetchUserPermissions = async (userId: number, gameId: number): Promise<any> => {
+    try {
+        const response = await fetch('http://localhost:5000/auth/user-permissions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, gameId }),
+            credentials: "include"
+        });
+
+        if (!response.ok) {
+            throw new Error('사용자 권한 조회 요청에 실패했습니다.');
+        }
+
+        return await response.json(); 
+    } catch (error) {
+        console.error('사용자 권한 조회 중 오류 발생:', error);
+        throw error; // 오류 재발생
+    }
+};

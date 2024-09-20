@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './User_details.css';
-import { fetchGames, userPermissions, assignPermissions } from '../utils/api';
+import { fetchGames, userPermissions, assignPermissions, deletePermissions } from '../utils/api';
 
 interface User {
     idx: number;
@@ -36,13 +36,12 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
             if (!user) return;
             try {
                 const permissionsList: { permissions: string; id?: number }[] = await userPermissions();
-                const permissionsWithId: Permission[] = permissionsList.map((perm: { permissions: string; id?: number }, index: number) => ({
+                const permissionsWithId: Permission[] = permissionsList.map((perm, index) => ({
                     permissions: perm.permissions,
                     id: index + 1,
                 }));
                 setPermissions(permissionsWithId);
 
-                // 데이터베이스에서 사용자의 권한을 불러와 체크박스 상태 설정
                 const currentPermissions = permissionsWithId.map(perm =>
                     permissionsList.some(userPerm => userPerm.permissions === perm.permissions)
                 );
@@ -74,10 +73,24 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
         setSelectedGameId(selectedGame ? selectedGame.id : '');
     };
 
-    const handleDeletePermissions = () => {
-        setSelectedPermissions(new Array(permissions.length).fill(false));
-        setAllSelected(false);
-        alert('모든 권한이 삭제되었습니다.');
+    const handleDeletePermissions = async () => {
+        if (!user || !selectedGameId) return;
+
+        const selectedIds = permissions
+            .filter((_, index) => selectedPermissions[index])
+            .map(permission => permission.id);
+
+        try {
+            for (const id of selectedIds) {
+                await deletePermissions({ userId: user.idx, gameId: Number(selectedGameId), permissionId: id });
+            }
+            setSelectedPermissions(new Array(permissions.length).fill(false));
+            setAllSelected(false);
+            alert('선택된 권한이 삭제되었습니다.');
+        } catch (error) {
+            console.error('권한 삭제 중 오류 발생:', error);
+            alert('권한 삭제에 실패했습니다.');
+        }
     };
 
     const handleSavePermissions = async () => {
@@ -100,7 +113,8 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
             await assignPermissions(requestBody);
             alert('권한이 성공적으로 저장되었습니다.');
         } catch (error) {
-           
+            console.error('권한 저장 중 오류 발생:', error);
+            alert('권한 저장에 실패했습니다.');
         }
     };
 
@@ -108,7 +122,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
         <div className="modify-user-container">
             <h4>권한 보유 게임</h4>
             <h4>게임명</h4>
-            
+
             <select className="game-select" onChange={handleGameChange}>
                 {games.map((game, index) => (
                     <option key={index} value={game.name}>
