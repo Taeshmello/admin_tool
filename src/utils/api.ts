@@ -174,14 +174,14 @@ export const deletePermissions = async (requestBody: { userId: number; gameId: n
 };
 
 
-export const fetchUserPermissions = async (userId: number, gameId: number): Promise<any> => {
+export const fetchUserPermissions = async (userId: number, gameId: number, permission:number): Promise<any> => {
     try {
         const response = await fetch('http://localhost:5000/auth/user-permissions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userId, gameId }),
+            body: JSON.stringify({ userId, gameId, permission }),
             credentials: "include"
         });
 
@@ -194,4 +194,35 @@ export const fetchUserPermissions = async (userId: number, gameId: number): Prom
         console.error('사용자 권한 조회 중 오류 발생:', error);
         throw error; // 오류 재발생
     }
+};
+
+
+export const fetchBoard = async():Promise<any> => {
+    try{
+        const response = await fetch('http://localhost:5000/board/board',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: "include",
+        });
+        if(!response.ok){
+            throw new Error('게시판 조회 요청 실패');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('게시판 조회 중 오류 발생:', error);
+        throw error;
+    }
+}
+
+
+export const deleteBoardItem = async (boardNum: number) => {
+    const response = await fetch(`http://localhost:5000/board/delete/${boardNum}`, {
+        method: 'DELETE',
+    });
+    if (!response.ok) {
+        throw new Error('게시물 삭제에 실패했습니다.');
+    }
+    return response.json();
 };

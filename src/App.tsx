@@ -5,10 +5,10 @@ import MainPage from './pages/MainPage';
 import Layout from './components/Layout';
 import UserManage from './pages/UserManage';
 import ForumManage from './pages/Forumanage/ForumManage';
-import FaqManage from './pages/FAQ/FaqManage';
+import FaqManage from './pages/FaqManage';
 import SiginUp from './pages/SignUp/SiginUp';
 import Department from './pages/Department/Department';
-import Category from './pages/Category/Category';
+import Category from './pages/Category';
 import { CookiesProvider} from 'react-cookie';
 
 import Waiting from './pages/Waiting';

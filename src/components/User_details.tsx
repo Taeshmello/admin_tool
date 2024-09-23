@@ -111,6 +111,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
 
         try {
             await assignPermissions(requestBody);
+            console.log(requestBody)
             alert('권한이 성공적으로 저장되었습니다.');
         } catch (error) {
             console.error('권한 저장 중 오류 발생:', error);

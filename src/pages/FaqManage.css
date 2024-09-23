@@ -1,0 +1,93 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-left: 250px;
+  margin-top: 50px;
+  overflow: hidden;
+}
+
+
+.page-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+
+
+.editBtn {
+  border-radius: 20px;
+  color: white;
+  outline: none;
+  background-color: #5865f2;
+  width: 56.8125px;
+  height: 34px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.editBtn:hover {
+  background-color: #4752c4;
+}
+
+.deleteBtn {
+  outline: none;
+  background-color: red;
+  width: 56.8125px;
+  height: 34px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  color: white;
+
+}
+
+.deleteBtn:hover{
+  background-color: rgb(209, 2, 2);
+}
+
+.table-container {
+  margin: 20px;
+  font-family: Arial, sans-serif;
+  max-height: 500px; /* 원하는 높이로 조정 */
+  overflow-y: auto; /* 스크롤 추가 */
+}
+
+
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.board-table th,
+.board-table td {
+  border: 1px solid #3a3c40;
+  padding: 5px; /* 패딩 줄이기 */
+  text-align: left;
+  line-height: 1.2; /* 줄 높이 조정 */
+  height: 30px; /* 원하는 높이로 조정 */
+}
+
+.board-table th {
+  background-color: #292b2f;
+  color: #e4e6eb;
+}
+
+.board-table td {
+  background-color: #2c2f33;
+  color: #e4e6eb;
+  
+}
+
+.board-table tr:nth-child(even) {
+  background-color: #2c2f33;
+}
+
+.board-table tr:nth-child(odd) {
+  background-color: #202225;
+}
+
