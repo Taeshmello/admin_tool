@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchCategories } from "../utils/category";
+import { fetchCategories,deleteCategoryItem } from "../utils/category";
+import { CategoryAdd } from "../components/CategoryAdd";
 
 interface Category {
   GC_idx:number;
@@ -9,8 +10,9 @@ interface Category {
 
 const Category = () => {
     const [categories, setCategories] = useState<Category[]>([]);
-    const [error, setError] = useState<string | null>(null);
-
+    const [categoriesItem, setCategoriesItem] = useState<Category[]>([]);
+    const [filterdCategories, setFilteredCategories] = useState<Category[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
     useEffect(() => {
         const loadCategoryData = async () => {
             try {
@@ -18,20 +20,43 @@ const Category = () => {
                 setCategories(categoriesData); // 카테고리 데이터를 상태에 저장
             } catch (error) {
                 console.error("카테고리 데이터 불러오기 오류:", error);
-                setError("카테고리 데이터를 불러오는 데 실패했습니다.");
+               
             }
         };
         loadCategoryData();
     }, []);
+    const handleDelete = async (GC_idx: number) => {
+        const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+        if (confirmDelete) {
+            try {
+                await deleteCategoryItem(GC_idx);
+                // 삭제 후 게시판 데이터 다시 불러오기
+                const updatedCategories = categoriesItem.filter(item => item.GC_idx !== GC_idx);
+                setCategoriesItem(updatedCategories);
+                setFilteredCategories(updatedCategories);
+                alert('카테고리가 삭제되었습니다.');
+                location.reload()
+            } catch (error) {
+                console.error("삭제 오류:", error);
+                alert('카테고리 삭제에 실패했습니다.');
+            }
+        }
+    };
 
-    if (error) {
-        return <div>Error: {error}</div>; // 오류 메시지 표시
-    }
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    
 
     return (
         <div className="page-container">
             <div className="page-content">
-              
+              <button onClick={openModal}>카테고리 추가</button>
                 <table className="board-table">
                     <thead>
                         <tr>
@@ -49,8 +74,8 @@ const Category = () => {
                                     <td className='game_name'>{category.game_name}</td>
                                     <td className='category_name'>{category.category}</td>
                                     <td className='options'>
-                                        <button>상세</button>
-                                        <button>삭제</button>
+                                        <button className="info">상세</button>
+                                        <button className="deleteBtn" onClick={()=>{handleDelete(category.GC_idx)}}>삭제</button>
                                     </td>
                                 </tr>
                             )
@@ -58,6 +83,7 @@ const Category = () => {
                     </tbody>
                 </table>
             </div>
+            {isModalOpen && <CategoryAdd closeModal={closeModal} />}
         </div>
     );
 }

@@ -8,3 +8,12 @@ export const fetchCategories = async () => {
 
 
 
+export const deleteCategoryItem = async (GC_idx: number) => {
+    const response = await fetch(`http://localhost:5000/category/delete/${GC_idx}`, {
+        method: 'DELETE',
+    });
+    if (!response.ok) {
+        throw new Error('게시물 삭제에 실패했습니다.');
+    }
+    return response.json();
+};

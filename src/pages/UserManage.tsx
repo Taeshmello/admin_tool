@@ -86,7 +86,7 @@ const UserManage: React.FC = () => {
                     <h3 className='game-title'>Game</h3>
                     <select
                         name="genre"
-                        className='select'
+                        className='game-select'
                         onChange={(e) => setSelectedGenre(e.target.value)}
                         value={selectedGenre}
                     >
@@ -99,7 +99,7 @@ const UserManage: React.FC = () => {
                     </select>
                     <select
                         name="game"
-                        className='select'
+                        className='game-select'
                         onChange={(e) => setSelectedGame(e.target.value)}
                         value={selectedGame}
                     >

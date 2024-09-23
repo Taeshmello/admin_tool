@@ -97,7 +97,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => { // 수정된 �
         <div className="modal">
             <div className="modal-content">
                 <span className="close" onClick={closeModal}>&times;</span>
-                <h2 className="write-title">글 작성하기</h2>
+                <h2 className="write-title">카테고리 생성하기</h2>
                 <select
                     name="game"
                     className='select'

@@ -15,4 +15,5 @@ export const fetchCategoriesByGameId = async (gameId: number) => {
     return response.json();
 };
 
+ 
 

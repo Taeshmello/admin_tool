@@ -46,6 +46,10 @@
 
 }
 
+.game-slect{
+  width: 20%;
+}
+
 .deleteBtn:hover{
   background-color: rgb(209, 2, 2);
 }
