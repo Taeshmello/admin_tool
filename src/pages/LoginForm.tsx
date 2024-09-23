@@ -28,8 +28,10 @@ const LoginForm: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
-      
+        
         alert("로그인 성공!");
+
+        
 
         // 액세스 토큰을 새로 고치고 쿠키를 설정합니다.
         await refreshAccessToken(setCookie);

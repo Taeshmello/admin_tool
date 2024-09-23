@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { fetchCategories,deleteCategoryItem } from "../utils/category";
 import { CategoryAdd } from "../components/CategoryAdd";
+import './Category.css'
 
 interface Category {
   GC_idx:number;
     game_name: string;
     category: string;
+    created_at: string;
 }
 
 const Category = () => {
@@ -56,23 +58,30 @@ const Category = () => {
     return (
         <div className="page-container">
             <div className="page-content">
-              <button onClick={openModal}>카테고리 추가</button>
+              <button className="categoryAdd" onClick={openModal}>카테고리 추가</button>
                 <table className="board-table">
                     <thead>
                         <tr>
                           <th>카테고리 번호</th>
                             <th>게임명</th>
                             <th>카테고리명</th>
+                            <th>등록일</th>
                             <th>옵션</th>
                         </tr>
                     </thead>
                     <tbody>
                         {categories.map((category, index) => {
+                            const created_date = category.created_at
+                            ? new Date(category.created_at).toLocaleString('ko-KR')
+                            : ' ';
+                        
+                        
                             return (
                                 <tr key={index}>
                                   <td className="board_num">{category.GC_idx}</td>
                                     <td className='game_name'>{category.game_name}</td>
                                     <td className='category_name'>{category.category}</td>
+                                    <td className="created_at">{created_date}</td>
                                     <td className='options'>
                                         <button className="info">상세</button>
                                         <button className="deleteBtn" onClick={()=>{handleDelete(category.GC_idx)}}>삭제</button>

@@ -1,0 +1,11 @@
+.categoryAdd{
+    padding: 7px;
+    border-radius: 20px;
+    background-color: #5865f2;
+    color: white;
+    cursor: pointer;
+}
+
+.categoryAdd:hover {
+    background-color: #4752c4;
+}

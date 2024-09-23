@@ -33,12 +33,14 @@
 
 .user-container {
   display: flex;
+  align-items: center;
   flex-direction: row;
-  justify-content: center;
-  width: 70vw;
+  width: 70 vw;
   align-items: center;
 
 }
+
+
 
 .select {
   margin-left: 10px;
@@ -52,15 +54,23 @@
 
 
 .user-search {
+  margin-left: 10px;
   display: flex;
   flex-direction: row;
 }
+
+
 
 h2 {
   text-align: center;
   color: #333;
 }
 
+
+.faqAdd{
+  padding: 5px;
+  width: 50px;
+}
 
 .table-container {
   margin: 20px;

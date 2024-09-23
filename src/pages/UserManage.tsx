@@ -132,7 +132,7 @@ const UserManage: React.FC = () => {
                         <tbody>
                             {filteredUsers.map((user, index) => {
                                 const signupDate = user.signup_date
-                                    ? new Date(user.signup_date).toLocaleString()
+                                    ? new Date(user.signup_date).toLocaleString('ko-KR')
                                     : ' ';
                                 return (
                                     <tr key={index}>
