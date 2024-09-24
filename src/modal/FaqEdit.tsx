@@ -1,7 +1,7 @@
-// Write.tsx
 import React, { useEffect, useState } from "react";
-import './Write.css';
+import styles from './FaqEdit.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../utils/faq.ts";
+import Editor from "../components/Editor.tsx";
 
 interface Game {
     id: number;
@@ -12,18 +12,20 @@ interface Category {
     category_name: string;
 }
 
-interface WriteProps {
-    closeModal: () => void;
-     // closeModal 프롭 추가
+interface FaqEditProps {
+    closeEdit: () => void;
 }
 
-export const Write: React.FC<WriteProps> = ({ closeModal }) => { // 수정된 부분
+export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGame, setSelectedGame] = useState<number | null>(null);
     const [title, setTitle] = useState<string>('');
     const [detail, setDetail] = useState<string>('');
+    const [selectedDetail, setSelectedDetail] = useState<string | null>("");
+
+    
 
     useEffect(() => {
         const loadGameData = async () => {
@@ -55,53 +57,22 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => { // 수정된 �
                     console.error("카테고리 데이터 불러오기 오류:", error);
                 }
             } else {
-                setCategories([]); // 게임이 선택되지 않은 경우 카테고리 초기화
+                setCategories([]);
             }
         };
         loadCategoryData();
     }, [selectedGame]);
 
-    const handleSubmit = async () => {
-        if (selectedGame === null || selectedCategory === null || !title || !detail) {
-            alert("모든 필드를 채워주세요.");
-            return;
-        }
 
-        try {
-            const response = await fetch("http://localhost:5000/faq/insert", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    game_id: selectedGame,
-                    category_name: selectedCategory,
-                    title: title,
-                    detail: detail,
-                }),
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log("게시물 작성 성공:", result);
-                alert("게시물 등록 완료");
-                location.reload();
-            } else {
-                console.error("게시물 작성 실패:", response.statusText);
-            }
-        } catch (error) {
-            console.error("게시물 작성 중 오류:", error);
-        }
-    };
+    
 
     return (
-        <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={closeModal}>&times;</span>
-                <h2 className="write-title">FAQ 생성하기</h2>
+        <div className={styles.modal}>
+            <div className={styles.modalContent}>
+                <h2 className={styles.writeTitle}>FAQ 수정하기</h2>
                 <select
                     name="game"
-                    className='select'
+                    className={styles.select}
                     onChange={(e) => setSelectedGame(Number(e.target.value))}
                     value={selectedGame ?? ""}
                 >
@@ -114,7 +85,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => { // 수정된 �
                 </select>
                 <select
                     name="category"
-                    className='select'
+                    className={styles.select}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     value={selectedCategory ?? ""}
                     disabled={!selectedGame}
@@ -128,22 +99,20 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => { // 수정된 �
                 </select>
                 <input
                     type="text"
-                    className="write-input"
+                    className={styles.writeTitleInput}
                     placeholder="제목"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
-                <input
-                    type="text"
-                    className="write-input"
-                    placeholder="내용"
-                    value={detail}
-                    onChange={(e) => setDetail(e.target.value)}
-                />
-                <button className="write-button" onClick={handleSubmit}>
-                    글쓰기
-                </button>
+                
+                    <Editor/>
+                    <div className={styles.btnContainer}>
+                    <button className={styles.close} onClick={closeEdit}>닫기</button>
+                    <button className={styles.save}>저장</button>
+                </div>
+                </div>
+                
             </div>
-        </div>
+        
     );
 };

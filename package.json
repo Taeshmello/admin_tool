@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^9.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@supabase/supabase-js": "^2.45.3",
     "antd": "^5.20.5",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "ckeditor5": "^43.1.0",
     "i18next": "^23.14.0",
     "jotai": "^2.9.3",
     "mysql": "^2.18.1",

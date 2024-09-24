@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './UserManage.css';
 import { fetchUserData, fetchGameGenres, fetchGames } from '../utils/api';
-import EditModal from '../components/Popup';
+import EditModal from '../modal/Popup';
 
 interface User {
     idx: number;

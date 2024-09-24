@@ -16,27 +16,23 @@ export const fetchCategoriesByGameId = async (gameId: number) => {
 };
 
 
-
-import { useCookies } from 'react-cookie';
-
-export const fetchUserId = async (userId:any) => {
-    const [cookies] = useCookies(['accessToken']); // 쿠키에서 accessToken 가져오기
-    const token = cookies.accessToken; // accessToken
-
-    const response = await fetch("http://localhost:5000/userId", {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`, // 쿠키에서 가져온 액세스 토큰 사용
-        },
-    });
-
-    if (!response.ok) {
-        throw new Error("유저 ID를 가져오는 데 실패했습니다.");
+export const fetchDetails = async(board_num:number):Promise<any> => {
+    try{
+        const response = await fetch(`http://localhost:5000/faq/details/${board_num}`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: "include",
+        });
+        if(!response.ok){
+            throw new Error('게시판 조회 요청 실패');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('게시판 조회 중 오류 발생:', error);
+        throw error;
     }
-
-    const data = await response.json();
-    return data.userId; // 유저 ID 반환
-};
-
+}
  
 

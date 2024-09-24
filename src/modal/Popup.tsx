@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import './Popup.css'
-import UserDetails from './User_details';
+import UserDetails from '../components/User_details';
 
 interface User {
     idx: number;

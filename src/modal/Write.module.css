@@ -1,4 +1,4 @@
-.write-container {
+.writeContainer {
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
@@ -8,13 +8,14 @@
     background-color: #f9f9f9;
 }
 
-.write-title {
+.writeTitle {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
 }
-.select{
+
+.select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -22,8 +23,9 @@
     border-radius: 4px;
     font-size: 16px;
 }
-.write-input {
-    width: 50%;
+
+.writeInput {
+    width: 96%; /* 너비를 100%로 변경 */
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -31,7 +33,18 @@
     font-size: 16px;
 }
 
-.write-button {
+.detailInput {
+    width: 96%; /* 너비를 100%로 변경 */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    min-height: 200px; /* 최소 높이 설정 */
+    height: auto; /* 자동 높이 조정 */
+}
+
+.writeButton {
     width: 100%;
     padding: 10px;
     margin-top: 20px;
@@ -43,31 +56,32 @@
     cursor: pointer;
 }
 
-.write-button:hover {
+.writeButton:hover {
     background-color: #45a049;
 }
 
-
 .modal {
-    position: fixed; /* 모달을 화면 중앙에 위치시키기 위해 fixed로 설정 */
+    position: fixed; 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-    display: flex; /* 중앙 정렬을 위해 flexbox 사용 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    z-index: 1000; /* 모달을 최상위에 두기 위해 z-index 설정 */
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000; 
 }
 
-.modal-content {
-    background-color: #fff; /* 모달 배경 색상 */
-    border-radius: 8px; /* 모달 테두리 둥글게 */
-    padding: 20px; /* 내부 여백 */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    max-width: 500px; /* 최대 너비 설정 */
-    width: 100%; /* 전체 너비 사용 */
+.modalContent {
+    background-color: #fff; 
+    border-radius: 8px; 
+    padding: 20px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+    max-width: 500px; 
+    width: 100%; 
+    max-height: 100%; 
+    overflow-y: auto; 
 }
 
 .close {

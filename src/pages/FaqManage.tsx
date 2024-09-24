@@ -1,7 +1,8 @@
 import './FaqManage.css'
 import { useState, useEffect } from 'react';
 import { fetchGames, fetchBoard, deleteBoardItem } from '../utils/api';
-import { Write } from '../components/Write';
+import { Write } from '../modal/Write';
+import { FaqEdit } from '../modal/FaqEdit';
 
 
 interface Game {
@@ -26,6 +27,7 @@ const FaqManage = () => {
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGame, setSelectedGame] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
 
     useEffect(() => {
 
@@ -62,7 +64,7 @@ const FaqManage = () => {
         };
 
         loadGameData();
-        }, []);
+    }, []);
 
     const handleDelete = async (boardNum: number) => {
         const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
@@ -90,38 +92,43 @@ const FaqManage = () => {
         setIsModalOpen(false);
     };
 
+    const openEdit = () => {
+        setIsEditOpen(true);
+    };
+
+    const closeEdit = () => {
+        setIsEditOpen(false);
+    };
+
     return (
         <div className="page-container">
             <div className="page-content">
-                <div className='user-container'>
-
-                    <h3 className='game-title'>Game</h3>
-                    <select
-                        name="game"
-                        className='game-select'
-                        onChange={(e) => setSelectedGame(e.target.value)}
-                        value={selectedGame}
-                    >
-                        <option value="">All</option>
-                        {games.map((game, index) => (
-                            <option key={index} value={game.name}>
-                                {game.name}
-                            </option>
-                        ))}
-                    </select>
-
-
-                    <div className='user-search'>
+                <div className='search-container'>
+                    <div className='games-container'>
+                        <h3 className='game-title'>Game</h3>
+                        <select
+                            name="game"
+                            className='select-game'
+                            onChange={(e) => setSelectedGame(e.target.value)}
+                            value={selectedGame}>
+                            <option value="">All</option>
+                            {games.map((game, index) => (
+                                <option key={index} value={game.name}>
+                                    {game.name}
+                                </option>
+                            ))}
+                        </select>
                         <h3 className='search'>Search:</h3>
                         <input
+                        className='find'
                             type="text"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
+                        <button className='faqAdd' onClick={openModal}>FAQ 추가</button>
                     </div>
-                    <button className='faqAdd' onClick={openModal}>FAQ 추가</button>
                 </div>
-                
+
                 <div className="table-container">
                     <table className="board-table">
                         <thead>
@@ -147,7 +154,7 @@ const FaqManage = () => {
                                         <td className='title'>{board.title}</td>
                                         <td className='created_at'>{created_date}</td>
                                         <td className='btnTable'>
-                                            <button className='editBtn'>상세</button>
+                                            <button className='editBtn' onClick={openEdit}>상세</button>
                                             <button className='deleteBtn' onClick={() => handleDelete(board.board_num)}>삭제</button>
                                         </td>
                                     </tr>
@@ -160,6 +167,7 @@ const FaqManage = () => {
                 </div>
             </div>
             {isModalOpen && <Write closeModal={closeModal} />}
+            {isEditOpen && <FaqEdit closeEdit={closeEdit} />}
         </div>
     )
 }
