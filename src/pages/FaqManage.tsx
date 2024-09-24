@@ -1,4 +1,4 @@
-import './FaqManage.css'
+import FaqManageStyle from './FaqManage.module.css'
 import { useState, useEffect } from 'react';
 import { fetchGames, fetchBoard, deleteBoardItem } from '../utils/api';
 import { Write } from '../modal/Write';
@@ -101,74 +101,72 @@ const FaqManage = () => {
     };
 
     return (
-        <div className="page-container">
-            <div className="page-content">
-                <div className='search-container'>
-                    <div className='games-container'>
-                        <h3 className='game-title'>Game</h3>
-                        <select
-                            name="game"
-                            className='select-game'
-                            onChange={(e) => setSelectedGame(e.target.value)}
-                            value={selectedGame}>
-                            <option value="">All</option>
-                            {games.map((game, index) => (
-                                <option key={index} value={game.name}>
-                                    {game.name}
-                                </option>
-                            ))}
-                        </select>
-                        <h3 className='search'>Search:</h3>
-                        <input
-                        className='find'
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button className='faqAdd' onClick={openModal}>FAQ 추가</button>
-                    </div>
-                </div>
-
-                <div className="table-container">
-                    <table className="board-table">
-                        <thead>
-                            <tr>
-                                <th>글 번호</th>
-                                <th>게임명</th>
-                                <th>카테고리명</th>
-                                <th>제목(기본언어)</th>
-                                <th>등록일</th>
-                                <th>옵션</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredBoard.map((board, index) => {
-                                const created_date = board.created_at
-                                    ? new Date(board.created_at).toLocaleString('ko-KR', { timeZone: 'UTC' })
-                                    : ' ';
-                                return (
-                                    <tr key={index}>
-                                        <td className='board-num'>{board.board_num}</td>
-                                        <td className='game_name'>{board.games}</td>
-                                        <td className='category_name'>{board.category_name}</td>
-                                        <td className='title'>{board.title}</td>
-                                        <td className='created_at'>{created_date}</td>
-                                        <td className='btnTable'>
-                                            <button className='editBtn' onClick={openEdit}>상세</button>
-                                            <button className='deleteBtn' onClick={() => handleDelete(board.board_num)}>삭제</button>
-                                        </td>
-                                    </tr>
-
-                                )
-                            })}
-                        </tbody>
-                    </table>
-
+        <div className={FaqManageStyle.pageContainer}>
+        <div className={FaqManageStyle.pageContent}>
+            <div className={FaqManageStyle.searchContainer}>
+                <div className={FaqManageStyle.gamesContainer}>
+                    <h3 className={FaqManageStyle.gameTitle}>Game</h3>
+                    <select
+                        name="game"
+                        className={FaqManageStyle.selectGame}
+                        onChange={(e) => setSelectedGame(e.target.value)}
+                        value={selectedGame}>
+                        <option value="">All</option>
+                        {games.map((game, index) => (
+                            <option key={index} value={game.name}>
+                                {game.name}
+                            </option>
+                        ))}
+                    </select>
+                    <h3 className={FaqManageStyle.search}>Search:</h3>
+                    <input
+                        className={FaqManageStyle.find}
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <button className={FaqManageStyle.faqAdd} onClick={openModal}>FAQ 추가</button>
                 </div>
             </div>
-            {isModalOpen && <Write closeModal={closeModal} />}
-            {isEditOpen && <FaqEdit closeEdit={closeEdit} />}
+
+            <div className={FaqManageStyle.tableContainer}>
+                <table className={FaqManageStyle.boardTable}>
+                    <thead>
+                        <tr>
+                            <th>글 번호</th>
+                            <th>게임명</th>
+                            <th>카테고리명</th>
+                            <th>제목(기본언어)</th>
+                            <th>등록일</th>
+                            <th>옵션</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredBoard.map((board, index) => {
+                            const created_date = board.created_at
+                                ? new Date(board.created_at).toLocaleString('ko-KR', { timeZone: 'UTC' })
+                                : ' ';
+                            return (
+                                <tr key={index}>
+                                    <td className={FaqManageStyle.boardNum}>{board.board_num}</td>
+                                    <td className={FaqManageStyle.game_name}>{board.games}</td>
+                                    <td className={FaqManageStyle.category_name}>{board.category_name}</td>
+                                    <td className={FaqManageStyle.title}>{board.title}</td>
+                                    <td className={FaqManageStyle.created_at}>{created_date}</td>
+                                    <td className={FaqManageStyle.btnTable}>
+                                        <button className={FaqManageStyle.editBtn} onClick={openEdit}>상세</button>
+                                        <button className={FaqManageStyle.deleteBtn} onClick={() => handleDelete(board.board_num)}>삭제</button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </div>
+        {isModalOpen && <Write closeModal={closeModal} />}
+        {isEditOpen && <FaqEdit closeEdit={closeEdit} />}
+    </div>
     )
 }
 

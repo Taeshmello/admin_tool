@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './UserManage.css';
+import UserManageStyle from './UserManage.module.css';
 import { fetchUserData, fetchGameGenres, fetchGames } from '../utils/api';
 import EditModal from '../modal/Popup';
 
@@ -80,10 +80,10 @@ const UserManage: React.FC = () => {
     }, [searchTerm, users]);
 
     return (
-        <div className="page-container">
-            <div className="page-content">
-                <div className='user-container'>
-                    <h3 className='game-title'>Game</h3>
+        <div className={UserManageStyle.pageContainer}>
+            <div className={UserManageStyle.pageContent}>
+                <div className={UserManageStyle.userContainer}>
+                    <h3 className={UserManageStyle.gameTitle}>Game</h3>
                     <select
                         name="genre"
                         className='game-select'
@@ -110,8 +110,8 @@ const UserManage: React.FC = () => {
                             </option>
                         ))}
                     </select>
-                    <div className='user-search'>
-                        <h3 className='search-title'>Search:</h3>
+                    <div className={UserManageStyle.userSearch}>
+                        <h3 className={UserManageStyle.searchTitle}>Search:</h3>
                         <input
                             type="text"
                             value={searchTerm}
@@ -119,8 +119,8 @@ const UserManage: React.FC = () => {
                         />
                     </div>
                 </div>
-                <div className="table-container">
-                    <table className="user-table">
+                <div className={UserManageStyle.tableContainer}>
+                    <table className={UserManageStyle.userTable}>
                         <thead>
                             <tr>
                                 <th>등록 번호</th>
@@ -140,7 +140,7 @@ const UserManage: React.FC = () => {
                                         <td>{user.id}</td>
                                         <td>{signupDate}</td>
                                         <td>
-                                            <button className="edit-btn" onClick={() => {
+                                            <button className={UserManageStyle.editBtn} onClick={() => {
                                                 setSelectedUser(user);
                                                 setIsModalOpen(true);
                                             }}>수정</button>

@@ -1,49 +1,88 @@
-import { useEffect, useState } from "react";
-import { fetchCategories,deleteCategoryItem } from "../utils/category";
-import { CategoryAdd } from "../components/CategoryAdd";
-import './Category.css'
+import FaqManageStyle from './FaqManage.module.css'
+import { useState, useEffect } from 'react';
+import { fetchGames, fetchBoard, deleteBoardItem } from '../utils/api';
+import { Write } from '../modal/Write';
+import { FaqEdit } from '../modal/FaqEdit';
 
-interface Category {
-  GC_idx:number;
-    game_name: string;
-    category: string;
-    created_at: string;
+
+interface Game {
+    name: string;
+    genre_name: string;
 }
 
-const Category = () => {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [categoriesItem, setCategoriesItem] = useState<Category[]>([]);
-    const [filterdCategories, setFilteredCategories] = useState<Category[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
+
+interface Board {
+    board_num: number,
+    games: string,
+    category_name: string,
+    title: string,
+    created_at: string,
+}
+
+
+const FaqManage = () => {
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [board, setBoard] = useState<Board[]>([]);
+    const [filteredBoard, setFilteredBoard] = useState<Board[]>([]);
+    const [games, setGames] = useState<Game[]>([]);
+    const [selectedGame, setSelectedGame] = useState<string>('');
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+
     useEffect(() => {
-        const loadCategoryData = async () => {
+
+        const loadBoardData = async () => {
             try {
-                const categoriesData = await fetchCategories();
-                setCategories(categoriesData); // 카테고리 데이터를 상태에 저장
+                const boardData = await fetchBoard();
+                if (boardData && Array.isArray(boardData)) {
+                    setBoard(boardData);
+                    setFilteredBoard(boardData);
+                } else {
+                    console.error("Board 데이터 형식 오류:", boardData)
+                }
             } catch (error) {
-                console.error("카테고리 데이터 불러오기 오류:", error);
-               
+                console.error("게시판 목록 불러오기 오류:", error)
+            }
+        }
+        loadBoardData();
+    }, [])
+
+
+    useEffect(() => {
+        const loadGameData = async () => {
+            try {
+
+                const gamesData = await fetchGames();
+                if (Array.isArray(gamesData)) {
+                    setGames(gamesData);
+                } else {
+                    console.error("게임 데이터 형식 오류:", gamesData);
+                }
+            } catch (error) {
+                console.error("게임 데이터 불러오기 오류:", error);
             }
         };
-        loadCategoryData();
+
+        loadGameData();
     }, []);
-    const handleDelete = async (GC_idx: number) => {
+
+    const handleDelete = async (boardNum: number) => {
         const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
         if (confirmDelete) {
             try {
-                await deleteCategoryItem(GC_idx);
+                await deleteBoardItem(boardNum);
                 // 삭제 후 게시판 데이터 다시 불러오기
-                const updatedCategories = categoriesItem.filter(item => item.GC_idx !== GC_idx);
-                setCategoriesItem(updatedCategories);
-                setFilteredCategories(updatedCategories);
-                alert('카테고리가 삭제되었습니다.');
-                location.reload()
+                const updatedBoard = board.filter(item => item.board_num !== boardNum);
+                setBoard(updatedBoard);
+                setFilteredBoard(updatedBoard);
+                alert('게시물이 삭제되었습니다.');
             } catch (error) {
                 console.error("삭제 오류:", error);
-                alert('카테고리 삭제에 실패했습니다.');
+                alert('게시물 삭제에 실패했습니다.');
             }
         }
     };
+
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -53,38 +92,70 @@ const Category = () => {
         setIsModalOpen(false);
     };
 
-    
+    const openEdit = () => {
+        setIsEditOpen(true);
+    };
+
+    const closeEdit = () => {
+        setIsEditOpen(false);
+    };
 
     return (
-        <div className="page-container">
-            <div className="page-content">
-              <button className="categoryAdd" onClick={openModal}>카테고리 추가</button>
-                <table className="board-table">
+        <div className={FaqManageStyle.pageContainer}>
+        <div className={FaqManageStyle.pageContent}>
+            <div className={FaqManageStyle.searchContainer}>
+                <div className={FaqManageStyle.gamesContainer}>
+                    <h3 className={FaqManageStyle.gameTitle}>Game</h3>
+                    <select
+                        name="game"
+                        className={FaqManageStyle.selectGame}
+                        onChange={(e) => setSelectedGame(e.target.value)}
+                        value={selectedGame}>
+                        <option value="">All</option>
+                        {games.map((game, index) => (
+                            <option key={index} value={game.name}>
+                                {game.name}
+                            </option>
+                        ))}
+                    </select>
+                    <h3 className={FaqManageStyle.search}>Search:</h3>
+                    <input
+                        className={FaqManageStyle.find}
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <button className={FaqManageStyle.faqAdd} onClick={openModal}>FAQ 추가</button>
+                </div>
+            </div>
+
+            <div className={FaqManageStyle.tableContainer}>
+                <table className={FaqManageStyle.boardTable}>
                     <thead>
                         <tr>
-                          <th>카테고리 번호</th>
+                            <th>글 번호</th>
                             <th>게임명</th>
                             <th>카테고리명</th>
+                            <th>제목(기본언어)</th>
                             <th>등록일</th>
                             <th>옵션</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {categories.map((category, index) => {
-                            const created_date = category.created_at
-                            ? new Date(category.created_at).toLocaleString('ko-KR')
-                            : ' ';
-                        
-                        
+                        {filteredBoard.map((board, index) => {
+                            const created_date = board.created_at
+                                ? new Date(board.created_at).toLocaleString('ko-KR', { timeZone: 'UTC' })
+                                : ' ';
                             return (
                                 <tr key={index}>
-                                  <td className="board_num">{category.GC_idx}</td>
-                                    <td className='game_name'>{category.game_name}</td>
-                                    <td className='category_name'>{category.category}</td>
-                                    <td className="created_at">{created_date}</td>
-                                    <td className='options'>
-                                        <button className="info">상세</button>
-                                        <button className="deleteBtn" onClick={()=>{handleDelete(category.GC_idx)}}>삭제</button>
+                                    <td className={FaqManageStyle.boardNum}>{board.board_num}</td>
+                                    <td className={FaqManageStyle.game_name}>{board.games}</td>
+                                    <td className={FaqManageStyle.category_name}>{board.category_name}</td>
+                                    <td className={FaqManageStyle.title}>{board.title}</td>
+                                    <td className={FaqManageStyle.created_at}>{created_date}</td>
+                                    <td className={FaqManageStyle.btnTable}>
+                                        <button className={FaqManageStyle.editBtn} onClick={openEdit}>상세</button>
+                                        <button className={FaqManageStyle.deleteBtn} onClick={() => handleDelete(board.board_num)}>삭제</button>
                                     </td>
                                 </tr>
                             )
@@ -92,9 +163,11 @@ const Category = () => {
                     </tbody>
                 </table>
             </div>
-            {isModalOpen && <CategoryAdd closeModal={closeModal} />}
         </div>
-    );
+        {isModalOpen && <Write closeModal={closeModal} />}
+        {isEditOpen && <FaqEdit closeEdit={closeEdit} />}
+    </div>
+    )
 }
 
-export default Category;
+export default FaqManage;

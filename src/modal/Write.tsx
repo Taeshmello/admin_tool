@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from './Write.module.css'; // 수정된 부분
+import styles from './Write.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../utils/faq.ts";
 
 interface Game {
@@ -139,7 +139,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
         >
         </div>
         <button className={styles.writeButton} onClick={handleSubmit}>
-            글쓰기
+            FAQ 추가
         </button>
     </div>
 </div>

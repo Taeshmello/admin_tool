@@ -1,4 +1,6 @@
-.page-container {
+/* FaqManage.module.css */
+
+.pageContainer {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -7,33 +9,43 @@
   overflow: hidden;
 }
 
+.faqAdd {
+  background-color: #5865f2; /* Discord blue */
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
 
-.page-content {
+.pageContent {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
   box-sizing: border-box;
 }
 
-.game-title {
+.gameTitle {
   margin-right: 10px;
+  color: white;
 }
 
-.select-game {
+.selectGame {
   padding: 5px;
   margin-bottom: 10px;
   width: 20%;
   margin-right: 40px;
 }
 
-.games-container {
+.gamesContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
 }
 
-.search-container {
+.searchContainer {
   width: 85%;
   display: flex;
   justify-content: center;
@@ -52,22 +64,15 @@
   margin-right: 25px;
 }
 
-
 .editBtn {
-  border-radius: 20px;
-  color: white;
-  outline: none;
-  background-color: #5865f2;
-  width: 56.8125px;
-  height: 34px;
+  background-color: #5865f2; /* Discord blue */
+  color: #ffffff;
   border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 10px;
+  font-size: 14px;
 }
-
-
-
-
 
 .editBtn:hover {
   background-color: #4752c4;
@@ -83,71 +88,48 @@
   margin-bottom: 10px;
   border-radius: 20px;
   color: white;
-
-}
-
-.game-slect {
-  width: 20%;
 }
 
 .deleteBtn:hover {
   background-color: rgb(209, 2, 2);
 }
 
-.table-container {
+.tableContainer {
   margin: 20px;
   font-family: Arial, sans-serif;
   max-height: 500px;
-  /* 원하는 높이로 조정 */
-  overflow-y: auto;
-  /* 스크롤 추가 */
+  overflow-y: auto; /* 스크롤 추가 */
 }
 
-
-.board-table {
+.boardTable {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.board-table th,
-.board-table td {
+.boardTable th,
+.boardTable td {
   border: 1px solid #3a3c40;
-  padding: 5px;
-  /* 패딩 줄이기 */
+  padding: 5px; /* 패딩 줄이기 */
   text-align: left;
-  line-height: 1.2;
-  /* 줄 높이 조정 */
-  height: 30px;
-  /* 원하는 높이로 조정 */
+  line-height: 1.2; /* 줄 높이 조정 */
+  height: 30px; /* 원하는 높이로 조정 */
 }
 
-.board-table th {
+.boardTable th {
   background-color: #292b2f;
   color: #e4e6eb;
 }
 
-.board-table td {
+.boardTable td {
   background-color: #2c2f33;
   color: #e4e6eb;
-
 }
 
-.board-table tr:nth-child(even) {
+.boardTable tr:nth-child(even) {
   background-color: #2c2f33;
 }
 
-.board-table tr:nth-child(odd) {
+.boardTable tr:nth-child(odd) {
   background-color: #202225;
-}
-
-
-
-
-.FaqAdd {
-  padding: 7px;
-  border-radius: 20px;
-  background-color: #5865f2;
-  color: white;
-  cursor: pointer;
 }
