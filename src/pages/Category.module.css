@@ -1,4 +1,16 @@
-/* FaqManage.module.css */
+.categoryAdd {
+  background-color: #5865f2; /* Discord blue */
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.categoryAdd:hover {
+  background-color: #4752c4;
+}
 
 .pageContainer {
   display: flex;
@@ -7,16 +19,6 @@
   margin-left: 250px;
   margin-top: 50px;
   overflow: hidden;
-}
-
-.faqAdd {
-  background-color: #5865f2; /* Discord blue */
-  color: #ffffff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
 }
 
 .pageContent {
@@ -72,7 +74,6 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  margin-right: 10px;
 }
 
 .editBtn:hover {
@@ -99,7 +100,7 @@
   margin: 20px;
   font-family: Arial, sans-serif;
   max-height: 500px;
-  overflow-y: auto; /* 스크롤 추가 */
+  overflow-y: auto; /* Scroll */
 }
 
 .boardTable {
@@ -111,10 +112,10 @@
 .boardTable th,
 .boardTable td {
   border: 1px solid #3a3c40;
-  padding: 5px; /* 패딩 줄이기 */
+  padding: 5px; /* Reduced padding */
   text-align: left;
-  line-height: 1.2; /* 줄 높이 조정 */
-  height: 30px; /* 원하는 높이로 조정 */
+  line-height: 1.2; /* Line height adjustment */
+  height: 30px; /* Desired height */
 }
 
 .boardTable th {
@@ -133,4 +134,17 @@
 
 .boardTable tr:nth-child(odd) {
   background-color: #202225;
+}
+
+
+.info{
+  
+    background-color: #5865f2; /* Discord blue */
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
 }
