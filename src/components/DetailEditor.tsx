@@ -41,7 +41,7 @@ interface EditorProps {
 
 
 
-const Editor: React.FC<EditorProps> = ({detail,setDetail}) => {
+const DetailEditor: React.FC<EditorProps> = ({detail,setDetail}) => {
 	const editorContainerRef = useRef(null);
 	const editorRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
@@ -125,28 +125,24 @@ const Editor: React.FC<EditorProps> = ({detail,setDetail}) => {
 	};
 
 	return (
-		<div>
+        <div>
             <div className={EditorStyle.mainContainer}>
-                <div className={`${EditorStyle.editorContainer_classicEditor} editorCcontainer`}>
-                    <div className={`${EditorStyle.editorContainer__editor} editorContainer__editor`} ref={editorContainerRef}>
-                        <div ref={editorRef}>
-                            {isLayoutReady && (
-                                <CKEditor
-                                    editor={ClassicEditor}
-                                    config={editorConfig}
-                                    data={detail} // 에디터에 초기 데이터 설정
-                                    onChange={(e:any, editor:any) => {
-                                        const data = editor.getData();
-                                        setDetail(data); // 에디터 내용이 변경될 때마다 상태 업데이트
-                                    }}
-                                />
-                            )}
-                        </div>
+                <div className={`${EditorStyle.editorContainer_classicEditor} editorContainer`}>
+                    <div className={`${EditorStyle.editorContainer__editor} editorContainer__editor`} ref={editorRef}>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            config={editorConfig}
+                            data={detail} // 에디터에 초기 데이터 설정
+                            onChange={(event: any, editor: any) => {
+                                const data = editor.getData();
+                                setDetail(data); // 에디터 내용이 변경될 때마다 상태 업데이트
+                            }}
+                        />
                     </div>
                 </div>
             </div>
-        </div>	
-	);
+        </div>
+    );
 }
 
-export default Editor;	
+export default DetailEditor;	

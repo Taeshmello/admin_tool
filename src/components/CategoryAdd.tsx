@@ -99,7 +99,7 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => { // 수
                 />
                 
                 <button className="write-button" onClick={handleSubmit}>
-                    글쓰기
+                    카테고리 추가
                 </button>
             </div>
         </div>

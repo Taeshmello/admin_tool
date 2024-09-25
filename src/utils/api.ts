@@ -65,9 +65,10 @@ export const userStatusCheck = async (): Promise<any> => {
 
 
 // 인증된 API 요청을 위한 함수
-export const fetchData = async (accessToken: string): Promise<any> => {
+export const fetchData = async (accessToken: string,removeCookie: Function): Promise<any> => {
+   
     try {
-        const response = await fetch("http://localhost:5000/auth/protected-data", {
+        const response = await fetch("http://localhost:5000/auth/access-token", {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
@@ -80,11 +81,12 @@ export const fetchData = async (accessToken: string): Promise<any> => {
             return await response.json();
         } else {
             throw new Error("protected data를 가져오지 못함");
-
+          
         }
     } catch (error) {
         console.error("protected data를 가져오는 중 오류 발생:", error);
         return null;
+        
     }
 };
 
@@ -130,7 +132,7 @@ export const refreshAccessToken = async (setCookie: Function): Promise<void> => 
             setCookie('accessToken', result.accessToken, { path: '/', secure: true, httpOnly: true });
         } else {
             console.error("액세스 토큰을 새로 고치지 못했습니다.", response.status);
-
+            window.location.href = '/';
         }
     } catch (error) {
         console.error("액세스 토큰을 새로 고치는 중 오류가 발생:", error);
@@ -197,32 +199,3 @@ export const fetchUserPermissions = async (userId: number, gameId: number, permi
 };
 
 
-export const fetchBoard = async():Promise<any> => {
-    try{
-        const response = await fetch('http://localhost:5000/board/board',{
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: "include",
-        });
-        if(!response.ok){
-            throw new Error('게시판 조회 요청 실패');
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('게시판 조회 중 오류 발생:', error);
-        throw error;
-    }
-}
-
-
-export const deleteBoardItem = async (boardNum: number) => {
-    const response = await fetch(`http://localhost:5000/board/delete/${boardNum}`, {
-        method: 'DELETE',
-    });
-    if (!response.ok) {
-        throw new Error('게시물 삭제에 실패했습니다.');
-    }
-    return response.json();
-};

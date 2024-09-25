@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from './Write.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../utils/faq.ts";
+import Editor from "../components/Editor.tsx";
 
 interface Game {
     id: number;
@@ -21,7 +22,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGame, setSelectedGame] = useState<number | null>(null);
     const [title, setTitle] = useState<string>('');
-    const [detail, setDetail] = useState<string>('');
+    const [detail, setDetail] = useState<string>(''); // CKEditor의 내용을 저장할 상태
 
     useEffect(() => {
         const loadGameData = async () => {
@@ -75,13 +76,15 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
                     game_id: selectedGame,
                     category_name: selectedCategory,
                     title: title,
-                    detail: detail,
+                    detail: detail, // CKEditor의 내용을 사용
                 }),
             });
+
 
             if (response.ok) {
                 const result = await response.json();
                 console.log("게시물 작성 성공:", result);
+                
                 alert("게시물 등록 완료");
                 location.reload();
             } else {
@@ -94,54 +97,48 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
 
     return (
         <div className={styles.modal}>
-    <div className={styles.modalContent}>
-        <span className={styles.close} onClick={closeModal}>&times;</span>
-        <h2 className={styles.writeTitle}>FAQ 생성하기</h2>
-        <select
-            name="game"
-            className={styles.select}
-            onChange={(e) => setSelectedGame(Number(e.target.value))}
-            value={selectedGame ?? ""}
-        >
-            <option value="">게임 선택</option>
-            {games.map((game) => (
-                <option key={game.id} value={game.id}>
-                    {game.name}
-                </option>
-            ))}
-        </select>
-        <select
-            name="category"
-            className={styles.select}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            value={selectedCategory ?? ""}
-            disabled={!selectedGame}
-        >
-            <option value="">카테고리 선택</option>
-            {categories.map((cat) => (
-                <option key={cat.category_name} value={cat.category_name}>
-                    {cat.category_name}
-                </option>
-            ))}
-        </select>
-        <input
-            type="text"
-            className={styles.writeInput}
-            placeholder="제목"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-        />
-        <div
-            className={styles.detailInput}
-            contentEditable
-            onInput={(e) => setDetail((e.target as HTMLElement).innerHTML)} // 내용 업데이트
-            dangerouslySetInnerHTML={{ __html: detail }} // 기존 내용 보여줌
-        >
+            <div className={styles.modalContent}>
+                <span className={styles.close} onClick={closeModal}>&times;</span>
+                <h2 className={styles.writeTitle}>FAQ 생성하기</h2>
+                <select
+                    name="game"
+                    className={styles.select}
+                    onChange={(e) => setSelectedGame(Number(e.target.value))}
+                    value={selectedGame ?? ""}
+                >
+                    <option value="">게임 선택</option>
+                    {games.map((game) => (
+                        <option key={game.id} value={game.id}>
+                            {game.name}
+                        </option>
+                    ))}
+                </select>
+                <select
+                    name="category"
+                    className={styles.select}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    value={selectedCategory ?? ""}
+                    disabled={!selectedGame}
+                >
+                    <option value="">카테고리 선택</option>
+                    {categories.map((cat) => (
+                        <option key={cat.category_name} value={cat.category_name}>
+                            {cat.category_name}
+                        </option>
+                    ))}
+                </select>
+                <input
+                    type="text"
+                    className={styles.writeInput}
+                    placeholder="제목"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+                <Editor detail={detail} setDetail={setDetail} /> {/* Editor에 detail과 setDetail 전달 */}
+                <button className={styles.writeButton} onClick={handleSubmit}>
+                    FAQ 추가
+                </button>
+            </div>
         </div>
-        <button className={styles.writeButton} onClick={handleSubmit}>
-            FAQ 추가
-        </button>
-    </div>
-</div>
     );
 };

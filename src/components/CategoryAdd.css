@@ -37,14 +37,14 @@
     margin-top: 20px;
     border: none;
     border-radius: 4px;
-    background-color: #4CAF50;
+    background-color: #5865f2; 
     color: white;
     font-size: 16px;
     cursor: pointer;
 }
 
 .write-button:hover {
-    background-color: #45a049;
+    background-color: #4752c4;
 }
 
 
