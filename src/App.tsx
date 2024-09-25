@@ -4,10 +4,10 @@ import LoginForm from './pages/LoginForm';
 import MainPage from './pages/MainPage';
 import Layout from './components/Layout';
 import UserManage from './pages/UserManage';
-import ForumManage from './pages/Forumanage/ForumManage';
+import ForumManage from './pages/ForumManage';
 import FaqManage from './pages/FaqManage';
-import SiginUp from './pages/SignUp/SiginUp';
-import Department from './pages/Department/Department';
+import SiginUp from './pages/SiginUp';
+import Department from './pages/Department';
 import Category from './pages/Category';
 import { CookiesProvider} from 'react-cookie';
 

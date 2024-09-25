@@ -82,10 +82,9 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
 
 
             if (response.ok) {
-                const result = await response.json();
-                console.log("게시물 작성 성공:", result);
                 
-                alert("게시물 등록 완료");
+                
+                alert("FAQ 추가 완료");
                 location.reload();
             } else {
                 console.error("게시물 작성 실패:", response.statusText);

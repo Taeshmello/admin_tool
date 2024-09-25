@@ -25,7 +25,8 @@ import {
 	TableToolbar,
 	TextTransformation,
 	Underline,
-	Undo
+	Undo,
+	
 } from 'ckeditor5';
 
 
@@ -55,50 +56,50 @@ const Editor: React.FC<EditorProps> = ({detail,setDetail}) => {
 		toolbar: {
 			items: [
 				'undo',
-				'redo',
-				'|',
-				'fontSize',
-				'fontColor',
-				'fontBackgroundColor',
-				'|',
-				'bold',
-				'italic',
-				'underline',
-				'strikethrough',
-				'|',
-				'link',
-				'insertTable',
-				'|',
-				'outdent',
-				'indent'
+                'redo',
+                '|',
+                'fontSize',
+                'fontColor',
+                'fontBackgroundColor',
+                '|',
+                'bold',
+                'italic',
+                'underline',
+                'strikethrough',
+                '|',
+                'link',
+                'insertTable',
+                '|',
+                'outdent',
+                'indent'
 			],
 			shouldNotGroupWhenFull: false
 		},
 		plugins: [
 			AccessibilityHelp,
-			Autoformat,
-			Autosave,
-			Bold,
-			Essentials,
-			FontBackgroundColor,
-			FontColor,
-			FontSize,
-			Indent,
-			IndentBlock,
-			Italic,
-			Link,
-			Paragraph,
-			SelectAll,
-			Strikethrough,
-			Table,
-			TableCaption,
-			TableCellProperties,
-			TableColumnResize,
-			TableProperties,
-			TableToolbar,
-			TextTransformation,
-			Underline,
-			Undo
+            Autoformat,
+            Autosave,
+            Bold,
+            Essentials,
+            FontBackgroundColor,
+            FontColor,
+            FontSize,
+            Indent,
+            IndentBlock,
+            Italic,
+            Link,
+            Paragraph,
+            SelectAll,
+            Strikethrough,
+            Table,
+            TableCaption,
+            TableCellProperties,
+            TableColumnResize,
+            TableProperties,
+            TableToolbar,
+            TextTransformation,
+            Underline,
+            Undo
 		],
 		fontSize: {
 			options: [10, 12, 14, 'default', 18, 20, 22],
@@ -119,6 +120,12 @@ const Editor: React.FC<EditorProps> = ({detail,setDetail}) => {
 			}
 		},
 		placeholder: '내용',
+		image: {
+            toolbar: [
+                'imageTextAlternative', // 이미지 대체 텍스트
+                'imageStyle:inline', 'imageStyle:block', 'imageStyle:side' // 이미지 스타일
+            ]
+        },
 		table: {
 			contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
 		}

@@ -65,7 +65,7 @@ export const userStatusCheck = async (): Promise<any> => {
 
 
 // 인증된 API 요청을 위한 함수
-export const fetchData = async (accessToken: string,removeCookie: Function): Promise<any> => {
+export const fetchData = async (accessToken: string): Promise<any> => {
    
     try {
         const response = await fetch("http://localhost:5000/auth/access-token", {

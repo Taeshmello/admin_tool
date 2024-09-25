@@ -104,18 +104,16 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             });
     
             if (response.ok) {
-                const result = await response.json();
-                console.log("게시물 수정 성공:", result);
-                alert('게시물이 수정되었습니다.');
+                alert('FAQ가 수정되었습니다.');
                 closeEdit();
             } else {
                 const errorResponse = await response.json(); // 오류 응답을 가져오기
-                console.error("게시물 수정 실패:", errorResponse);
-                alert(`게시물 수정에 실패했습니다: ${errorResponse.error}`);
+                console.error("FAQ 수정 실패:", errorResponse);
+                alert(`FAQ 수정에 실패했습니다: ${errorResponse.error}`);
             }
         } catch (error) {
-            console.error("게시물 수정 중 오류:", error);
-            alert('게시물 수정 중 오류가 발생했습니다.');
+            console.error("FAQ 수정 중 오류:", error);
+            alert('FAQ 수정 중 오류가 발생했습니다.');
         }
     };
     
@@ -167,7 +165,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
                 />
                 <div className={styles.btnContainer}>
                     <button className={styles.close} onClick={closeEdit}>닫기</button>
-                    <button className={styles.save} onClick={handleSave}>저장</button>
+                    <button className={styles.save} onClick={handleSave}>수정</button>
                 </div>
             </div>
         </div>
