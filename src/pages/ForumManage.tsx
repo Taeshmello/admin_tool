@@ -3,7 +3,7 @@ const ForumManage = () => {
     return (
         <div className="page-container">
             <div className="page-content">
-                게시판 관리
+                <button>신규 등록</button>
             </div>
         </div>
     )

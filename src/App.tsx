@@ -9,6 +9,7 @@ import FaqManage from './pages/FaqManage';
 import SiginUp from './pages/SiginUp';
 import Department from './pages/Department';
 import Category from './pages/Category';
+import ForumMenuManage from './pages/ForumMenuManage';
 import { CookiesProvider} from 'react-cookie';
 
 import Waiting from './pages/Waiting';
@@ -24,6 +25,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="mainpage" element={<MainPage />} />
           <Route path="userManage" element={<UserManage />} />
+          <Route path='ForumMenuManage' element={<ForumMenuManage/>}/>
           <Route path="ForumManage" element={<ForumManage />} />
           <Route path='faqmanage' element={<FaqManage />} />
           <Route path='Category' element={<Category/>}/>

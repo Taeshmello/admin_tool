@@ -1,0 +1,73 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin-left: 250px;
+    margin-top: 50px;
+    overflow: hidden;
+  }
+
+  .pageContent {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  
+  .tableContainer {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+    max-height: 500px;
+    overflow-y: auto; /* 스크롤 추가 */
+  }
+  
+  .boardTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .boardTable th,
+  .boardTable td {
+    border: 1px solid #3a3c40;
+    padding: 5px; /* 패딩 줄이기 */
+    text-align: left;
+    line-height: 1.2; /* 줄 높이 조정 */
+    height: 30px; /* 원하는 높이로 조정 */
+    font-size: 15px;
+  }
+  
+  .boardTable th {
+    background-color: #292b2f;
+    color: #e4e6eb;
+  }
+  
+  .boardTable td {
+    background-color: #2c2f33;
+    color: #e4e6eb;
+  }
+  
+  .boardTable tr:nth-child(even) {
+    background-color: #2c2f33;
+  }
+  
+  .boardTable tr:nth-child(odd) {
+    background-color: #202225;
+  }
+
+
+  .editBtn {
+    background-color: #5865f2; /* Discord blue */
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  
+  .editBtn:hover {
+    background-color: #4752c4;
+  }

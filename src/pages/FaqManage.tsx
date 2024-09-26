@@ -29,12 +29,12 @@ const FaqManage = () => {
     const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
     const [selectedBoardItem, setSelectedBoardItem] = useState<Board | null>(null);
 
-    // 게시물 조회 함수
+   
     const handleEdit = async (boardNum: number) => {
         try {
-            const boardItem = await fetchBoardItem(boardNum); // 게시물 세부 정보 조회
-            setSelectedBoardItem(boardItem); // 선택한 게시물 설정
-            setIsEditOpen(true); // 수정 모달 열기
+            const boardItem = await fetchBoardItem(boardNum);
+            setSelectedBoardItem(boardItem); 
+            setIsEditOpen(true); 
         } catch (error) {
             console.error("게시물 조회 오류:", error);
             alert('게시물 조회에 실패했습니다.');

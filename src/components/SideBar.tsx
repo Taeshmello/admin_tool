@@ -47,6 +47,9 @@ const SideBar: React.FC = () => {
             {activeItem === 2 && (
               <ul className="sub-menu">
                 <li>
+                  <a href="ForumMenuManage">게시판 메뉴 관리</a>
+                </li>
+                <li>
                   <a href="ForumManage">게시판 글 관리</a>
                 </li>
                 
