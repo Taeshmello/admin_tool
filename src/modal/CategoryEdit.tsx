@@ -105,7 +105,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 
-                    <Editor/>
+                    
                     <div className={styles.btnContainer}>
                     <button className={styles.close} onClick={closeEdit}>닫기</button>
                     <button className={styles.save}>저장</button>

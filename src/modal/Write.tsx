@@ -76,7 +76,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
                     game_id: selectedGame,
                     category_name: selectedCategory,
                     title: title,
-                    detail: detail, // CKEditor의 내용을 사용
+                    detail: detail,
                 }),
             });
 

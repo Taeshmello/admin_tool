@@ -89,3 +89,36 @@ export const updateMenuStatus = async (CM_idx:number, UserStatus:string, AdminSt
 
     return await response.json();
 };
+
+
+
+
+export const fetchServiceCode = async():Promise<any> => {
+    const response = await fetch(`http://localhost:5000/menu/serviceCode`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: "include"
+    });
+    if(!response.ok){
+        throw new Error('서비스코드 업데이트 실패')
+    }
+
+    return await response.json();
+}
+
+
+export const fetchMenuName = async():Promise<any> => {
+    const response = await fetch(`http://localhost:5000/menu/menuName`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: "include"
+    });
+    if(!response.ok){
+        throw new Error('메뉴이름 업데이트 실패')
+    }
+    return await response.json();
+}

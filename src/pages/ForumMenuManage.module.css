@@ -71,3 +71,24 @@
   .editBtn:hover {
     background-color: #4752c4;
   }
+
+  .searchContainer{
+    display: flex;
+  }
+
+  .add{
+    cursor: pointer; 
+    font-size: 12px; 
+    padding: 4px 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: white;
+  }
+
+  .add:hover{
+    background-color: #5865f2;;
+    color: white;
+}
+.add{
+    background-color: #4752c4;
+}

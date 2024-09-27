@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchCategories, deleteCategoryItem } from "../utils/category";
-import { CategoryAdd } from "../components/CategoryAdd";
+import { CategoryAdd } from "../modal/CategoryAdd";
 import styles from './Category.module.css'; // Import CSS module
 
 interface Category {

@@ -2,6 +2,7 @@ import ForumMenuManageStyle from './ForumMenuManage.module.css';
 import { useState, useEffect } from 'react';
 import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem } from '../utils/menu';
 import MenuEdit from '../modal/MenuEdit';
+import MenuAdd from '../modal/MenuAdd';
 
 
 
@@ -30,6 +31,7 @@ const ForumMenuManage: React.FC = () => {
     const [status, setStatus] = useState<userStatus[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedMenuItem, setSelectedBoardMenuItem] = useState<Board | null>(null)
+    const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
     
     
     useEffect(() => {
@@ -86,6 +88,15 @@ const ForumMenuManage: React.FC = () => {
     }
 
 
+    const openAdd = () => {
+        setIsAddOpen(true);
+    }
+
+    const closeAdd = () => {
+        setIsAddOpen(false);
+    }
+
+
 
     return (
         <div className={ForumMenuManageStyle.pageContainer}>
@@ -93,7 +104,9 @@ const ForumMenuManage: React.FC = () => {
                 <div className={ForumMenuManageStyle.searchContainer}>
                     <select name="" className={ForumMenuManageStyle.Games} />
                     <select name="" className={ForumMenuManageStyle.status}></select>
+                    <button className={ForumMenuManageStyle.add} onClick={openAdd}>메뉴 추가</button>
                 </div>
+                
                 <div className={ForumMenuManageStyle.tableContainer}>
                     <table className={ForumMenuManageStyle.boardTable}>
                         <thead>
@@ -135,6 +148,7 @@ const ForumMenuManage: React.FC = () => {
                 </div>
             </div>
             {isModalOpen && <MenuEdit closeModal={closeModal} menuItem={selectedMenuItem} />}
+            {isAddOpen && <MenuAdd closeAdd={closeAdd}/>}
         </div>
     )
 }
