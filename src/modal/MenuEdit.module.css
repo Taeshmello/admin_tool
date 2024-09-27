@@ -9,8 +9,9 @@
     justify-content: center; 
     align-items: center; 
     z-index: 1000; 
-    flex-direction: column; /* 세로 방향으로 정렬 */
-    justify-content: space-between; /* 버튼 영역을 아래로 밀어냄 */
+    flex-direction: column;
+    justify-content: space-between;
+    
 }
 
 .modalContent {
@@ -24,7 +25,8 @@
     overflow-y: auto; 
     display: flex;
     align-items: center;
-    flex-direction: column; /* 세로 방향으로 정렬 */
+    flex-direction: column;
+    
 }
 
 .close, .save {
@@ -62,6 +64,7 @@
     width: 50%;
     border-collapse: collapse;
     margin: 20px 0;
+    margin-bottom: 30px;
 }
 
 .verticalTable th,
@@ -77,4 +80,12 @@
 
 .verticalTable tbody tr {
     border-bottom: 1px solid #dddddd;
+}
+
+
+.btnContainer{
+    margin-top: 50px;
+    width: 96%;
+    display: flex;
+    justify-content: space-between;
 }
