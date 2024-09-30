@@ -8,11 +8,14 @@ interface adminStatus {
     admin_status: string;
 }
 interface serviceCode {
-    service_idx:number;
+    service_idx: number;
     service_code: string;
 }
 interface menuName {
+    section: number;
     menu_name: string;
+    menu_code: string;
+    lang_code: string;
 }
 interface AddProps {
     closeAdd: () => void;
@@ -25,7 +28,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
     const [selectedUserStatus, setSelectedUserStatus] = useState<string>();
     const [selectedAdminStatus, setSelectedAdminStatus] = useState<string>();
     const [selectedServiceCode, setSelectedServiceCode] = useState<number | null>(null);
-    const [selectedMenuName, setSelectedMenuName] = useState<string>();
+    const [selectedMenuName, setSelectedMenuName] = useState<number[]>([]);
 
     useEffect(() => {
         const loadStatusData = async () => {
@@ -85,8 +88,11 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
     }, []);
 
 
+
+
+
     const handleSave = async () => {
-        if(selectedServiceCode == null || selectedMenuName == null || selectedAdminStatus == null || selectedUserStatus == null){
+        if (selectedServiceCode == null || selectedMenuName == null || selectedAdminStatus == null || selectedUserStatus == null) {
             alert("모든 항목을 선택해주세요.")
             return;
         }
@@ -99,17 +105,22 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                 },
                 body: JSON.stringify({
                     ServiceCode: selectedServiceCode,
-                    Title: selectedMenuName,
+                    Classify: selectedMenuName[0], // Section (Classify)
+                    SectionCode: selectedMenuName[2], // Menu Code
+                    LanguageCode: selectedMenuName[3], // Language Code
+                    Title: selectedMenuName[1], // Menu Name
                     AdminStatus: selectedAdminStatus,
                     UserStatus: selectedUserStatus,
                 }),
             });
 
 
+            console.log(selectedMenuName);
+
             if (response.ok) {
-                
-                
-                alert("FAQ 추가 완료");
+
+
+                alert("메뉴 추가 완료");
                 location.reload();
             } else {
                 console.error("게시물 작성 실패:", response.statusText);
@@ -136,37 +147,40 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                         </option>
                     ))}
                 </select>
-                <select 
-                className={MenuAddStyle.selectMenu}
-                value={selectedMenuName}
-                onChange={(e)=> setSelectedMenuName(e.target.value)}
+                <select
+                    className={MenuAddStyle.selectMenu}
+                    value={JSON.stringify(selectedMenuName)}
+                    onChange={(e) => {
+                        const selectedValue = JSON.parse(e.target.value);
+                        setSelectedMenuName(selectedValue); // selectedValue가 배열 형태여야 함
+                    }}
                 >
                     <option value="">메뉴 선택</option>
-                    {menuName.map((menu_name, index)=>(
-                        <option key={index} value={menu_name.menu_name}>
-                            {menu_name.menu_name}
+                    {menuName.map((menu, index) => (
+                        <option key={index} value={JSON.stringify([menu.section, menu.menu_name, menu.menu_code, menu.lang_code])}>
+                            {menu.menu_name}
                         </option>
                     ))}
                 </select>
-                <select 
-                className={MenuAddStyle.selectMenu}
-                value={selectedAdminStatus}
-                onChange={(e)=> setSelectedAdminStatus(e.target.value)}
+                <select
+                    className={MenuAddStyle.selectMenu}
+                    value={selectedAdminStatus}
+                    onChange={(e) => setSelectedAdminStatus(e.target.value)}
                 >
                     <option value="">관리자 전용 상태 선택</option>
-                    {adminStatus.map((admin_status, index)=>(
+                    {adminStatus.map((admin_status, index) => (
                         <option key={index} value={admin_status.admin_status}>
                             {admin_status.admin_status}
                         </option>
                     ))}
                 </select>
-                <select 
-                className={MenuAddStyle.selectMenu}
-                value={selectedUserStatus}
-                onChange={(e)=> setSelectedUserStatus(e.target.value)}
+                <select
+                    className={MenuAddStyle.selectMenu}
+                    value={selectedUserStatus}
+                    onChange={(e) => setSelectedUserStatus(e.target.value)}
                 >
                     <option value="">유저 공개/비공개 선택</option>
-                    {status.map((status, index)=>(
+                    {status.map((status, index) => (
                         <option key={index} value={status.check_status}>
                             {status.check_status}
                         </option>
