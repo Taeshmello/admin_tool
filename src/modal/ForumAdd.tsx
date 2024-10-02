@@ -33,7 +33,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
             } catch (error) {
                 console.error("언어 데이터 불러오기 오류:", error)
             }
-        };
+          };
         const loadServiceCode = async () => {
             try {
                 const serviceCodeData = await fetchServiceCode();
@@ -70,6 +70,9 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                         </div>
                     ))}
                 </div>
+                <select className={styles.selectMenu}></select>
+                <select className={styles.selectMenu}></select>
+                <input type="text" className={styles.inputTitle}></input>
                 <div className={styles.btnContainer}>
                     <button className={styles.close} onClick={closeAdd}>닫기</button>
                     <button className={styles.save}>저장</button>

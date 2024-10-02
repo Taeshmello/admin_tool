@@ -92,3 +92,8 @@ label {
     text-align: center;
     font-size: 15px;
 }
+
+.inputTitle{
+    width: 96%;
+    height: 30px;
+}

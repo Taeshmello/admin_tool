@@ -20,14 +20,19 @@ const ForumManage:React.FC = () => {
 
         <table>
             <thead>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
-                <tr></tr>
+                <tr>글 번호</tr>
+                <tr>서비스코드</tr>
+                <tr>카테고리</tr>
+                <tr>언어코드</tr>
+                <tr>제목</tr>
+                <tr>첨부파일 여부</tr>
+                <tr>작성자 ID</tr>
+                <tr>User IP</tr>
+                <tr>Create Datetime</tr>
+                <tr>편집</tr>
+                <tr>상태</tr>
 
-                
+                    
             </thead>
         </table>
 
