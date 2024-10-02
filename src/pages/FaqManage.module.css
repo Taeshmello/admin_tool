@@ -10,13 +10,17 @@
 }
 
 .faqAdd {
-  background-color: #5865f2; /* Discord blue */
+  background-color: #5865f2;
   color: #ffffff;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+}
+
+.faqAdd:hover{
+  background-color: #4752c4;
 }
 
 .pageContent {

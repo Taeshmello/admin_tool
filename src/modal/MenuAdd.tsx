@@ -115,7 +115,6 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
             });
 
 
-            console.log(selectedMenuName);
 
             if (response.ok) {
 

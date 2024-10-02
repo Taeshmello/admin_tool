@@ -1,0 +1,32 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-left: 250px;
+  margin-top: 50px;
+  overflow: hidden; 
+}
+
+
+.pageContent {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+
+
+.addBtn {
+  background-color: #5865f2;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.addBtn:hover{
+  background-color: #4752c4;
+}
