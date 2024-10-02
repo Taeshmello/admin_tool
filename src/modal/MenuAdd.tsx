@@ -38,7 +38,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     setStatus(statusData);
                 } else {
                     console.error("상태 데이터 형식 오류:", statusData);
-                }
+                }   
             } catch (error) {
                 console.error("상태 데이터 불러오기 오류:", error);
             }
