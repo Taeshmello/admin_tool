@@ -1,3 +1,5 @@
+import styles from './Department.module.css'
+
 const Department = () => {
     return(
         <div className="page-container">

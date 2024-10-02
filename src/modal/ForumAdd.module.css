@@ -29,6 +29,16 @@
     
 }
 
+
+.btnContainer{
+    margin-top: 50px;
+    width: 96%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
 .close, .save {
     cursor: pointer; 
     font-size: 16px; 
@@ -45,50 +55,28 @@
     background-color: #4752c4;
 }
 .close:hover {
-    background-color: #f0f0f0; /* 버튼 hover 효과 */
-}
-
-
-.select{
-    width: 96%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    text-align: center;
-    cursor: not-allowed;
+    background-color: #f0f0f0; 
 }
 
 
 
-
-.verticalTable {
-    width: 50%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    margin-bottom: 30px;
-}
-
-.verticalTable th,
-.verticalTable td {
-    padding: 12px 15px;
-    text-align: left;
-}
-
-.verticalTable th {
-    
-    color: black;
-}
-
-.verticalTable tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-
-.btnContainer{
-    margin-top: 50px;
-    width: 96%;
+.checkBoxContainer {
     display: flex;
-    justify-content: space-between;
+    gap: 10px; 
+    padding: 10px; 
+}
+
+.checkBoxContainer div {
+    display: flex;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px; 
+    cursor: pointer;
+}
+
+label {
+    cursor: pointer;
+    font-size: 16px; 
 }
