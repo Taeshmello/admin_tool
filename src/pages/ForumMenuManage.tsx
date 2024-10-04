@@ -1,10 +1,8 @@
 import ForumMenuManageStyle from './ForumMenuManage.module.css';
 import { useState, useEffect } from 'react';
-import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem } from '../utils/menu';
+import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem, fetchServiceCode } from '../utils/menu';
 import MenuEdit from '../modal/MenuEdit';
 import MenuAdd from '../modal/MenuAdd';
-
-
 
 interface Board {
     CM_idx: number;
@@ -21,56 +19,71 @@ interface userStatus {
     check_status: string;
 }
 
-
-
-
+interface ServiceCode {
+    service_code: string;
+}
 
 const ForumMenuManage: React.FC = () => {
     const [board, setBoard] = useState<Board[]>([]);
     const [filteredBoard, setFilteredBoard] = useState<Board[]>([]);
     const [status, setStatus] = useState<userStatus[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [selectedMenuItem, setSelectedBoardMenuItem] = useState<Board | null>(null)
+    const [selectedMenuItem, setSelectedBoardMenuItem] = useState<Board | null>(null);
     const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
-    
-    
+    const [serviceCode, setServiceCode] = useState<ServiceCode[]>([]);
+    const [selectedServiceCode, setSelectedServiceCode] = useState<string>('');
+
     useEffect(() => {
         const loadMenuData = async () => {
             try {
-                const boardData = await fetchMenuBoard()
+                const boardData = await fetchMenuBoard();
                 if (boardData && Array.isArray(boardData)) {
                     setBoard(boardData);
                     setFilteredBoard(boardData);
                 } else {
-                    console.error("Board 데이터 형식 오류:", boardData)
+                    console.error("Board 데이터 형식 오류:", boardData);
                 }
-
             } catch (error) {
-                console.error("게시판 목록 불러오기 오류:", error)
+                console.error("게시판 목록 불러오기 오류:", error);
             }
         };
-        loadMenuData();
-    }, [])
 
-
-    useEffect(() => {
-        const loadStatusData = async () => {
+        const loadServiceCodeData = async () => {
             try {
-                const statusData = await fetchBoardUserStatus()
-                if (statusData && Array.isArray(statusData)) {
-                    setStatus(statusData)
-                } else {
-                    console.error("상태 데이터 형식 오류:", statusData)
+                const servicecodeData = await fetchServiceCode();
+                if (servicecodeData && Array.isArray(servicecodeData)) {
+                    setServiceCode(servicecodeData);
                 }
             } catch (error) {
-                console.error("상태 데이터 불러오기 오류:", error)
+                console.error("서비스코드 목록 불러오기 오류:", error);
             }
-        }
+        };
+
+        const loadStatusData = async () => {
+            try {
+                const statusData = await fetchBoardUserStatus();
+                if (statusData && Array.isArray(statusData)) {
+                    setStatus(statusData);
+                } else {
+                    console.error("상태 데이터 형식 오류:", statusData);
+                }
+            } catch (error) {
+                console.error("상태 데이터 불러오기 오류:", error);
+            }
+        };
 
         loadStatusData();
+        loadMenuData();
+        loadServiceCodeData();
+    }, []);
 
-    }, [])
-
+    useEffect(() => {
+        const filtered = board.filter(item => {
+            const matchesServiceCode = selectedServiceCode ? item.service_code === selectedServiceCode : true;
+            return matchesServiceCode;
+        });
+        setFilteredBoard(filtered);
+    }, [board, selectedServiceCode]);
 
     const handelEdit = async (CM_idx: number) => {
         try {
@@ -78,35 +91,45 @@ const ForumMenuManage: React.FC = () => {
             setSelectedBoardMenuItem(menuItem);
             setIsModalOpen(true);
         } catch (error) {
-            console.error("메뉴 조회 오류", error)
-            alert('메뉴 조회 실패했습니다.')
+            console.error("메뉴 조회 오류", error);
+            alert('메뉴 조회 실패했습니다.');
         }
-    }
+    };
+
     const closeModal = () => {
         setIsModalOpen(false);
-
-    }
-
+    };
 
     const openAdd = () => {
         setIsAddOpen(true);
-    }
+    };
 
     const closeAdd = () => {
         setIsAddOpen(false);
-    }
-
-
+    };
 
     return (
         <div className={ForumMenuManageStyle.pageContainer}>
             <div className={ForumMenuManageStyle.pageContent}>
                 <div className={ForumMenuManageStyle.searchContainer}>
-                    <select name="" className={ForumMenuManageStyle.Games} />
-                    <select name="" className={ForumMenuManageStyle.status}></select>
+                    <div className={ForumMenuManageStyle.scFind}>
+                        <h3 className={ForumMenuManageStyle.scTitle}>ServiceCode:</h3>
+                        <select
+                            onChange={(e) => setSelectedServiceCode(e.target.value)}
+                            value={selectedServiceCode}
+                            className={ForumMenuManageStyle.scContainer}
+                        >
+                            <option value="">All</option>
+                            {serviceCode.map((sc, index) => (
+                                <option key={index} value={sc.service_code}>
+                                    {sc.service_code}
+                                </option>
+                            ))}
+                        </select></div>
+
                     <button className={ForumMenuManageStyle.add} onClick={openAdd}>메뉴 추가</button>
                 </div>
-                
+
                 <div className={ForumMenuManageStyle.tableContainer}>
                     <table className={ForumMenuManageStyle.boardTable}>
                         <thead>
@@ -122,7 +145,7 @@ const ForumMenuManage: React.FC = () => {
                         <tbody>
                             {filteredBoard.map((boardItem, index) => {
                                 const created_date = boardItem.CreatedAt
-                                    ? new Date(boardItem.CreatedAt).toLocaleString('ko-kr', { timeZone: "UTC" })
+                                    ? new Date(boardItem.CreatedAt).toLocaleString('ko-KR', { timeZone: "UTC" })
                                     : ' ';
                                 return (
                                     <tr key={index}>
@@ -131,26 +154,27 @@ const ForumMenuManage: React.FC = () => {
                                         <td>{boardItem.Title}</td>
                                         <td>{created_date}</td>
                                         <td><button className={ForumMenuManageStyle.editBtn} onClick={() => { handelEdit(boardItem.CM_idx) }} >수정</button></td>
-                                        <td><select name="status" className={ForumMenuManageStyle.selectStatus}>
-                                            <option value="">{boardItem.UserStatus}</option>
-                                            {status.map((status, index) => (
-                                                <option key={index} value={status.check_status}>
-                                                    {status.check_status}
-                                                </option>
-                                            ))}
-                                        </select></td>
+                                        <td>
+                                            <select name="status" className={ForumMenuManageStyle.selectStatus}>
+                                                <option value="">{boardItem.UserStatus}</option>
+                                                {status.map((status, index) => (
+                                                    <option key={index} value={status.check_status}>
+                                                        {status.check_status}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </td>
                                     </tr>
-                                )
+                                );
                             })}
                         </tbody>
-
                     </table>
                 </div>
             </div>
             {isModalOpen && <MenuEdit closeModal={closeModal} menuItem={selectedMenuItem} />}
-            {isAddOpen && <MenuAdd closeAdd={closeAdd}/>}
+            {isAddOpen && <MenuAdd closeAdd={closeAdd} />}
         </div>
-    )
+    );
 }
 
-export default ForumMenuManage; 
+export default ForumMenuManage;

@@ -16,7 +16,7 @@ interface Board {
     category_name: string;
     title: string;
     created_at: string;
-    detail:string;
+    detail: string;
 }
 
 const FaqManage = () => {
@@ -29,7 +29,6 @@ const FaqManage = () => {
     const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
     const [selectedBoardItem, setSelectedBoardItem] = useState<Board | null>(null);
 
-   
     const handleEdit = async (boardNum: number) => {
         try {
             const boardItem = await fetchBoardItem(boardNum);
@@ -83,14 +82,12 @@ const FaqManage = () => {
         });
         setFilteredBoard(filtered);
     }, [board, selectedGame, searchTerm]);
-    
 
     const handleDelete = async (boardNum: number) => {
         const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
         if (confirmDelete) {
             try {
                 await deleteBoardItem(boardNum);
-                // 삭제 후 게시판 데이터 다시 불러오기
                 const updatedBoard = board.filter(item => item.board_num !== boardNum);
                 setBoard(updatedBoard);
                 setFilteredBoard(updatedBoard);
@@ -102,17 +99,9 @@ const FaqManage = () => {
         }
     };
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const closeEdit = () => {
-        setIsEditOpen(false);
-    };
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+    const closeEdit = () => setIsEditOpen(false);
 
     return (
         <div className={FaqManageStyle.pageContainer}>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchCategories, deleteCategoryItem } from "../utils/category";
+import { fetchGames } from "../utils/api";
 import { CategoryAdd } from "../modal/CategoryAdd";
-import styles from './Category.module.css'; // Import CSS module
+import styles from './Category.module.css'; // CSS 모듈 임포트
 
 interface Category {
     GC_idx: number;
@@ -10,9 +11,15 @@ interface Category {
     created_at: string;
 }
 
+interface Games {
+    name: string;
+}
+
 const Category = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [games, setGames] = useState<Games[]>([]);
+    const [selectedGame, setSelectedGame] = useState<string>("");
 
     useEffect(() => {
         const loadCategoryData = async () => {
@@ -23,6 +30,20 @@ const Category = () => {
                 console.error("카테고리 데이터 불러오기 오류:", error);
             }
         };
+        const loadGameData = async () => {
+            try {
+                const gamesData = await fetchGames();
+                if (Array.isArray(gamesData)) {
+                    setGames(gamesData);
+                } else {
+                    console.error("게임 데이터 형식 오류:", gamesData);
+                }
+            } catch (error) {
+                console.error("게임 데이터 불러오기 오류:", error);
+            }
+        };
+
+        loadGameData();
         loadCategoryData();
     }, []);
 
@@ -43,10 +64,34 @@ const Category = () => {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
+    // 선택된 게임에 따라 카테고리 필터링
+    const filteredCategories = selectedGame 
+        ? categories.filter(category => category.game_name === selectedGame) 
+        : categories;
+
     return (
         <div className={styles.pageContainer}>
             <div className={styles.pageContent}>
-                <button className={styles.categoryAdd} onClick={openModal}>카테고리 추가</button>
+                <div className={styles.searchContainer}>
+                    <div className={styles.gameSearchContainer}>
+                    <h3 className={styles.gameTitle}>Game</h3>
+                    <select
+                        name="game"
+                        className={styles.gameSelect}
+                        onChange={(e) => setSelectedGame(e.target.value)} // 선택된 게임 상태 업데이트
+                    >
+                        <option value="">All</option>
+                        {games.map((game, index) => (
+                            <option key={index} value={game.name}>
+                                {game.name}
+                            </option>
+                        ))}
+                    </select>
+                    </div>
+              
+                    <button className={styles.categoryAdd} onClick={openModal}>카테고리 추가</button>
+                </div>
+                
                 <table className={styles.boardTable}>
                     <thead>
                         <tr>
@@ -58,7 +103,7 @@ const Category = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {categories.map((category) => {
+                        {filteredCategories.map((category) => {
                             const created_date = category.created_at
                                 ? new Date(category.created_at).toLocaleString('ko-KR')
                                 : ' ';

@@ -16,7 +16,6 @@
 
   
   .tableContainer {
-    margin: 20px;
     font-family: Arial, sans-serif;
     max-height: 500px;
     overflow-y: auto; /* 스크롤 추가 */
@@ -74,6 +73,8 @@
 
   .searchContainer{
     display: flex;
+    width: 100%;
+    justify-content: space-between;
   }
 
   .add{
@@ -91,4 +92,17 @@
 }
 .add{
     background-color: #4752c4;
+}
+
+.scContainer{
+  width: 100%;
+}
+.scTitle{
+  margin-right: 10px;
+  color: white;
+}
+.scFind{
+  display: flex;
+  width: 50%;
+  padding: 0;
 }
