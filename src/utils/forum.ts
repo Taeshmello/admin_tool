@@ -14,3 +14,16 @@ export const fetchForum = async() => {
     }
     return response.json();
 }
+
+
+export const addForum = async() => {
+    const response = await fetch("http://localhost:5000/forum/insert",{
+        method: "POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+        
+        })
+    })
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './ForumManage.module.css';
-import ForumAdd from '../modal/ForumAdd';
+import ForumAdd from '../forumModal/ForumAdd';
 import { fetchForum } from '../utils/forum';
 
 interface Forum {
