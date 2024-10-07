@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import MenuEditStyle from './MenuEdit.module.css';
-import { fetchBoardUserStatus, fetchBoardAdminStatus, updateMenuStatus } from '../utils/menu';
+import { fetchBoardUserStatus, fetchBoardAdminStatus, updateMenuStatus } from '../../utils/menu';
 
 interface Board{
     CM_idx:number;

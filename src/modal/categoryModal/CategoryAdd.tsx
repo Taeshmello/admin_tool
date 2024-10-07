@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './CategoryAdd.css';
-import { fetchGames } from "../utils/faq.ts";
+import { fetchGames } from "../../utils/faq.ts";
 
 interface Game {
     id: number;

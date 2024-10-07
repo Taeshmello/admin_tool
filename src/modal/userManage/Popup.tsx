@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import './Popup.css'
-import UserDetails from '../components/User_details';
+import UserDetails from './User_details';
 
 interface User {
     idx: number;
@@ -14,7 +14,7 @@ interface EditModalProps {
     visible: boolean;
     onClose: () => void;
     onOk: () => void;
-    user: User | null; // user prop 추가
+    user: User | null; 
 }
 
 const EditModal: React.FC<EditModalProps> = ({ visible, onClose, onOk, user }) => {
@@ -28,7 +28,7 @@ const EditModal: React.FC<EditModalProps> = ({ visible, onClose, onOk, user }) =
             width={500}
             height={1000}
         >
-            <UserDetails user={user} /> {/* user prop 전달 */}
+            <UserDetails user={user} /> 
         </Modal>
     );
 };

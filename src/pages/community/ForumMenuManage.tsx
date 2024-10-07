@@ -1,8 +1,8 @@
 import ForumMenuManageStyle from './ForumMenuManage.module.css';
 import { useState, useEffect } from 'react';
-import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem, fetchServiceCode } from '../utils/menu';
-import MenuEdit from '../modal/MenuEdit';
-import MenuAdd from '../modal/MenuAdd';
+import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem, fetchServiceCode } from '../../utils/menu';
+import MenuEdit from '../../modal/menuModal/MenuEdit';
+import MenuAdd from '../../modal/menuModal/MenuAdd';
 
 interface Board {
     CM_idx: number;

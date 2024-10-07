@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from './Write.module.css';
-import { fetchGames, fetchCategoriesByGameId } from "../utils/faq.ts";
-import Editor from "../components/Editor.tsx";
+import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
+import Editor from "../../components/Editor.tsx";
 
 interface Game {
     id: number;

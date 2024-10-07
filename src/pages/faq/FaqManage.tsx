@@ -1,9 +1,9 @@
 import FaqManageStyle from './FaqManage.module.css';
 import { useState, useEffect } from 'react';
-import { fetchGames } from '../utils/api';
-import { fetchBoard, deleteBoardItem, fetchBoardItem } from '../utils/faq';
-import { Write } from '../modal/Write';
-import { FaqEdit } from '../modal/FaqEdit';
+import { fetchGames } from '../../utils/api';
+import { fetchBoard, deleteBoardItem, fetchBoardItem } from '../../utils/faq';
+import { Write } from '../../modal/faqModal/FaqAdd';
+import { FaqEdit } from '../../modal/faqModal/FaqEdit';
 
 interface Game {
     name: string;

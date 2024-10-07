@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./ForumAdd.module.css"
-import { fetchLanguage } from "../utils/forum";
-import { fetchServiceCode } from "../utils/menu";
+import { fetchLanguage } from "../../utils/forum";
+import { fetchServiceCode } from "../../utils/menu";
 interface ForumAddProp {
     closeAdd: () => void
 }

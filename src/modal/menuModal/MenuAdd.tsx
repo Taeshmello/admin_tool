@@ -1,5 +1,5 @@
 import MenuAddStyle from './MenuAdd.module.css';
-import { fetchBoardAdminStatus, fetchBoardUserStatus, fetchServiceCode, fetchMenuName } from '../utils/menu';
+import { fetchBoardAdminStatus, fetchBoardUserStatus, fetchServiceCode, fetchMenuName } from '../../utils/menu';
 import { useState, useEffect } from 'react';
 interface userStatus {
     check_status: string;

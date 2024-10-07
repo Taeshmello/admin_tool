@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import LoginStyle from './LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { refreshAccessToken, userStatusCheck } from '../utils/api';
+import { refreshAccessToken, userStatusCheck } from '../../utils/api';
 
 type FormValues = {
   email: string;

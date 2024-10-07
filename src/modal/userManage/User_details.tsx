@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './User_details.css';
-import { fetchGames, userPermissions, assignPermissions, deletePermissions } from '../utils/api';
+import { fetchGames, userPermissions, assignPermissions, deletePermissions } from '../../utils/api';
 
 interface User {
     idx: number;

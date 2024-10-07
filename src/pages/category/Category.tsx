@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchCategories, deleteCategoryItem } from "../utils/category";
-import { fetchGames } from "../utils/api";
-import { CategoryAdd } from "../modal/CategoryAdd";
+import { fetchCategories, deleteCategoryItem } from "../../utils/category";
+import { fetchGames } from "../../utils/api";
+import { CategoryAdd } from "../../modal/categoryModal/CategoryAdd";
 import styles from './Category.module.css'; // CSS 모듈 임포트
 
 interface Category {

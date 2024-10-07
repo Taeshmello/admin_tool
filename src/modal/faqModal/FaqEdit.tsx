@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from './FaqEdit.module.css';
-import { fetchGames, fetchCategoriesByGameId } from "../utils/faq.ts"; // updateBoardItem 추가
-import DetailEditor from "../components/DetailEditor.tsx"; // 에디터 사용 시 추가
+import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts"; // updateBoardItem 추가
+import DetailEditor from "../../components/DetailEditor.tsx"; // 에디터 사용 시 추가
 
 interface Game {
     id: number;

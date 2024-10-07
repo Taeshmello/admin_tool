@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './ForumManage.module.css';
-import ForumAdd from '../forumModal/ForumAdd';
-import { fetchForum } from '../utils/forum';
+import ForumAdd from '../../modal/forumModal/ForumAdd';
+import { fetchForum } from '../../utils/forum';
 
 interface Forum {
     FB_idx: number;
