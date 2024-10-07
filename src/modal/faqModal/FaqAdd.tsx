@@ -9,7 +9,7 @@ interface Game {
 }
 
 interface Category {
-    category_name: string;
+    category_name: string;  
 }
 
 interface WriteProps {

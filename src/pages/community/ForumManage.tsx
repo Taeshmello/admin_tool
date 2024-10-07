@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './ForumManage.module.css';
-import ForumAdd from '../../modal/forumModal/ForumAdd';
+import ForumAdd from '../../modal/communityModal/ForumAdd';
 import { fetchForum } from '../../utils/forum';
 
 interface Forum {
@@ -76,9 +76,9 @@ const ForumManage: React.FC = () => {
                                     <td>{forum.UserIp}</td>
                                     <td>{forum.CreatedAt}</td>
                                     <td>
-                                        <button>편집</button>
-                                        <button>답변</button>
-                                        <button>댓글 확인</button>
+                                        <button className={styles.editBtn}>편집</button>
+                                        <button className={styles.replyBtn}>답변</button>
+                                        <button className={styles.commentBtn}>댓글 확인</button>
                                     </td>
                                     <td>{forum.UserStatus}</td>
                                 </tr>

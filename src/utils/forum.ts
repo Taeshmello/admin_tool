@@ -27,3 +27,12 @@ export const addForum = async() => {
         })
     })
 }
+
+
+export const fetchMenuByServiceCodeId = async(service_idx:number) => {
+    const response = await fetch(`http://localhost:5000/forum/menu/${service_idx}`)
+    if (!response.ok) {
+        throw new Error("메뉴 목록을 가져오는 데 실패했습니다.");
+    }
+    return response.json();
+}

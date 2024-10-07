@@ -71,3 +71,35 @@
 .boardTable tr:nth-child(odd) {
   background-color: #202225;
 }
+
+.editBtn{
+  background-color: #5865f2;
+  color: #ffffff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.replyBtn{
+  background-color: #5865f2;
+  color: #ffffff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.commentBtn{
+  background-color: #5865f2;
+  color: #ffffff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}

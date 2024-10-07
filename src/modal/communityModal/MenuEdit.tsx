@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+    import { useState,useEffect } from 'react';
 import MenuEditStyle from './MenuEdit.module.css';
 import { fetchBoardUserStatus, fetchBoardAdminStatus, updateMenuStatus } from '../../utils/menu';
 
