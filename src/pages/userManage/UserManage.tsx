@@ -166,7 +166,7 @@ const UserManage: React.FC = () => {
             {isModalOpen && selectedUser && (
                 <UserDetail
                     closeModal={closeModal}
-                    user={selectedUser} // 선택된 유저를 props로 전달
+                    user={selectedUser}
                 />
             )}
         </div>

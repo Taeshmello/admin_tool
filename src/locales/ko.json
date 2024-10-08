@@ -1,7 +1,12 @@
 {
-  "select_language": "언어를 선택해주세요.",
-  "language": "언어",
+  "title": "메뉴",
+  "admin_tool": "VALOFE ADMIN TOOL",
   "user_management": "사용자 관리",
-  "forum_management": "게시판 관리",
-  "admin_tool": "관리 도구"
+  "customer_service": "고객센터 관리",
+  "category_management": "카테고리 관리",
+  "faq_management": "FAQ 관리",
+  "main_screen_management": "메인화면 관리",
+  "board_menu_management": "게시판 메뉴 관리",
+  "board_post_management": "게시판 글 관리",
+  "department_management": "부서 관리"
 }

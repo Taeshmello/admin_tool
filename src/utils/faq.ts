@@ -84,26 +84,3 @@ export const fetchBoardItem = async (boardNum: number) => {
         throw error; // 에러를 다시 던져 호출한 곳에서 처리할 수 있게
     }
 };
-
-
-// export const updateBoardItem = async (boardNum:number, selectedGame:string, selectedCategory:string, title:string, detail:string) => {
-//     const response = await fetch(`http://localhost:5000/faq/update`, {
-//         method: 'PUT',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//             board_num: boardNum,
-//             selectedGame,
-//             selectedCategory,
-//             title,
-//             detail,
-//         }),
-//     });
-
-//     if (!response.ok) {
-//         throw new Error('게시물 업데이트에 실패했습니다.');
-//     }
-    
-//     return response.json();
-// };

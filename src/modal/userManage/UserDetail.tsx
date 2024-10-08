@@ -129,8 +129,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                     <span>{user?.id}</span>
                 </div>
 
-                <div className={UserDetailStyles.ownedGames}>
-                    {/* 권한 보유 게임 표시 */}
+                <div className={UserDetailStyles.ownedGames}>   
                     <select className={UserDetailStyles.gameSelect} onChange={handleGameChange}>
                         {games.map((game, index) => (
                             <option key={index} value={game.name}>
@@ -140,7 +139,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                     </select>
                 </div>
 
-                <div className={UserDetailStyles.actions}>
+                <div className={UserDetailStyles.perActions}>
                     <button className={UserDetailStyles.gameButton} onClick={handleSelectAll}>
                         {allSelected ? '전체 선택 해제' : '전체 선택'}
                     </button>

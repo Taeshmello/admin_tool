@@ -62,8 +62,9 @@
 
 .actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
+
 }
 
 .cancelButton {
@@ -84,4 +85,9 @@
     cursor: pointer;
 }
 
+.perActions {
+    display: flex;  
+    width: 100%;
+
+}
 

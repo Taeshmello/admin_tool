@@ -1,7 +1,12 @@
 {
-  "select_language": "Select language",
-  "language": "Language",
+  "title": "Menu",
+  "admin_tool": "VALOFE ADMIN TOOL",
   "user_management": "User Management",
-  "forum_management": "Forum Management",
-  "admin_tool": "Admin Tool"
+  "customer_service": "Customer Service Management",
+  "category_management": "Category Management",
+  "faq_management": "FAQ Management",
+  "main_screen_management": "Main Screen Management",
+  "board_menu_management": "Board Menu Management",
+  "board_post_management": "Board Post Management",
+  "department_management": "Department Management"
 }
