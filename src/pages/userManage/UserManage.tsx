@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import UserManageStyle from './UserManage.module.css';
 import { fetchUserData, fetchGameGenres, fetchGames } from '../../utils/api';
-import EditModal from '../../modal/userManage/Popup';
+import UserDetail from '../../modal/userManage/UserDetail';
+
 
 interface User {
     idx: number;
@@ -23,8 +24,8 @@ const UserManage: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [genres, setGenres] = useState<Genre[]>([]);
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGenre, setSelectedGenre] = useState<string>('');
@@ -78,6 +79,14 @@ const UserManage: React.FC = () => {
         );
         setFilteredUsers(filtered);
     }, [searchTerm, users]);
+
+    const openModal = () => {
+        setIsModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
 
     return (
         <div className={UserManageStyle.pageContainer}>
@@ -142,7 +151,7 @@ const UserManage: React.FC = () => {
                                         <td>
                                             <button className={UserManageStyle.editBtn} onClick={() => {
                                                 setSelectedUser(user);
-                                                setIsModalOpen(true);
+                                                openModal()
                                             }}>수정</button>
                                         </td>
                                     </tr>
@@ -150,14 +159,16 @@ const UserManage: React.FC = () => {
                             })}
                         </tbody>
                     </table>
-                    <EditModal
-                        visible={isModalOpen}
-                        onClose={() => setIsModalOpen(false)}
-                        onOk={() => setIsModalOpen(false)}
-                        user={selectedUser} // Pass the selected user to the modal
-                    />
+
                 </div>
+
             </div>
+            {isModalOpen && selectedUser && (
+                <UserDetail
+                    closeModal={closeModal}
+                    user={selectedUser} // 선택된 유저를 props로 전달
+                />
+            )}
         </div>
     );
 }

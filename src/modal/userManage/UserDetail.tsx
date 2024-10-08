@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './User_details.css';
-import { fetchGames, userPermissions, assignPermissions, deletePermissions } from '../../utils/api';
+import React, { useState, useEffect } from "react";
+import UserDetailStyles from './UserDetail.module.css';
+import { fetchGames, userPermissions, assignPermissions, deletePermissions } from "../../utils/api";
 
 interface User {
     idx: number;
+    id: string;
 }
 
 interface Permission {
@@ -11,11 +12,12 @@ interface Permission {
     id: number;
 }
 
-interface UserDetailsProps {
-    user: User | null;
+interface DetailProps {
+    closeModal: () => void;
+    user: User | null; // 유저 정보를 받을 수 있도록 수정
 }
 
-const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
+const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     const [games, setGames] = useState<{ name: string; id: string }[]>([]);
     const [permissions, setPermissions] = useState<Permission[]>([]);
     const [selectedPermissions, setSelectedPermissions] = useState<boolean[]>([]);
@@ -111,7 +113,6 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
 
         try {
             await assignPermissions(requestBody);
-            console.log(requestBody)
             alert('권한이 성공적으로 저장되었습니다.');
         } catch (error) {
             console.error('권한 저장 중 오류 발생:', error);
@@ -120,45 +121,61 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user }) => {
     };
 
     return (
-        <div className="modify-user-container">
-            <h4>권한 보유 게임</h4>
-            <h4>게임명</h4>
+        <div className={UserDetailStyles.modal}>
+            <div className={UserDetailStyles.modalContent}>
+                {/* User ID */}
+                <div className={UserDetailStyles.userId}>
+                    <label>유저 아이디:</label>
+                    <span>{user?.id}</span>
+                </div>
 
-            <select className="game-select" onChange={handleGameChange}>
-                {games.map((game, index) => (
-                    <option key={index} value={game.name}>
-                        {game.name}
-                    </option>
-                ))}
-            </select>
+                <div className={UserDetailStyles.ownedGames}>
+                    {/* 권한 보유 게임 표시 */}
+                    <select className={UserDetailStyles.gameSelect} onChange={handleGameChange}>
+                        {games.map((game, index) => (
+                            <option key={index} value={game.name}>
+                                {game.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
-            <div className="button-group">
-                <button className="button" onClick={handleSelectAll}>
-                    {allSelected ? '전체 선택 해제' : '전체 선택'}
-                </button>
-                <button className="button" onClick={handleDeletePermissions}>
-                    권한 삭제
-                </button>
-                <button className="button" onClick={handleSavePermissions}>
-                    저장
-                </button>
-            </div>
+                <div className={UserDetailStyles.actions}>
+                    <button className={UserDetailStyles.gameButton} onClick={handleSelectAll}>
+                        {allSelected ? '전체 선택 해제' : '전체 선택'}
+                    </button>
+                    <button className={UserDetailStyles.gameButton} onClick={handleDeletePermissions}>
+                        권한 삭제
+                    </button>
+                </div>
 
-            <h4>권한</h4>
-            <div className="permissions">
-                {permissions.map((permission, index) => (
-                    <div className="permission-item" key={permission.id}>
-                        <input
-                            type="checkbox"
-                            checked={selectedPermissions[index]}
-                            onChange={() => handlePermissionChange(index)}
-                        />
-                        {permission.permissions}
-                    </div>
-                ))}
+
+                <div className={UserDetailStyles.permissions}>
+                    <h4>권한</h4>
+                    {permissions.map((permission, index) => (
+                        <div className="permission-item" key={permission.id}>
+                            <input
+                                type="checkbox"
+                                checked={selectedPermissions[index]}
+                                onChange={() => handlePermissionChange(index)}
+                            />
+                            {permission.permissions}
+                        </div>
+                    ))}
+                </div>
+
+                <div className={UserDetailStyles.actions}>
+
+                    <button className={UserDetailStyles.cancelButton} onClick={closeModal}>
+                        닫기
+                    </button>
+                    <button className={UserDetailStyles.saveButton} onClick={handleSavePermissions}>
+                        저장
+                    </button>
+                </div>
             </div>
         </div>
     );
 };
 
-export default UserDetails;
+export default UserDetail;
