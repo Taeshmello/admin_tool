@@ -104,16 +104,16 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             });
     
             if (response.ok) {
-                alert('FAQ가 수정되었습니다.');
+                alert(`${t("faq_edited")}`);
                 closeEdit();
             } else {
                 const errorResponse = await response.json(); // 오류 응답을 가져오기
                 console.error("FAQ 수정 실패:", errorResponse);
-                alert(`FAQ 수정에 실패했습니다: ${errorResponse.error}`);
+                alert(`${t("faq_edited_failed")} ${errorResponse.error}`);
             }
         } catch (error) {
             console.error("FAQ 수정 중 오류:", error);
-            alert('FAQ 수정 중 오류가 발생했습니다.');
+            alert(`${t("faq_edited_error")}`);
         }
     };
     

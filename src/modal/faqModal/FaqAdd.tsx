@@ -62,7 +62,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
 
     const handleSubmit = async () => {
         if (selectedGame === null || selectedCategory === null || !title || !detail) {
-            alert("모든 필드를 채워주세요.");
+            alert(`${t('plz_fill_space')}`);
             return;
         }
 
@@ -84,7 +84,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
             if (response.ok) {
                 
                 
-                alert("FAQ 추가 완료");
+                alert(`${t("faq_created")}`);
                 location.reload();
             } else {
                 console.error("게시물 작성 실패:", response.statusText);

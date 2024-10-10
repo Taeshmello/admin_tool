@@ -42,7 +42,7 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => { // 수
 
     const handleSubmit = async () => {
         if (selectedGame === null || !category) {
-            alert("모든 필드를 채워주세요.");
+            alert(`${t("plz_fill_space")}`);
             return;
         }
 
@@ -62,11 +62,9 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => { // 수
             if (response.ok) {
                 const result = await response.json();
                 console.log("카테고리 생성 성공:", result);
-                alert("카테고리 등록 완료");
+                alert(`${t('category_created')}`);
                 location.reload();
-            } else {
-                console.error("카테고리 생성 실패:", response.statusText);
-            }
+            } 
         } catch (error) {
             console.error("카테고리 생성 오류:", error);
         }

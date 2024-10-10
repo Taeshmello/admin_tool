@@ -60,5 +60,19 @@
   "permission" : "권한",
   "allselect_off" : "전체 선택 해제",
   "all_select" : "전체 선택",
-  "detail" : "내용"
+  "detail" : "내용",
+  "category_created" : "카테고리 등록 완료",
+  "plz_fill_space" : "모든 칸을 다 채워주세요",
+  "menu_created" : "메뉴 추가 완료",
+  "menu_edited" : "메뉴가 수정되었스빈다.",
+  "menu_edited_failed" : "메뉴 수정에 실패하였습니다.",
+  "menu_edited_error" : "메뉴 수정 중 오류가 발생하였습니다.",
+  "faq_created" : "카테고리 등록 완료",
+  "faq_edited" : "FAQ가 수정되었습니다.",
+  "faq_edtied_failed" : "FAQ 수정에 실패하였습니다:",
+  "faq_edited_error" : "fAQ 수정 중 오류가 발생하였습니다.",
+  "selected_per_delete" : "선택된 권한이 삭제되었습니다.",
+  "deleted_per_failed" : "권한 삭제에 실패하였습니다.",
+  "per_saved" : "권한 저장 완료",
+  "per_saved_failed" : "권한 저장에 실패하였습니다."
 }

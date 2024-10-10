@@ -120,7 +120,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
             if (response.ok) {
 
 
-                alert("메뉴 추가 완료");
+                alert(`${("menu_created")}`);
                 location.reload();
             } else {
                 console.error("게시물 작성 실패:", response.statusText);

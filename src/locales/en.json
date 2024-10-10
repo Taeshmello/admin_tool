@@ -60,5 +60,20 @@
   "permission" : "Permission",
   "allselect_off" : "Deselect all",
   "all_select" : "Select All",
-  "detail" : "Detail"
+  "detail" : "Detail",
+  "category_created" : "Category registration completed",
+  "plz_fill_space" : "Please fill in all spaces",
+  "menu_created" : "Menu Addition Completed",
+  "menu_edited" : "Menu status has been modified.",
+  "menu_edited_failed" : "Failed to modify menu status:",
+  "menu_edited_error" : "An error occurred while modifying the status of the menu.",
+  "faq_created" : "FAQ added complete",
+  "faq_edited" : "FAQs have been modified.",
+  "faq_edtied_failed" : "FAQ modification failed:",
+  "faq_edited_error" : "An error occurred during FAQ correction.",
+  "selected_per_delete" : "The selected permissions have been deleted.",
+  "deleted_per_failed" : "Failed to delete permission.",
+  "per_saved" : "Permission saved successfully.",
+  "per_saved_failed" : "Failed to save permission."
+  
 }

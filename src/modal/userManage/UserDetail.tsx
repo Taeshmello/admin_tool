@@ -89,16 +89,15 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             }
             setSelectedPermissions(new Array(permissions.length).fill(false));
             setAllSelected(false);
-            alert('선택된 권한이 삭제되었습니다.');
+            alert(`${t('selected_per_delete')}`);
         } catch (error) {
             console.error('권한 삭제 중 오류 발생:', error);
-            alert('권한 삭제에 실패했습니다.');
+            alert(`${t('deleted_per_failed')}`);
         }
     };
 
     const handleSavePermissions = async () => {
         if (!user || !user.idx) {
-            alert('사용자 ID를 불러오는 데 실패했습니다.');
             return;
         }
 
@@ -114,10 +113,10 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
 
         try {
             await assignPermissions(requestBody);
-            alert('권한이 성공적으로 저장되었습니다.');
+            alert(`${t('per_saved')}`);
         } catch (error) {
             console.error('권한 저장 중 오류 발생:', error);
-            alert('권한 저장에 실패했습니다.');
+            alert(`${t('per_saved_failed')}`);
         }
     };
 

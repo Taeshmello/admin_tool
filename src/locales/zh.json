@@ -58,5 +58,19 @@
     "permission": "权限",
     "allselect_off": "取消全选",
     "all_select": "全选",
-    "detail" : "内装物品"
+    "detail": "内装物品",
+    "category_created": "类别登记完成",
+    "plz_fill_space": "请填写所有空格",
+    "menu_created": "菜单添加完成",
+    "menu_edited": "菜单状态已更改。",
+    "menu_edited_failed": "无法修改菜单状态:",
+    "menu_edited_error": "修改菜单状态时发生错误。",
+    "faq_created": "类别登记完成",
+    "faq_edited": "FAQ已经修改。",
+    "faq_edtied_failed": "FAQ修改失败:",
+    "faq_edited_error": "FAQ 修正过程中发生错误。",
+    "selected_per_delete": "所选权限已被删除。",
+    "deleted_per_failed": "无法删除权限。",
+    "per_saved": "权限成功保存。",
+    "per_saved_failed": "无法保存权限。"
 }
