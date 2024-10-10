@@ -28,6 +28,7 @@ import {
 	Undo,
 	
 } from 'ckeditor5';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -46,6 +47,7 @@ const Editor: React.FC<EditorProps> = ({detail,setDetail}) => {
 	const editorContainerRef = useRef(null);
 	const editorRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
+	const {t} = useTranslation();
 
 	useEffect(() => {
 		setIsLayoutReady(true);
@@ -119,7 +121,7 @@ const Editor: React.FC<EditorProps> = ({detail,setDetail}) => {
 				}
 			}
 		},
-		placeholder: '내용',
+	placeholder: `${t('detail')}`,
 		image: {
             toolbar: [
                 'imageTextAlternative', // 이미지 대체 텍스트

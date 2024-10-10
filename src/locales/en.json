@@ -59,5 +59,6 @@
   "delete_per" : "Delete Permission",
   "permission" : "Permission",
   "allselect_off" : "Deselect all",
-  "all_select" : "Select All"
+  "all_select" : "Select All",
+  "detail" : "Detail"
 }

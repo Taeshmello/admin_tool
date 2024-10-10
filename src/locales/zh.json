@@ -57,5 +57,6 @@
     "delete_per": "删除权限",
     "permission": "权限",
     "allselect_off": "取消全选",
-    "all_select": "全选"
+    "all_select": "全选",
+    "detail" : "内装物品"
 }

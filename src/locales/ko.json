@@ -59,5 +59,6 @@
   "delete_per" : "권한 삭제",
   "permission" : "권한",
   "allselect_off" : "전체 선택 해제",
-  "all_select" : "전체 선택"
+  "all_select" : "전체 선택",
+  "detail" : "내용"
 }
