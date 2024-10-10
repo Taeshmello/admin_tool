@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { fetchCategories, deleteCategoryItem } from "../../utils/category";
 import { fetchGames } from "../../utils/api";
 import { CategoryAdd } from "../../modal/categoryModal/CategoryAdd";
-import styles from './Category.module.css'; // CSS 모듈 임포트
+import styles from './Category.module.css';
+import { useTranslation } from "react-i18next";
 
 interface Category {
     GC_idx: number;
@@ -20,6 +21,7 @@ const Category = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [games, setGames] = useState<Games[]>([]);
     const [selectedGame, setSelectedGame] = useState<string>("");
+    const {t} = useTranslation();
 
     useEffect(() => {
         const loadCategoryData = async () => {
@@ -74,7 +76,7 @@ const Category = () => {
             <div className={styles.pageContent}>
                 <div className={styles.searchContainer}>
                     <div className={styles.gameSearchContainer}>
-                    <h3 className={styles.gameTitle}>Game</h3>
+                    <h3 className={styles.gameTitle}>{t('Game')}</h3>
                     <select
                         name="game"
                         className={styles.gameSelect}
@@ -89,17 +91,17 @@ const Category = () => {
                     </select>
                     </div>
               
-                    <button className={styles.categoryAdd} onClick={openModal}>카테고리 추가</button>
+                    <button className={styles.categoryAdd} onClick={openModal}>{t('add_category')}</button>
                 </div>
                 
                 <table className={styles.boardTable}>
                     <thead>
                         <tr>
-                            <th>카테고리 번호</th>
-                            <th>게임명</th>
-                            <th>카테고리명</th>
-                            <th>등록일</th>
-                            <th>옵션</th>
+                            <th>{t('category_number')}</th>
+                            <th>{t('game_name')}</th>
+                            <th>{t('category_name')}</th>
+                            <th>{t('registration_date')}</th>
+                            <th>{t('option')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,8 +117,8 @@ const Category = () => {
                                     <td>{category.category}</td>
                                     <td>{created_date}</td>
                                     <td>
-                                        <button className={styles.info}>상세</button>
-                                        <button className={styles.deleteBtn} onClick={() => handleDelete(category.GC_idx)}>삭제</button>
+                                        <button className={styles.info}>{t('info')}</button>
+                                        <button className={styles.deleteBtn} onClick={() => handleDelete(category.GC_idx)}>{t('delete')}</button>
                                     </td>
                                 </tr>
                             )

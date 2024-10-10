@@ -15,7 +15,7 @@ const SideBar: React.FC = () => {
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <h3>{t('title')}</h3> 
+        <h3>Menu</h3> 
       </div>
       <nav className="sidebar-nav">
         <ul>

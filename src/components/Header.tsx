@@ -72,11 +72,11 @@ const Header = () => {
           {isDropdownOpen && (
             <div className="dropdown-menu">
               {userInfo ? (
-                <div className='profileName-container'><span className="profile-name">{userInfo.name}님</span></div>
+                <div className='profileName-container'><span className="profile-name">{userInfo.name}</span></div>
               ) : (
                 <span>Loading...</span>
               )}
-              <div className='logoutBtn-container'><button className="logout-button" onClick={handleLogout}>로그아웃</button></div>
+              <div className='logoutBtn-container'><button className="logout-button" onClick={handleLogout}>{t('logout')}</button></div>
             </div>
           )}
         </div>

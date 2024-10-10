@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UserManageStyle from './UserManage.module.css';
 import { fetchUserData, fetchGameGenres, fetchGames } from '../../utils/api';
 import UserDetail from '../../modal/userManage/UserDetail';
-
+import { useTranslation } from 'react-i18next';
 
 interface User {
     idx: number;
@@ -21,6 +21,7 @@ interface Genre {
 }
 
 const UserManage: React.FC = () => {
+    const { t } = useTranslation();
     const [users, setUsers] = useState<User[]>([]);
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -81,25 +82,25 @@ const UserManage: React.FC = () => {
     }, [searchTerm, users]);
 
     const openModal = () => {
-        setIsModalOpen(true)
-    }
+        setIsModalOpen(true);
+    };
 
     const closeModal = () => {
-        setIsModalOpen(false)
-    }
+        setIsModalOpen(false);
+    };
 
     return (
         <div className={UserManageStyle.pageContainer}>
             <div className={UserManageStyle.pageContent}>
                 <div className={UserManageStyle.userContainer}>
-                    <h3 className={UserManageStyle.gameTitle}>Game</h3>
+                <h3 className={UserManageStyle.searchTitle}>{t('search')}</h3>
                     <select
                         name="genre"
                         className='game-select'
                         onChange={(e) => setSelectedGenre(e.target.value)}
                         value={selectedGenre}
                     >
-                        <option value="">All</option>
+                        <option value="">{t('all')}</option>
                         {genres.map((genre, index) => (
                             <option key={index} value={genre.genre_name}>
                                 {genre.genre_name}
@@ -112,7 +113,7 @@ const UserManage: React.FC = () => {
                         onChange={(e) => setSelectedGame(e.target.value)}
                         value={selectedGame}
                     >
-                        <option value="">All</option>
+                        <option value="">{t('all')}</option>
                         {games.map((game, index) => (
                             <option key={index} value={game.name}>
                                 {game.name}
@@ -120,11 +121,12 @@ const UserManage: React.FC = () => {
                         ))}
                     </select>
                     <div className={UserManageStyle.userSearch}>
-                        <h3 className={UserManageStyle.searchTitle}>Search:</h3>
+                        
                         <input
                             type="text"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder={t('search_placeholder')}
                         />
                     </div>
                 </div>
@@ -132,10 +134,10 @@ const UserManage: React.FC = () => {
                     <table className={UserManageStyle.userTable}>
                         <thead>
                             <tr>
-                                <th>등록 번호</th>
-                                <th>유저 ID</th>
-                                <th>등록일</th>
-                                <th>변경</th>
+                                <th>{t('registration_number')}</th>
+                                <th>{t('user_id')}</th>
+                                <th>{t('registration_date')}</th>
+                                <th>{t('actions')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -151,17 +153,15 @@ const UserManage: React.FC = () => {
                                         <td>
                                             <button className={UserManageStyle.editBtn} onClick={() => {
                                                 setSelectedUser(user);
-                                                openModal()
-                                            }}>수정</button>
+                                                openModal();
+                                            }}>{t('edit')}</button>
                                         </td>
                                     </tr>
                                 );
                             })}
                         </tbody>
                     </table>
-
                 </div>
-
             </div>
             {isModalOpen && selectedUser && (
                 <UserDetail
@@ -171,6 +171,6 @@ const UserManage: React.FC = () => {
             )}
         </div>
     );
-}
+};
 
 export default UserManage;

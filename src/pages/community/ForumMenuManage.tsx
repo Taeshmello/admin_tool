@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem, fetchServiceCode } from '../../utils/menu';
 import MenuEdit from '../../modal/communityModal/MenuEdit';
 import MenuAdd from '../../modal/communityModal/MenuAdd';
+import { useTranslation } from 'react-i18next';
 
 interface Board {
     CM_idx: number;
@@ -32,7 +33,7 @@ const ForumMenuManage: React.FC = () => {
     const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
     const [serviceCode, setServiceCode] = useState<ServiceCode[]>([]);
     const [selectedServiceCode, setSelectedServiceCode] = useState<string>('');
-
+    const {t} = useTranslation();
     useEffect(() => {
         const loadMenuData = async () => {
             try {
@@ -127,19 +128,19 @@ const ForumMenuManage: React.FC = () => {
                             ))}
                         </select></div>
 
-                    <button className={ForumMenuManageStyle.add} onClick={openAdd}>메뉴 추가</button>
+                    <button className={ForumMenuManageStyle.add} onClick={openAdd}>{t('add_menu')}</button>
                 </div>
 
                 <div className={ForumMenuManageStyle.tableContainer}>
                     <table className={ForumMenuManageStyle.boardTable}>
                         <thead>
                             <tr>
-                                <th>글 번호</th>
-                                <th>서비스코드</th>
-                                <th>제목</th>
-                                <th>등록일</th>
-                                <th>옵션</th>
-                                <th>상태</th>
+                                <th>{t('post_number')}</th>
+                                <th>{t('service_code')}</th>
+                                <th>{t('title')}</th>
+                                <th>{t('registration_date')}</th>
+                                <th>{t('option')}</th>
+                                <th>{t('status')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -153,7 +154,7 @@ const ForumMenuManage: React.FC = () => {
                                         <td>{boardItem.service_code}</td>
                                         <td>{boardItem.Title}</td>
                                         <td>{created_date}</td>
-                                        <td><button className={ForumMenuManageStyle.editBtn} onClick={() => { handelEdit(boardItem.CM_idx) }} >수정</button></td>
+                                        <td><button className={ForumMenuManageStyle.editBtn} onClick={() => { handelEdit(boardItem.CM_idx) }} >{t('edit')}</button></td>
                                         <td>
                                             <select name="status" className={ForumMenuManageStyle.selectStatus}>
                                                 <option value="">{boardItem.UserStatus}</option>

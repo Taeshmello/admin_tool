@@ -4,6 +4,7 @@ import { fetchGames } from '../../utils/api';
 import { fetchBoard, deleteBoardItem, fetchBoardItem } from '../../utils/faq';
 import { Write } from '../../modal/faqModal/FaqAdd';
 import { FaqEdit } from '../../modal/faqModal/FaqEdit';
+import { useTranslation } from 'react-i18next';
 
 interface Game {
     name: string;
@@ -28,7 +29,7 @@ const FaqManage = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
     const [selectedBoardItem, setSelectedBoardItem] = useState<Board | null>(null);
-
+    const {t} = useTranslation();
     const handleEdit = async (boardNum: number) => {
         try {
             const boardItem = await fetchBoardItem(boardNum);
@@ -129,7 +130,7 @@ const FaqManage = () => {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <button className={FaqManageStyle.faqAdd} onClick={openModal}>FAQ 추가</button>
+                        <button className={FaqManageStyle.faqAdd} onClick={openModal}>{t('add_faq')}</button>
                     </div>
                 </div>
 
@@ -137,12 +138,12 @@ const FaqManage = () => {
                     <table className={FaqManageStyle.boardTable}>
                         <thead>
                             <tr>
-                                <th>글 번호</th>
-                                <th>게임명</th>
-                                <th>카테고리명</th>
-                                <th>제목(기본언어)</th>
-                                <th>등록일</th>
-                                <th>옵션</th>
+                                <th>{t('post_number')}</th>
+                                <th>{t('game_name')}</th>
+                                <th>{t('category_name')}</th>
+                                <th>{t('language')}({t('default_language')})</th>
+                                <th>{t('registration_date')}</th>
+                                <th>{t('option')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -162,13 +163,13 @@ const FaqManage = () => {
                                                 className={FaqManageStyle.editBtn} 
                                                 onClick={() => handleEdit(boardItem.board_num)}
                                             >
-                                                상세
+                                                {t('info')}
                                             </button>
                                             <button 
                                                 className={FaqManageStyle.deleteBtn} 
                                                 onClick={() => handleDelete(boardItem.board_num)}
                                             >
-                                                삭제
+                                                {t('delete')}
                                             </button>
                                         </td>
                                     </tr>
