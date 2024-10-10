@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UserDetailStyles from './UserDetail.module.css';
 import { fetchGames, userPermissions, assignPermissions, deletePermissions } from "../../utils/api";
-
+import { useTranslation } from "react-i18next";
 interface User {
     idx: number;
     id: string;
@@ -23,6 +23,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     const [selectedPermissions, setSelectedPermissions] = useState<boolean[]>([]);
     const [allSelected, setAllSelected] = useState(false);
     const [selectedGameId, setSelectedGameId] = useState<string>('');
+    const {t} = useTranslation()
 
     useEffect(() => {
         const loadGames = async () => {
@@ -125,7 +126,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             <div className={UserDetailStyles.modalContent}>
                 {/* User ID */}
                 <div className={UserDetailStyles.userId}>
-                    <label>유저 아이디:</label>
+                    <label>{t('userId')}:</label>
                     <span>{user?.id}</span>
                 </div>
 
@@ -141,16 +142,16 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
 
                 <div className={UserDetailStyles.perActions}>
                     <button className={UserDetailStyles.gameButton} onClick={handleSelectAll}>
-                        {allSelected ? '전체 선택 해제' : '전체 선택'}
+                        {allSelected ? `${t('allselect_off')}` : `${('all_select')}`}
                     </button>
                     <button className={UserDetailStyles.gameButton} onClick={handleDeletePermissions}>
-                        권한 삭제
+                        {t('delete_per')}
                     </button>
                 </div>
 
 
                 <div className={UserDetailStyles.permissions}>
-                    <h4>권한</h4>
+                    <h4>{t("permission")}</h4>
                     {permissions.map((permission, index) => (
                         <div className="permission-item" key={permission.id}>
                             <input
@@ -166,10 +167,10 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                 <div className={UserDetailStyles.actions}>
 
                     <button className={UserDetailStyles.cancelButton} onClick={closeModal}>
-                        닫기
+                        {t('close')}
                     </button>
                     <button className={UserDetailStyles.saveButton} onClick={handleSavePermissions}>
-                        저장
+                        {t('save')}
                     </button>
                 </div>
             </div>

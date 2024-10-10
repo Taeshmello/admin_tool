@@ -1,6 +1,7 @@
 import MenuAddStyle from './MenuAdd.module.css';
 import { fetchBoardAdminStatus, fetchBoardUserStatus, fetchServiceCode, fetchMenuName } from '../../utils/menu';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 interface userStatus {
     check_status: string;
 }
@@ -29,7 +30,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
     const [selectedAdminStatus, setSelectedAdminStatus] = useState<string>();
     const [selectedServiceCode, setSelectedServiceCode] = useState<number | null>(null);
     const [selectedMenuName, setSelectedMenuName] = useState<number[]>([]);
-
+    const {t} = useTranslation();
     useEffect(() => {
         const loadStatusData = async () => {
             try {
@@ -139,7 +140,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     value={selectedServiceCode ?? ""}
                     onChange={(e) => setSelectedServiceCode(Number(e.target.value))}
                 >
-                    <option>서비스코드 선택</option>
+                    <option>{t('servicecode_select')}</option>
                     {serviceCode.map((serviceCode, index) => (
                         <option key={index} value={serviceCode.service_idx}>
                             {serviceCode.service_code}
@@ -154,7 +155,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                         setSelectedMenuName(selectedValue); // selectedValue가 배열 형태여야 함
                     }}
                 >
-                    <option value="">메뉴 선택</option>
+                    <option value="">{t('menu_select')}</option>
                     {menuName.map((menu, index) => (
                         <option key={index} value={JSON.stringify([menu.section, menu.menu_name, menu.menu_code, menu.lang_code])}>
                             {menu.menu_name}
@@ -166,7 +167,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     value={selectedAdminStatus}
                     onChange={(e) => setSelectedAdminStatus(e.target.value)}
                 >
-                    <option value="">관리자 전용 상태 선택</option>
+                    <option value="">{t('admin_status')}</option>
                     {adminStatus.map((admin_status, index) => (
                         <option key={index} value={admin_status.admin_status}>
                             {admin_status.admin_status}
@@ -178,7 +179,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     value={selectedUserStatus}
                     onChange={(e) => setSelectedUserStatus(e.target.value)}
                 >
-                    <option value="">유저 공개/비공개 선택</option>
+                    <option value="">{t('show_select')}</option>
                     {status.map((status, index) => (
                         <option key={index} value={status.check_status}>
                             {status.check_status}
@@ -188,8 +189,8 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
 
 
                 <div className={MenuAddStyle.btnContent}>
-                    <button className={MenuAddStyle.close} onClick={closeAdd}>닫기</button>
-                    <button className={MenuAddStyle.saveBtn} onClick={handleSave}>저장</button>
+                    <button className={MenuAddStyle.close} onClick={closeAdd}>{t('close')}</button>
+                    <button className={MenuAddStyle.saveBtn} onClick={handleSave}>{t('save')}</button>
                 </div>
             </div>
         </div>

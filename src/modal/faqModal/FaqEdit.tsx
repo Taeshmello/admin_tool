@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from './FaqEdit.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts"; // updateBoardItem 추가
 import DetailEditor from "../../components/DetailEditor.tsx"; // 에디터 사용 시 추가
-
+import { useTranslation } from "react-i18next";
 interface Game {
     id: number;
     name: string;
@@ -32,7 +32,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
     const [selectedGame, setSelectedGame] = useState<number | null>(null);
     const [title, setTitle] = useState<string>(boardItem.title);
     const [detail, setDetail] = useState<string>(boardItem.detail);
-
+    const {t} = useTranslation()
     useEffect(() => {
         const loadGameData = async () => {
             try {
@@ -124,14 +124,14 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
     return (
         <div className={styles.modal}>
             <div className={styles.modalContent}>
-                <h2 className={styles.writeTitle}>FAQ 상세(수정)</h2>
+                <h2 className={styles.writeTitle}>{t('faq_detail')}({t('edit')})</h2>
                 <select
                     name="game"
                     className={styles.select}
                     onChange={(e) => setSelectedGame(Number(e.target.value))}
                     value={selectedGame ?? ""}
                 >
-                    <option value="">게임 선택</option>
+                    <option value="">{t('game_select')}</option>
                     {games.map((game) => (
                         <option key={game.id} value={game.id}>
                             {game.name}
@@ -145,7 +145,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
                     value={selectedCategory ?? ""}
                     disabled={!selectedGame}
                 >
-                    <option value="">카테고리 선택</option>
+                    <option value="">{t('category_select')}</option>
                     {categories.map((cat) => (
                         <option key={cat.category_name} value={cat.category_name}>
                             {cat.category_name}
@@ -155,7 +155,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
                 <input
                     type="text"
                     className={styles.writeTitleInput}
-                    placeholder="제목"
+                    placeholder={t("title")}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
@@ -164,8 +164,8 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
                     setDetail={setDetail} // onChange를 setDetail로 변경
                 />
                 <div className={styles.btnContainer}>
-                    <button className={styles.close} onClick={closeEdit}>닫기</button>
-                    <button className={styles.save} onClick={handleSave}>수정</button>
+                    <button className={styles.close} onClick={closeEdit}>{t('close')}</button>
+                    <button className={styles.save} onClick={handleSave}>{t('edit')}</button>
                 </div>
             </div>
         </div>

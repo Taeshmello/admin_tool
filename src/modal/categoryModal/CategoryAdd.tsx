@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './CategoryAdd.css';
 import { fetchGames } from "../../utils/faq.ts";
+import { useTranslation } from "react-i18next";
 
 interface Game {
     id: number;
@@ -19,7 +20,7 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => { // 수
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGame, setSelectedGame] = useState<number | null>(null);
     const [category, setCategory] = useState<string | any>("");
-   
+    const {t} = useTranslation();
 
     useEffect(() => {
         const loadGameData = async () => {
@@ -75,14 +76,14 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => { // 수
         <div className="modal">
             <div className="modal-content">
                 <span className="close" onClick={closeModal}>&times;</span>
-                <h2 className="write-title">카테고리 추가하기</h2>
+                <h2 className="write-title">{t('add_category')}</h2>
                 <select
                     name="game"
                     className='select'
                     onChange={(e) => setSelectedGame(Number(e.target.value))}
                     value={selectedGame ?? ""}
                 >
-                    <option value="">게임 선택</option>
+                    <option value="">{t('game_select')}</option>
                     {games.map((game) => (
                         <option key={game.id} value={game.id}>
                             {game.name}
@@ -93,13 +94,13 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => { // 수
                     <input
                     type="text"
                     className="write-input"
-                    placeholder="카테고리"
+                    placeholder={t('category')}
                     value={category}
                     onChange={(e) => setCategory(e.target.value) }
                 />
                 
                 <button className="write-button" onClick={handleSubmit}>
-                    카테고리 추가
+                {t('add_category')}
                 </button>
             </div>
         </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from './FaqEdit.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
 import Editor from "../../components/Editor.tsx";
+import { useTranslation } from "react-i18next";
 
 interface Game {
     id: number;
@@ -24,6 +25,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
     const [title, setTitle] = useState<string>('');
     const [detail, setDetail] = useState<string>('');
     const [selectedDetail, setSelectedDetail] = useState<string | null>("");
+    const {t} = useTranslation();
 
     
 
@@ -69,14 +71,14 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
     return (
         <div className={styles.modal}>
             <div className={styles.modalContent}>
-                <h2 className={styles.writeTitle}>FAQ 수정하기</h2>
+                <h2 className={styles.writeTitle}>{t('edit_faq')}</h2>
                 <select
                     name="game"
                     className={styles.select}
                     onChange={(e) => setSelectedGame(Number(e.target.value))}
                     value={selectedGame ?? ""}
                 >
-                    <option value="">게임 선택</option>
+                    <option value="">{t('game_select')}</option>
                     {games.map((game) => (
                         <option key={game.id} value={game.id}>
                             {game.name}
@@ -90,7 +92,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
                     value={selectedCategory ?? ""}
                     disabled={!selectedGame}
                 >
-                    <option value="">카테고리 선택</option>
+                    <option value="">{t('category_select')}</option>
                     {categories.map((cat) => (
                         <option key={cat.category_name} value={cat.category_name}>
                             {cat.category_name}
@@ -100,15 +102,15 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
                 <input
                     type="text"
                     className={styles.writeTitleInput}
-                    placeholder="제목"
+                    placeholder={t('title')}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 
                     
                     <div className={styles.btnContainer}>
-                    <button className={styles.close} onClick={closeEdit}>닫기</button>
-                    <button className={styles.save}>저장</button>
+                    <button className={styles.close} onClick={closeEdit}>{t('close')}</button>
+                    <button className={styles.save}>{t('save')}</button>
                 </div>
                 </div>
                 

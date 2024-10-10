@@ -1,7 +1,7 @@
-    import { useState,useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import MenuEditStyle from './MenuEdit.module.css';
 import { fetchBoardUserStatus, fetchBoardAdminStatus, updateMenuStatus } from '../../utils/menu';
-
+import { useTranslation } from 'react-i18next';
 interface Board{
     CM_idx:number;
     service_code:string;
@@ -31,7 +31,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
     const [adminStatus, setAdminStatus] = useState<adminStatus[]>([]);
     const [selectedUserStatus, setSelectedUserStatus] = useState<string>(menuItem.UserStatus);
     const [selectedAdminStatus, setSelectedAdminStatus] = useState<string>(menuItem.AdminStatus);
-
+    const {t} = useTranslation()
     useEffect(() => {
         const loadStatusData = async () => {
             try {
@@ -108,7 +108,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
                 <table className={MenuEditStyle.verticalTable}>
                     <tbody>
                         <tr>
-                            <th>공개/비공개</th>
+                            <th>{t('show_select')}</th>
                             <td>
                                 <select
                                     name="status"
@@ -124,7 +124,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
                             </td>
                         </tr>
                         <tr>
-                            <th>관리자전용</th>
+                            <th>{t('admin_status')}</th>
                             <td>
                                 <select
                                     name="adminStatus"
@@ -142,8 +142,8 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
                     </tbody>
                 </table>
                 <div className={MenuEditStyle.btnContainer}>
-                    <button className={MenuEditStyle.close} onClick={closeModal}>닫기</button>
-                    <button className={MenuEditStyle.save} onClick={handleUpdate}>수정</button>
+                    <button className={MenuEditStyle.close} onClick={closeModal}>{t('close')}</button>
+                    <button className={MenuEditStyle.save} onClick={handleUpdate}>{t('update')}</button>
                 </div>
             </div>
         </div>

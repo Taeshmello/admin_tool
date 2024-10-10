@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./ForumAdd.module.css"
 import { fetchLanguage, fetchMenuByServiceCodeId } from "../../utils/forum";
 import { fetchServiceCode, fetchBoardUserStatus } from "../../utils/menu";
+import { useTranslation } from "react-i18next";
 interface ForumAddProp {
     closeAdd: () => void
 }
@@ -33,6 +34,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     const [menu, setMenu] = useState<menu[]>([]);
     const [selectedUserStatus, setSelectedUserStatus] = useState<string | null>("");
     const [status, setStatus] = useState<userStatus[]>([]);
+    const {t} = useTranslation();
     useEffect(() => {
         const loadLanguageData = async () => {
             try {
@@ -100,7 +102,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 <select className={styles.selectMenu}
                     onChange={(e) => setSelectedServiceCode(Number(e.target.value))}
                 >
-                    <option>서비스코드 선택</option>
+                    <option>{t('servicecode_select')}</option>
                     {serviceCode.map((serviceCode, index) => (
                         <option key={index} value={serviceCode.service_idx}>
                             {serviceCode.service_code}
@@ -112,7 +114,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     value={selectedMenu ?? ""}
                     disabled={!selectedServiceCode}
                 >
-                    <option value="">메뉴 선택</option>
+                    <option value="">{t('menu_select')}</option>
                     {menu.map((menu) => (
                         <option key={menu.sectionCode} value={menu.sectionCode}>
                             {menu.sectionCode}
@@ -129,12 +131,12 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 </div>
                 <select className={styles.selectMenu}></select>
                 <div className={styles.statusContainer}>
-                    <h4>공개/비공개 선택</h4>
+                    <h4>{t('show_select')}</h4>
                     <select name="status" className={styles.selectStatus}
                         value={selectedUserStatus || ""} // null 대신 빈 문자열로 설정
                         onChange={(e) => setSelectedUserStatus(e.target.value)}
                     >
-                        <option value="">상태 선택</option> {/* 기본 옵션 추가 */}
+                        <option value="">{t('status_select')}</option> {/* 기본 옵션 추가 */}
                         {status.map((status, index) => (
                             <option key={index} value={status.check_status}>
                                 {status.check_status}
@@ -143,10 +145,10 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     </select>
                 </div>
 
-                <input type="text" placeholder="제목 입력" className={styles.inputTitle}></input>
+                <input type="text" placeholder={t('input_title')} className={styles.inputTitle}></input>
                 <div className={styles.btnContainer}>
-                    <button className={styles.close} onClick={closeAdd}>닫기</button>
-                    <button className={styles.save}>저장</button>
+                    <button className={styles.close} onClick={closeAdd}>{t('close')}</button>
+                    <button className={styles.save}>{t('save')}</button>
                 </div>
             </div>
         </div>
