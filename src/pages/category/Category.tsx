@@ -50,15 +50,15 @@ const Category = () => {
     }, []);
 
     const handleDelete = async (GC_idx: number) => {
-        const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+        const confirmDelete = window.confirm(`${('check_category_delete')}`);
         if (confirmDelete) {
             try {
                 await deleteCategoryItem(GC_idx);
                 setCategories(categories.filter(item => item.GC_idx !== GC_idx));
-                alert('카테고리가 삭제되었습니다.');
+                alert(`${t('category_deleted')}`);
             } catch (error) {
                 console.error("삭제 오류:", error);
-                alert('카테고리 삭제에 실패했습니다.');
+                alert(`${t('category_deleted_failed')}`);
             }
         }
     };

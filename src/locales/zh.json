@@ -72,5 +72,11 @@
     "selected_per_delete": "所选权限已被删除。",
     "deleted_per_failed": "无法删除权限。",
     "per_saved": "权限成功保存。",
-    "per_saved_failed": "无法保存权限。"
+    "per_saved_failed": "无法保存权限。",
+    "category_deleted": "该类别已被删除。",
+    "category_deleted_failed": "无法删除类别。",
+    "check_category_delete": "确定要删除该类别吗?",
+    "check_menu_delete": "确定要删除菜单吗?",
+    "menu_deleted": "菜单已删除。",
+    "menu_deleted_failed": "无法删除菜单。  "
 }

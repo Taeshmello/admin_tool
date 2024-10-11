@@ -36,15 +36,15 @@ const LoginForm: React.FC = () => {
           } else if (UserStatus === 1) {
             navigate('/mainpage');
           } else if (UserStatus === 2) {
-            alert("로그인할 수 없습니다.");
+            alert("Unable to log in.");
           }
         }
       } else {
-        alert("ID 또는 비밀번호가 올바르지 않습니다.");
+        alert("The ID or password is not valid.");
       }
     } catch (error) {
       console.error("로그인 요청 실패:", error);
-      alert("서버와의 통신 중 문제가 발생했습니다.");
+      alert("There was a problem communicating with the server.");
     }
   };
 
@@ -58,7 +58,7 @@ const LoginForm: React.FC = () => {
             <input
               id="email"
               type="text"
-              {...register("email", { required: "email를 입력해주세요." })}
+              {...register("email", { required: "Please enter an email." })}
               className={LoginStyle.input}
             />
             {errors.email && <p className={LoginStyle.errorMessage}>{errors.email.message}</p>}
@@ -69,14 +69,14 @@ const LoginForm: React.FC = () => {
             <input
               id="password"
               type="password"
-              {...register("password", { required: "비밀번호를 입력해주세요." })}
+              {...register("password", { required: "Please enter your password." })}
               className={LoginStyle.input}
             />
             {errors.password && <p className={LoginStyle.errorMessage}>{errors.password.message}</p>}
           </div>
 
           <div className={LoginStyle.signUpContainer}>
-            <a href="signup" className={LoginStyle.signup}>회원가입</a>
+            <a href="signup" className={LoginStyle.signup}>Sign Up</a>
           </div>
 
           <button type="submit" className={LoginStyle.loginButton}>Login</button>

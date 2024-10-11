@@ -42,9 +42,9 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                 const permissionsWithId: Permission[] = permissionsList.map((perm, index) => ({
                     permissions: perm.permissions,
                     id: index + 1,
-                }));
+                }));    
                 setPermissions(permissionsWithId);
-
+                
                 const currentPermissions = permissionsWithId.map(perm =>
                     permissionsList.some(userPerm => userPerm.permissions === perm.permissions)
                 );

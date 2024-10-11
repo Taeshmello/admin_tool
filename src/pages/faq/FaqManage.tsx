@@ -85,17 +85,17 @@ const FaqManage = () => {
     }, [board, selectedGame, searchTerm]);
 
     const handleDelete = async (boardNum: number) => {
-        const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+        const confirmDelete = window.confirm(`${("check_menu_delete")}`);
         if (confirmDelete) {
             try {
                 await deleteBoardItem(boardNum);
                 const updatedBoard = board.filter(item => item.board_num !== boardNum);
                 setBoard(updatedBoard);
                 setFilteredBoard(updatedBoard);
-                alert('게시물이 삭제되었습니다.');
+                alert(`${("menu_deleted")}`);
             } catch (error) {
                 console.error("삭제 오류:", error);
-                alert('게시물 삭제에 실패했습니다.');
+                alert(`${('menu_deleted_failed')}`);
             }
         }
     };

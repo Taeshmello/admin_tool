@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import SignUpStyle from './SiginUp.module.css';
 import { useNavigate } from 'react-router-dom';
 
+
 type FormValues = {
   id: string;
   password: string;
@@ -13,10 +14,10 @@ const SignUp: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const navigate = useNavigate();
 
+
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[!@#])[\da-zA-Z!@#]{8,}$/;
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log('Submitting data:', data);
     try {
       const response = await fetch("http://localhost:5000/auth/send", {
         method: "POST",
@@ -26,17 +27,14 @@ const SignUp: React.FC = () => {
         body: JSON.stringify(data),
       });
 
-      console.log('Response status:', response.status);
-
       if (response.ok) {
-        alert("데이터가 성공적으로 전송되었습니다.");
+        alert('signup success');
         navigate('/');
       } else {
         const errorText = await response.text();
-        alert(`데이터 전송에 실패했습니다. 서버 응답: ${errorText}`);
+        alert(`'signup_failed': ${errorText}`);
       }
     } catch (error) {
-      alert("라우터 접근에 문제가 있습니다.");
     }
   };
 
@@ -51,7 +49,7 @@ const SignUp: React.FC = () => {
             <input
               id="id"
               type="text"
-              {...register("id", { required: "ID를 입력해주세요." })}
+              {...register("id", { required: "Please enter an id." })}
               className={SignUpStyle.input}
             />
             {errors.id && <p className={SignUpStyle.errorMessage}>{errors.id.message}</p>}
@@ -63,10 +61,10 @@ const SignUp: React.FC = () => {
               id="password"
               type="password"
               {...register("password", {
-                required: "비밀번호를 입력해주세요.",
+                required: "Please enter your Password.",
                 pattern: {
                   value: passwordRegex,
-                  message: "비밀번호는 최소 8자, 문자, 숫자, 특수문자(!@#)를 포함해야 합니다."
+                  message: "Password must contain at least 8 characters, letters, numbers, and special characters (!@#)."
                 }
               })}
               className={SignUpStyle.input}
@@ -79,15 +77,15 @@ const SignUp: React.FC = () => {
             <input
               id="email"
               type="email"
-              {...register("email", { required: "이메일을 입력해주세요." })}
+              {...register("email", { required: "Please enter your email." })}
               className={SignUpStyle.input}
             />
             {errors.email && <p className={SignUpStyle.errorMessage}>{errors.email.message}</p>}
           </div>
 
           <div className={SignUpStyle.signUpContainer}>
-            <h4>이미 계정이 있나요?</h4>
-            <a href="/" className={SignUpStyle.login}> 로그인</a>
+            <h4>Do you already have an account?</h4>
+            <a href="/" className={SignUpStyle.login}>login</a>
           </div>
 
           <button type="submit" className={SignUpStyle.loginButton}>Sign Up</button>

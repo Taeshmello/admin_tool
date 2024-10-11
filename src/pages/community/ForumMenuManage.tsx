@@ -93,7 +93,6 @@ const ForumMenuManage: React.FC = () => {
             setIsModalOpen(true);
         } catch (error) {
             console.error("메뉴 조회 오류", error);
-            alert('메뉴 조회 실패했습니다.');
         }
     };
 
