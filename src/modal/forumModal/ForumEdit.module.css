@@ -43,3 +43,10 @@
 .close:hover {
     background-color: #f0f0f0; 
 }
+
+.btnContainer {
+    margin-top: auto; 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
