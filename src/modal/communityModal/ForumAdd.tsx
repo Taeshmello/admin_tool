@@ -3,6 +3,9 @@ import styles from "./ForumAdd.module.css"
 import { fetchLanguage, fetchMenuByServiceCodeId } from "../../utils/forum";
 import { fetchServiceCode, fetchBoardUserStatus } from "../../utils/menu";
 import { useTranslation } from "react-i18next";
+import ForumEditor from "../../components/ForumEditor";
+import { useCookies } from 'react-cookie';
+import { refreshAccessToken, fetchData } from "../../utils/api";
 interface ForumAddProp {
     closeAdd: () => void
 }
@@ -28,13 +31,20 @@ interface userStatus {
 
 const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     const [languages, setLanguages] = useState<languages[]>([]);
+    const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+    const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
+    const [selecetedLanguage, setSelectedLanguage] = useState<string[]>([]);
     const [serviceCode, setServiceCode] = useState<serviceCode[]>([]);
     const [selectedServiceCode, setSelectedServiceCode] = useState<number | null>(null);
     const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
     const [menu, setMenu] = useState<menu[]>([]);
     const [selectedUserStatus, setSelectedUserStatus] = useState<string | null>("");
     const [status, setStatus] = useState<userStatus[]>([]);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
+    const [title, setTitle] = useState<string>('');
+    const [detail, setDetail] = useState<string>('');
+
+
     useEffect(() => {
         const loadLanguageData = async () => {
             try {
@@ -91,11 +101,82 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 console.error("상태 데이터 불러오기 오류:", error);
             }
         };
+        const fetchUser = async () => {
+            try {
+                if (!cookies.accessToken) {
+                    await refreshAccessToken(setCookie);
+                }
+
+                if (cookies.accessToken) {
+                    const userData = await fetchData(cookies.accessToken);
+                    setUserInfo(userData);
+                }
+            } catch (error) {
+                console.error("유저 정보를 가져오는 중 오류 발생:", error);
+            }
+        };
+
+        fetchUser();
         loadServiceMenu();
         loadLanguageData();
         loadServiceCode();
         loadStatusData();
-    }, [selectedServiceCode])
+    }, [selectedServiceCode, cookies.accessToken, setCookie, removeCookie])
+
+    const handleSubmit = async () => {
+        if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {
+            alert(`${t('plz_fill_space')}`);
+            return;
+        }
+
+
+        try {
+            const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx; // 선택된 언어 코드 가져오기
+
+            const response = await fetch("http://localhost:5000/forum/insert", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                },
+
+                body: JSON.stringify({
+                    ServiceCode: selectedServiceCode,
+                    Category: selectedMenu, // 숫자로 변환
+                    LanguageCode: selectedLanguageCode, // 이제 int 타입으로 전송
+                    title: title,
+                    contents: detail,
+                    UserId: userInfo?.name || 'unknown', // 기본값 설정
+                    UserStatus: selectedUserStatus
+                })
+            });
+
+
+            if (!response.ok) {
+                throw new Error('서버 응답 오류');
+            }
+
+            const result = await response.json();
+            alert("게시물 작성 완료")
+            console.log(result);
+        } catch (error) {
+            console.error("게시물 작성 중 오류:", error);
+        }
+    };
+    const handleCheckboxChange = (lang: string) => {
+        setSelectedLanguage(prevSelectedLanguages => {
+            if (prevSelectedLanguages.includes(lang)) {
+                // 이미 선택된 언어라면 배열에서 제거
+                return prevSelectedLanguages.filter(selectedLang => selectedLang !== lang);
+            } else {
+                // 선택되지 않은 언어라면 배열에 추가
+                return [...prevSelectedLanguages, lang];
+            }
+        });
+    };
+
+
     return (
         <div className={styles.modal}>
             <div className={styles.modalContent}>
@@ -121,22 +202,27 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                         </option>
                     ))}
                 </select>
-                <div className={styles.checkBoxContainer}>
+                <div className={styles.languageContainer}>
                     {languages.map((lang, index) => (
                         <div key={index}>
-                            <input type="checkbox" id={`lang-${index}`} value={lang.Lang} />
+                            <input
+                                type="checkbox"
+                                id={`lang-${index}`}
+                                value={lang.Lang}
+                                onChange={() => handleCheckboxChange(lang.Lang)}
+                                checked={selecetedLanguage.includes(lang.Lang)} // 선택된 언어 상태 반영
+                            />
                             <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
                         </div>
                     ))}
                 </div>
-                <select className={styles.selectMenu}></select>
                 <div className={styles.statusContainer}>
                     <h4>{t('show_select')}</h4>
                     <select name="status" className={styles.selectStatus}
-                        value={selectedUserStatus || ""} // null 대신 빈 문자열로 설정
+                        value={selectedUserStatus || ""}
                         onChange={(e) => setSelectedUserStatus(e.target.value)}
                     >
-                        <option value="">{t('status_select')}</option> {/* 기본 옵션 추가 */}
+                        <option value="">{t('status_select')}</option>
                         {status.map((status, index) => (
                             <option key={index} value={status.check_status}>
                                 {status.check_status}
@@ -145,10 +231,15 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     </select>
                 </div>
 
-                <input type="text" placeholder={t('input_title')} className={styles.inputTitle}></input>
+
+                <input type="text" onChange={(e) => setTitle(e.target.value)} placeholder={t('input_title')} className={styles.inputTitle}></input>
+                <div className={styles.editorContainer}>
+                    <ForumEditor detail={detail} setDetail={setDetail} />
+                </div>
                 <div className={styles.btnContainer}>
+
                     <button className={styles.close} onClick={closeAdd}>{t('close')}</button>
-                    <button className={styles.save}>{t('save')}</button>
+                    <button className={styles.save} onClick={handleSubmit}>{t('save')}</button>
                 </div>
             </div>
         </div>

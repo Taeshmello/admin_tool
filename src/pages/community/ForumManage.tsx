@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 interface Forum {
     FB_idx: number;
-    ServiceCodeName: string;  // 변경
-    CategoryName: string;      // 변경
+    ServiceCode: string;  // 변경
+    Category: string;      // 변경
     LanguageCode: string;
     Title: string;
     HaveFile: string;
@@ -69,8 +69,8 @@ const ForumManage: React.FC = () => {
                             {forums.map(forum => (
                                 <tr key={forum.FB_idx}>
                                     <td>{forum.FB_idx}</td>
-                                    <td>{forum.ServiceCodeName}</td>
-                                    <td>{forum.CategoryName}</td>
+                                    <td>{forum.ServiceCode}</td>
+                                    <td>{forum.Category}</td>
                                     <td>{forum.LanguageCode}</td>
                                     <td>{forum.Title}</td>
                                     <td>{forum.HaveFile}</td>

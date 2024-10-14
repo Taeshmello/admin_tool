@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/locales/i18n.ts"]
+  "include": ["src","src/@types/ckeditor4-react.d.ts" ,"src/locales/i18n.ts"]
 }
   

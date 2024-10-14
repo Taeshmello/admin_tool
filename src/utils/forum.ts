@@ -16,17 +16,7 @@ export const fetchForum = async() => {
 }
 
 
-export const addForum = async() => {
-    const response = await fetch("http://localhost:5000/forum/insert",{
-        method: "POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-        
-        })
-    })
-}
+
 
 
 export const fetchMenuByServiceCodeId = async(service_idx:number) => {
