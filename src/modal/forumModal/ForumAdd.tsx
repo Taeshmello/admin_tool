@@ -176,6 +176,8 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
         });
     };
 
+   
+
 
     return (
         <div className={styles.modal}>
@@ -214,7 +216,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                             />
                             <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
                         </div>
-                    ))}
+                    ))}     
                 </div>
                 <div className={styles.statusContainer}>
                     <h4>{t('show_select')}</h4>

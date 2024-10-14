@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './ForumManage.module.css';
-import ForumAdd from '../../modal/communityModal/ForumAdd';
+import ForumAdd from '../../modal/forumModal/ForumAdd';
+import Comment from '../../modal/forumModal/Comment';
+import Reply from '../../modal/forumModal/Reply';
+import ForumEdit from '../../modal/forumModal/ForumEdit';
 import { fetchForum } from '../../utils/forum';
 import { useTranslation } from 'react-i18next';
 
@@ -21,6 +24,9 @@ const ForumManage: React.FC = () => {
     const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
     const [forums, setForums] = useState<Forum[]>([]);
     const {t} = useTranslation();
+    const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+    const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false)
+    const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false)
 
     useEffect(() => {
         const loadForums = async () => {
@@ -42,6 +48,28 @@ const ForumManage: React.FC = () => {
     const closeAdd = () => {
         setIsAddOpen(false);
     };
+
+    const openEdit= () => {
+        setIsEditOpen(true)
+    }
+    const closeEdit = () => {
+        setIsEditOpen(false)
+    }
+
+    const openComment = () => {
+        setIsCommentOpen(true)
+    }
+    const closeComment = () => {
+        setIsCommentOpen(false)
+    }
+
+    const openReply = () => {
+        setIsReplyOpen(true)
+    }
+
+    const closeReply = () => {
+        setIsReplyOpen(false)
+    }
 
     return (
         <div className={styles.pageContainer}>
@@ -78,9 +106,9 @@ const ForumManage: React.FC = () => {
                                     <td>{forum.UserIp}</td>
                                     <td>{forum.CreatedAt}</td>
                                     <td>
-                                        <button className={styles.editBtn}>{t('edit')}</button>
-                                        <button className={styles.replyBtn}>{t('reply')}</button>
-                                        <button className={styles.commentBtn}>{t('comment_check')}</button>
+                                        <button className={styles.editBtn} onClick={openEdit}>{t('edit') }</button>
+                                        <button className={styles.replyBtn} onClick={openReply}>{t('reply')}</button>
+                                        <button className={styles.commentBtn} onClick={openComment}>{t('comment_check')}</button>
                                     </td>
                                     <td>{forum.UserStatus}</td>
                                 </tr>
@@ -91,6 +119,9 @@ const ForumManage: React.FC = () => {
             </div>
 
             {isAddOpen && <ForumAdd closeAdd={closeAdd} />}
+            {isEditOpen && <ForumEdit closeEdit={closeEdit}/>}
+            {isCommentOpen && <Comment closeComment={closeComment}/>}
+            {isReplyOpen && <Reply closeReply={closeReply}/>}
         </div>
     );
 }
