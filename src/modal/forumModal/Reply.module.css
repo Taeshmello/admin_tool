@@ -62,3 +62,28 @@
     text-align: center;
     font-size: 15px;
 }
+
+.form{
+    border: 0.2px black;
+    display: flex; 
+}
+.imageUpload{
+    
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-right:5px ;
+}
+
+img{
+    width: 170px;
+    height: 170px;
+}
+
+textarea{
+    width: 300px;
+    height: 50px;
+    padding: 3px;
+}

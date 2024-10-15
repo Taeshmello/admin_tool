@@ -9,13 +9,13 @@ import { useTranslation } from 'react-i18next';
 
 interface Forum {
     FB_idx: number;
-    ServiceCode: string;  
-    Category: string;      
+    ServiceCode: string;
+    Category: string;
     LanguageCode: string;
     Title: string;
     HaveFile: string;
     UserId: string;
-    UserIp: string;            
+    UserIp: string;
     CreatedAt: string;
     UserStatus: string;
 }
@@ -23,7 +23,7 @@ interface Forum {
 const ForumManage: React.FC = () => {
     const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
     const [forums, setForums] = useState<Forum[]>([]);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
     const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
     const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false);
@@ -61,19 +61,21 @@ const ForumManage: React.FC = () => {
     const openComment = (FB_idx: number) => {
         setSelectedFBidx(FB_idx); // 선택된 게시물 번호 저장
         setIsCommentOpen(true);
-    };
+    };t
 
     const closeComment = () => {
         setIsCommentOpen(false);
         setSelectedFBidx(null); // 닫을 때 선택된 게시물 번호 초기화
     };
 
-    const openReply = () => {
+    const openReply = (FB_idx: number) => {
+        setSelectedFBidx(FB_idx);
         setIsReplyOpen(true);
     };
 
     const closeReply = () => {
         setIsReplyOpen(false);
+        setSelectedFBidx(null);
     };
 
     return (
@@ -112,7 +114,7 @@ const ForumManage: React.FC = () => {
                                     <td>{forum.CreatedAt}</td>
                                     <td>
                                         <button className={styles.editBtn} onClick={openEdit}>{t('edit')}</button>
-                                        <button className={styles.replyBtn} onClick={openReply}>{t('reply')}</button>
+                                        <button className={styles.replyBtn} onClick={() => openReply(forum.FB_idx)}>{t('reply')}</button>
                                         <button className={styles.commentBtn} onClick={() => openComment(forum.FB_idx)}>{t('comment_check')}</button>
                                     </td>
                                     <td>{forum.UserStatus}</td>
@@ -128,8 +130,10 @@ const ForumManage: React.FC = () => {
             {isCommentOpen && selectedFBidx !== null && (
                 <Comment closeComment={closeComment} FB_idx={selectedFBidx} />
             )}
-            {isReplyOpen && <Reply closeReply={closeReply} />}
-        </div>
+            {isReplyOpen && selectedFBidx !== null && (
+                <Reply closeReply={closeReply} FB_idx={selectedFBidx} />
+            )}
+        </div>  
     );
 }
 

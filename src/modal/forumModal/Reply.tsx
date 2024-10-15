@@ -4,9 +4,10 @@ import { useState } from "react";
 
 interface ForumReplyProp {
     closeReply: () => void;
+    FB_idx:number
 }
 
-const Reply: React.FC<ForumReplyProp> = ({ closeReply }) => {
+const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
     const { t } = useTranslation();
     const [file, setFile] = useState<File | null>(null);
 
@@ -19,17 +20,16 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply }) => {
     return (
         <div className={ReplyStyles.modal}>
             <div className={ReplyStyles.modalContent}>
-                <div className={ReplyStyles.formGroup}>
+                <div className={ReplyStyles.form}>
                     <label>{t('content')}</label>
                     <textarea className={ReplyStyles.textarea} placeholder={t('pleaseFillReplyContent')}></textarea>
                 </div>
                 
-                <div className={ReplyStyles.formGroup}>
+                <div className={ReplyStyles.forGroup}>
                     <label>{t('image')}</label>
                     <div className={ReplyStyles.imageUpload}>
                         <img
-                            src={file ? URL.createObjectURL(file) : "/no-image-available.png"}
-                            alt="Preview"
+                            src={file ? URL.createObjectURL(file) : "/asset/no_image.jpg"}
                             className={ReplyStyles.imagePreview}
                         />
                         <input
@@ -38,7 +38,7 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply }) => {
                             accept="image/*"
                             onChange={handleFileChange}
                         />
-                    </div>
+                    </div>  
                 </div>
 
                 <div className={ReplyStyles.btnContainer}>

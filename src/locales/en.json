@@ -75,11 +75,13 @@
   "deleted_per_failed": "Failed to delete permission.",
   "per_saved": "Permission saved successfully.",
   "per_saved_failed": "Failed to save permission.",
-  "category_deleted" : "Category has been deleted",
-  "category_deleted_failed" : "Failed to delete Category",
-  "check_category_delete" : "Are you sure you want to delete the category?",
-  "check_menu_delete" : "Are you sure you want to delete the menu?",
-  "menu_deleted" : "Menu has been deleted",
-  "menu_deleted_failed" : "Failed to delete Menu"
-  
+  "category_deleted": "Category has been deleted",
+  "category_deleted_failed": "Failed to delete Category",
+  "check_category_delete": "Are you sure you want to delete the category?",
+  "check_menu_delete": "Are you sure you want to delete the menu?",
+  "menu_deleted": "Menu has been deleted",
+  "menu_deleted_failed": "Failed to delete Menu",
+  "content": "Content",
+  "image": "Image",
+  "pleaseFillReplyContent": "Please fill in the reply content"
 }

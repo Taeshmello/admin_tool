@@ -22,7 +22,7 @@ interface serviceCode {
 
 interface menu {
     sectionCode: string;
-
+ 
 }
 
 interface userStatus {
@@ -163,6 +163,8 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
         } catch (error) {
             console.error("게시물 작성 중 오류:", error);
         }
+        closeAdd();
+        window.location.reload()
     };
     const handleCheckboxChange = (lang: string) => {
         setSelectedLanguage(prevSelectedLanguages => {

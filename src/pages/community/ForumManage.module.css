@@ -34,7 +34,6 @@
 
 .tableContainer {
   font-family: Arial, sans-serif;
-  max-height: 500px;
   overflow-y: auto; /* 스크롤 추가 */
 }
 
