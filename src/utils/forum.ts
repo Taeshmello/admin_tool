@@ -26,3 +26,13 @@ export const fetchMenuByServiceCodeId = async(service_idx:number) => {
     }
     return response.json();
 }
+
+
+
+export const fetchComments = async (FB_idx:number) => {
+    const response = await fetch(`http://localhost:5000/forum/comments/${FB_idx}`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch comments');
+    }
+    return await response.json();
+};

@@ -9,13 +9,13 @@ import { useTranslation } from 'react-i18next';
 
 interface Forum {
     FB_idx: number;
-    ServiceCode: string;  // 변경
-    Category: string;      // 변경
+    ServiceCode: string;  
+    Category: string;      
     LanguageCode: string;
     Title: string;
     HaveFile: string;
     UserId: string;
-    UserIp: string;            // UserIp는 문자열입니다
+    UserIp: string;            
     CreatedAt: string;
     UserStatus: string;
 }
@@ -25,8 +25,9 @@ const ForumManage: React.FC = () => {
     const [forums, setForums] = useState<Forum[]>([]);
     const {t} = useTranslation();
     const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
-    const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false)
-    const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false)
+    const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
+    const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false);
+    const [selectedFBidx, setSelectedFBidx] = useState<number | null>(null); // 선택된 게시물 번호 상태
 
     useEffect(() => {
         const loadForums = async () => {
@@ -49,27 +50,31 @@ const ForumManage: React.FC = () => {
         setIsAddOpen(false);
     };
 
-    const openEdit= () => {
-        setIsEditOpen(true)
-    }
-    const closeEdit = () => {
-        setIsEditOpen(false)
-    }
+    const openEdit = () => {
+        setIsEditOpen(true);
+    };
 
-    const openComment = () => {
-        setIsCommentOpen(true)
-    }
+    const closeEdit = () => {
+        setIsEditOpen(false);
+    };
+
+    const openComment = (FB_idx: number) => {
+        setSelectedFBidx(FB_idx); // 선택된 게시물 번호 저장
+        setIsCommentOpen(true);
+    };
+
     const closeComment = () => {
-        setIsCommentOpen(false)
-    }
+        setIsCommentOpen(false);
+        setSelectedFBidx(null); // 닫을 때 선택된 게시물 번호 초기화
+    };
 
     const openReply = () => {
-        setIsReplyOpen(true)
-    }
+        setIsReplyOpen(true);
+    };
 
     const closeReply = () => {
-        setIsReplyOpen(false)
-    }
+        setIsReplyOpen(false);
+    };
 
     return (
         <div className={styles.pageContainer}>
@@ -106,9 +111,9 @@ const ForumManage: React.FC = () => {
                                     <td>{forum.UserIp}</td>
                                     <td>{forum.CreatedAt}</td>
                                     <td>
-                                        <button className={styles.editBtn} onClick={openEdit}>{t('edit') }</button>
+                                        <button className={styles.editBtn} onClick={openEdit}>{t('edit')}</button>
                                         <button className={styles.replyBtn} onClick={openReply}>{t('reply')}</button>
-                                        <button className={styles.commentBtn} onClick={openComment}>{t('comment_check')}</button>
+                                        <button className={styles.commentBtn} onClick={() => openComment(forum.FB_idx)}>{t('comment_check')}</button>
                                     </td>
                                     <td>{forum.UserStatus}</td>
                                 </tr>
@@ -119,9 +124,11 @@ const ForumManage: React.FC = () => {
             </div>
 
             {isAddOpen && <ForumAdd closeAdd={closeAdd} />}
-            {isEditOpen && <ForumEdit closeEdit={closeEdit}/>}
-            {isCommentOpen && <Comment closeComment={closeComment}/>}
-            {isReplyOpen && <Reply closeReply={closeReply}/>}
+            {isEditOpen && <ForumEdit closeEdit={closeEdit} />}
+            {isCommentOpen && selectedFBidx !== null && (
+                <Comment closeComment={closeComment} FB_idx={selectedFBidx} />
+            )}
+            {isReplyOpen && <Reply closeReply={closeReply} />}
         </div>
     );
 }

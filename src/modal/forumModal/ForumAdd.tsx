@@ -124,7 +124,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     }, [selectedServiceCode, cookies.accessToken, setCookie, removeCookie])
 
     const handleSubmit = async () => {
-        if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {
+          if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {
             alert(`${t('plz_fill_space')}`);
             return;
         }
@@ -176,7 +176,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
         });
     };
 
-   
+
 
 
     return (
@@ -216,7 +216,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                             />
                             <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
                         </div>
-                    ))}     
+                    ))}
                 </div>
                 <div className={styles.statusContainer}>
                     <h4>{t('show_select')}</h4>
