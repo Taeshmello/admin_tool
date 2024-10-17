@@ -37,9 +37,11 @@ const ForumManage: React.FC = () => {
             } catch (error) {
                 console.error(error);
             }
+            
         };
 
         loadForums();
+        
     }, []);
 
     const openAdd = () => {
@@ -77,6 +79,8 @@ const ForumManage: React.FC = () => {
         setIsReplyOpen(false);
         setSelectedFBidx(null);
     };
+
+    
 
     return (
         <div className={styles.pageContainer}>

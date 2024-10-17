@@ -21,7 +21,7 @@ const Comment: React.FC<ForumCommentProp> = ({ closeComment, FB_idx }) => {
                 console.error(error);
             }
         };
-
+        
         loadComments();
     }, [FB_idx]);
 

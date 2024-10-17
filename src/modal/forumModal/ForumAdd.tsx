@@ -155,7 +155,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
 
             if (!response.ok) {
                 throw new Error('서버 응답 오류');
-            }
+            }   
 
             const result = await response.json();
             alert("게시물 작성 완료")
