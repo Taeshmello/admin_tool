@@ -78,5 +78,7 @@
     "check_category_delete": "确定要删除该类别吗?",
     "check_menu_delete": "确定要删除菜单吗?",
     "menu_deleted": "菜单已删除。",
-    "menu_deleted_failed": "无法删除菜单。"
+    "menu_deleted_failed": "无法删除菜单。",
+    "date": "时间",
+    "top_fixed": "上端固定"
 }

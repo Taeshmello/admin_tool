@@ -65,10 +65,8 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
             });
     
             if (response.ok) {
-                console.log("댓글이 성공적으로 추가되었습니다.");
                 closeReply(); 
             } else {
-                console.error("댓글 추가 실패");
             }
         } catch (error) {
             console.error("에러 발생:", error);

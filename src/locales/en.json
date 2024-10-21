@@ -83,5 +83,7 @@
   "menu_deleted_failed": "Failed to delete Menu",
   "content": "Content",
   "image": "Image",
-  "pleaseFillReplyContent": "Please fill in the reply content"
+  "pleaseFillReplyContent": "Please fill in the reply content",
+  "date" : "Date",
+  "top_fixed" : "Top Fixed"
 }

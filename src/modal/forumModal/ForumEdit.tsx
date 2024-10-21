@@ -32,13 +32,13 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, forumItem }) => {
             <div className={EditStyles.modalContent}>
             <table className={EditStyles.table}>
             <thead className={EditStyles.thead}>
-                <th className={EditStyles.th}>서비스코드</th>
-                <th className={EditStyles.th}>분류</th>
-                <th className={EditStyles.th}>기간???</th>
-                <th className={EditStyles.th}>상단 고정</th>
-                <th className={EditStyles.th}>상태</th>
-                <th className={EditStyles.th}>제목</th>
-                <th className={EditStyles.th}>내용</th>
+                <th className={EditStyles.th}>{t('service_code')}</th>
+                <th className={EditStyles.th}>{t('category')}</th>
+                <th className={EditStyles.th}>{t('date')}</th>
+                <th className={EditStyles.th}>{t('top_fixed')}</th>
+                <th className={EditStyles.th}>{t('status')}</th>
+                <th className={EditStyles.th}>{t('title')}</th>
+                <th className={EditStyles.th}>{t('detail')}</th>
             </thead>
             <tbody className={EditStyles.tbody}>
                 <tr className={EditStyles.tr}>

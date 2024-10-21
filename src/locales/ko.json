@@ -80,5 +80,7 @@
   "check_category_delete": "카테고리를 삭제하시겠습니까?",
   "check_menu_delete": "메뉴를 삭제하시겠습니까?",
   "menu_deleted": "메뉴가 삭제되었습니다.",
-  "menu_deleted_failed": "메뉴 삭제에 실패하였습니다."
+  "menu_deleted_failed": "메뉴 삭제에 실패하였습니다.",
+  "date": "기간",
+  "top_fixed" : "상단 고정"
 }
