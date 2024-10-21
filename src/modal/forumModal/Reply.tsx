@@ -46,21 +46,22 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
     const handleSubmit = async () => {
         const formData = new FormData();
         
-        // 파일이 존재할 때만 FormData에 추가
+        // Append text data
+        formData.append("FB_idx", FB_idx.toString()); // Ensure FB_idx is a string in FormData
+        formData.append("UserId", userInfo?.name || ""); // Add default empty string if userInfo is null
+        formData.append("NickName", userInfo?.name || "");
+        formData.append("details", details);
+        formData.append("check_status", "Y");
+    
+        // Append file if it exists
         if (file) {
-            formData.append("image", file); // 이미지 추가  
+            formData.append("image", file);
         }
-        
-        formData.append("FB_idx", FB_idx);
-        formData.append("UserId", String(userInfo?.name));
-        formData.append("NickName", String(userInfo?.name));
-        formData.append("details", details); // 댓글 내용
-        formData.append("check_status", "active"); // 댓글 상태
     
         try {
-            const response = await fetch(`http://localhost:5000/forum/insertComment/:FB_idx`, {
+            const response = await fetch(`http://localhost:5000/forum/insertComment/${FB_idx}`, {
                 method: "POST",
-                body: formData,
+                body: formData, // Use formData instead of JSON
             });
     
             if (response.ok) {
@@ -73,6 +74,7 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
             console.error("에러 발생:", error);
         }
     };
+    
 
     return (
         <div className={ReplyStyles.modal}>

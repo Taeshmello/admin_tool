@@ -45,7 +45,7 @@ const Comment: React.FC<ForumCommentProp> = ({ closeComment, FB_idx }) => {
                                 <tr key={comment.CommentID}>
                                     <td>{comment.UserId}</td>
                                     <td>{comment.NickName}</td>
-                                    <td>{comment.Images ? <img src={comment.Images} alt="comment" /> : '-'}</td>
+                                    <td>{comment.Images ? <img src={comment.Images} /> : '-'}</td>
                                     <td>{comment.details}</td>
                                     <td>{new Date(comment.CreatedAt).toLocaleString()}</td>
                                     <td>{comment.check_status}</td>

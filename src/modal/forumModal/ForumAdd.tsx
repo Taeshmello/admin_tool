@@ -150,7 +150,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     UserId: userInfo?.name || 'unknown', // 기본값 설정
                     UserStatus: selectedUserStatus
                 })
-            });
+            }); 
 
 
             if (!response.ok) {

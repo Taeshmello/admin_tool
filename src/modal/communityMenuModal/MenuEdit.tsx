@@ -1,15 +1,15 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import MenuEditStyle from './MenuEdit.module.css';
 import { fetchBoardUserStatus, fetchBoardAdminStatus, updateMenuStatus } from '../../utils/menu';
 import { useTranslation } from 'react-i18next';
-interface Board{
-    CM_idx:number;
-    service_code:string;
-    SectionCode:string;
-    LanguageCode:string;
-    Title:string;
-    UserStatus:string;
-    AdminStatus:string;
+interface Board {
+    CM_idx: number;
+    service_code: string;
+    SectionCode: string;
+    LanguageCode: string;
+    Title: string;
+    UserStatus: string;
+    AdminStatus: string;
 }
 
 
@@ -31,7 +31,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
     const [adminStatus, setAdminStatus] = useState<adminStatus[]>([]);
     const [selectedUserStatus, setSelectedUserStatus] = useState<string>(menuItem.UserStatus);
     const [selectedAdminStatus, setSelectedAdminStatus] = useState<string>(menuItem.AdminStatus);
-    const {t} = useTranslation()
+    const { t } = useTranslation()
     useEffect(() => {
         const loadStatusData = async () => {
             try {
@@ -81,7 +81,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
                 },
                 body: JSON.stringify(updatedData),
             });
-    
+
             if (response.ok) {
                 alert(`${t('menu_edited')}`);
                 closeModal();

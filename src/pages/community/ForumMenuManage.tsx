@@ -33,7 +33,7 @@ const ForumMenuManage: React.FC = () => {
     const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
     const [serviceCode, setServiceCode] = useState<ServiceCode[]>([]);
     const [selectedServiceCode, setSelectedServiceCode] = useState<string>('');
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     useEffect(() => {
         const loadMenuData = async () => {
             try {
@@ -156,7 +156,6 @@ const ForumMenuManage: React.FC = () => {
                                         <td><button className={ForumMenuManageStyle.editBtn} onClick={() => { handelEdit(boardItem.CM_idx) }} >{t('edit')}</button></td>
                                         <td>
                                             <select name="status" className={ForumMenuManageStyle.selectStatus}>
-                                                <option value="">{boardItem.UserStatus}</option>
                                                 {status.map((status, index) => (
                                                     <option key={index} value={status.check_status}>
                                                         {status.check_status}
