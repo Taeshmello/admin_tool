@@ -46,14 +46,14 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
     const handleSubmit = async () => {
         const formData = new FormData();
         
-        // Append text data
-        formData.append("FB_idx", FB_idx.toString()); // Ensure FB_idx is a string in FormData
-        formData.append("UserId", userInfo?.name || ""); // Add default empty string if userInfo is null
+      
+        formData.append("FB_idx", FB_idx.toString());
+        formData.append("UserId", userInfo?.name || "");
         formData.append("NickName", userInfo?.name || "");
         formData.append("details", details);
         formData.append("check_status", "Y");
     
-        // Append file if it exists
+       
         if (file) {
             formData.append("image", file);
         }
@@ -61,12 +61,12 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
         try {
             const response = await fetch(`http://localhost:5000/forum/insertComment/${FB_idx}`, {
                 method: "POST",
-                body: formData, // Use formData instead of JSON
+                body: formData,
             });
     
             if (response.ok) {
                 console.log("댓글이 성공적으로 추가되었습니다.");
-                closeReply(); // 댓글 등록 후 모달 닫기
+                closeReply(); 
             } else {
                 console.error("댓글 추가 실패");
             }

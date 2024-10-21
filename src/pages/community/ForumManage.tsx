@@ -27,13 +27,13 @@ const ForumManage: React.FC = () => {
     const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
     const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
     const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false);
-    const [selectedFBidx, setSelectedFBidx] = useState<number | null>(null); // 선택된 게시물 번호 상태
+    const [selectedFBidx, setSelectedFBidx] = useState<number | null>(null);
 
     useEffect(() => {
         const loadForums = async () => {
             try {
                 const forumData = await fetchForum();
-                setForums(forumData); // 가져온 데이터를 상태에 저장
+                setForums(forumData);
             } catch (error) {
                 console.error(error);
             }
@@ -61,13 +61,13 @@ const ForumManage: React.FC = () => {
     };
 
     const openComment = (FB_idx: number) => {
-        setSelectedFBidx(FB_idx); // 선택된 게시물 번호 저장
+        setSelectedFBidx(FB_idx);
         setIsCommentOpen(true);
     };t
 
     const closeComment = () => {
         setIsCommentOpen(false);
-        setSelectedFBidx(null); // 닫을 때 선택된 게시물 번호 초기화
+        setSelectedFBidx(null);
     };
 
     const openReply = (FB_idx: number) => {
@@ -130,7 +130,7 @@ const ForumManage: React.FC = () => {
             </div>
 
             {isAddOpen && <ForumAdd closeAdd={closeAdd} />}
-            {isEditOpen && <ForumEdit closeEdit={closeEdit} />}
+            {isEditOpen && <ForumEdit closeEdit={closeEdit} forumItem = {forums}/>}
             {isCommentOpen && selectedFBidx !== null && (
                 <Comment closeComment={closeComment} FB_idx={selectedFBidx} />
             )}

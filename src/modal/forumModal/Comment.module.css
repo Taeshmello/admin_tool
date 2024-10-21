@@ -53,28 +53,28 @@
 
 .commentTable {
     width: 100%;
-    border-collapse: collapse; /* 테두리 간격 제거 */
-    margin-top: 20px; /* 테이블과 버튼 사이의 여백 */
+    border-collapse: collapse; 
+    margin-top: 20px;
 }
 
 .commentTable th,
 .commentTable td {
-    padding: 12px; /* 패딩 추가 */
-    text-align: left; /* 텍스트 왼쪽 정렬 */
-    border-bottom: 1px solid #ddd; /* 하단 테두리 추가 */
+    padding: 12px; 
+    text-align: left;
+    border-bottom: 1px solid #ddd; 
 }
 
 .commentTable th {
-    background-color: #f4f4f4; /* 헤더 배경 색상 */
-    font-weight: bold; /* 헤더 텍스트 굵게 */
+    background-color: #f4f4f4;
+    font-weight: bold;
 }
 
 .commentTable tr:hover {
-    background-color: #f1f1f1; /* 마우스 오버 시 배경 색상 변화 */
+    background-color: #f1f1f1; 
 }
 
 .commentTable img {
-    max-width: 50px; /* 이미지 최대 너비 */
-    max-height: 50px; /* 이미지 최대 높이 */
-    border-radius: 4px; /* 이미지 모서리 둥글게 */
+    max-width: 50px; 
+    max-height: 50px; 
+    border-radius: 4px; 
 }

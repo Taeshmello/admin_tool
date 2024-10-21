@@ -47,7 +47,7 @@ const Header = () => {
     const selectedLanguage = event.target.value;
     i18n.changeLanguage(selectedLanguage)
       .then(() => {
-        localStorage.setItem('language', selectedLanguage); // 로컬 스토리지에 저장
+        localStorage.setItem('language', selectedLanguage);
       })
       .catch((error) => {
         console.error("언어 변경 중 오류 발생:", error);

@@ -11,10 +11,10 @@ interface Game {
 
 
 interface CategoryProps {
-    closeModal: () => void; // closeModal 프롭 추가
+    closeModal: () => void; 
 }
 
-export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => { // 수정된 부분
+export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
     
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [games, setGames] = useState<Game[]>([]);

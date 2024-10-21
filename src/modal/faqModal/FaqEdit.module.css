@@ -74,22 +74,35 @@
 
 
 
-
-.close, .save {
-    cursor: pointer; 
-    font-size: 16px; 
-    padding: 6px 6px; /* 버튼 패딩 추가 */
-    border: 1px solid #ccc; /* 버튼 테두리 추가 */
-    border-radius: 4px; /* 버튼 모서리 둥글게 */
+.close,
+.save {
+    cursor: pointer;
+    font-size: 16px;
+    padding: 6px 6px;
+   
+    border: 1px solid #ccc;
+   
+    border-radius: 4px;
+  
 }
-.save{
-    background-color: #5865f2;;
+
+.save {
+    background-color: #5865f2;
+    ;
     color: white;
 }
-.save:hover{
+
+.save:hover {
     background-color: #4752c4;
 }
+
 .close:hover {
-    background-color: #f0f0f0; /* 버튼 hover 효과 */
+    background-color: #f0f0f0;
 }
 
+.btnContainer {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

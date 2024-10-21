@@ -46,10 +46,10 @@
 .forumTable th,
 .forumTable td {
   border: 1px solid #3a3c40;
-  padding: 5px; /* 패딩 줄이기 */
+  padding: 5px; 
   text-align: left;
-  line-height: 1.2; /* 줄 높이 조정 */
-  height: 30px; /* 원하는 높이로 조정 */
+  line-height: 1.2;
+  height: 30px; 
   font-size: 15px;
 }
 

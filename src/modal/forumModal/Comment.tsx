@@ -10,7 +10,7 @@ interface ForumCommentProp {
 
 const Comment: React.FC<ForumCommentProp> = ({ closeComment, FB_idx }) => {
     const { t } = useTranslation();
-    const [comments, setComments] = useState<any[]>([]); // 댓글 상태 초기화
+    const [comments, setComments] = useState<any[]>([]);
 
     useEffect(() => {
         const loadComments = async () => {

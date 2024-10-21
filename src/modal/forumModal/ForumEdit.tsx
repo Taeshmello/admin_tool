@@ -1,12 +1,12 @@
 import EditStyles from './ForumEdit.module.css'
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
-import { fetchLanguage, fetchMenuByServiceCodeId } from "../../utils/forum";
-import { fetchBoardUserStatus } from "../../utils/menu";
 import ForumEditor from "../../components/ForumEditor";
+import { fetchMenuByServiceCodeId } from '../../utils/forum';
 
 interface ForumEditProp {
     closeEdit: () => void
+    forumItem: Forum
 }
 interface Forum {
     FB_idx: number;
@@ -21,8 +21,9 @@ interface Forum {
     UserStatus: string;
 }
 
-const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit }) => {
+const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, forumItem }) => {
     const { t } = useTranslation();
+    const [selectedServiceCode, setSelectedServiceCode] = useState<string | null>(forumItem.ServiceCode);
 
 
     return (
@@ -39,19 +40,18 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit }) => {
                 <th className={EditStyles.th}>제목</th>
                 <th className={EditStyles.th}>내용</th>
             </thead>
-            <tbody>
+            <tbody className={EditStyles.tbody}>
+                <tr className={EditStyles.tr}>
+                    <td className={EditStyles.td}>
+                    <select ></select>
+                    </td>
+                    <td className={EditStyles.td}>
+                        <select name="" id=""></select>
+                    </td>
+                </tr>
             </tbody>
-
             </table>
-
-
-
-
-
-
-
-
-                <div className={EditStyles.btnContainer}>
+            <div className={EditStyles.btnContainer}>
                     <button className={EditStyles.close} onClick={closeEdit}>
                         {t('close')}
                     </button>

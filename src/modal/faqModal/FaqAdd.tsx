@@ -22,7 +22,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGame, setSelectedGame] = useState<number | null>(null);
     const [title, setTitle] = useState<string>('');
-    const [detail, setDetail] = useState<string>(''); // CKEditor의 내용을 저장할 상태
+    const [detail, setDetail] = useState<string>(''); 
     const {t} = useTranslation()
     useEffect(() => {
         const loadGameData = async () => {
@@ -54,7 +54,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
                     console.error("카테고리 데이터 불러오기 오류:", error);
                 }
             } else {
-                setCategories([]); // 게임이 선택되지 않은 경우 카테고리 초기화
+                setCategories([]); 
             }
         };
         loadCategoryData();
@@ -133,7 +133,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
-                <Editor detail={detail} setDetail={setDetail} /> {/* Editor에 detail과 setDetail 전달 */}
+                <Editor detail={detail} setDetail={setDetail} />
                 <button className={styles.writeButton} onClick={handleSubmit}>
                 {t('add_faq')}
                 </button>

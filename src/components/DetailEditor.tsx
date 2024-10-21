@@ -132,10 +132,10 @@ const DetailEditor: React.FC<EditorProps> = ({detail,setDetail}) => {
                         <CKEditor
                             editor={ClassicEditor}
                             config={editorConfig}
-                            data={detail} // 에디터에 초기 데이터 설정
+                            data={detail} 
                             onChange={(event: any, editor: any) => {
                                 const data = editor.getData();
-                                setDetail(data); // 에디터 내용이 변경될 때마다 상태 업데이트
+                                setDetail(data);
                             }}
                         />
                     </div>

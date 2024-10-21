@@ -131,7 +131,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
 
 
         try {
-            const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx; // 선택된 언어 코드 가져오기
+            const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx;
 
             const response = await fetch("http://localhost:5000/forum/insert", {
 
@@ -143,11 +143,11 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
 
                 body: JSON.stringify({
                     ServiceCode: selectedServiceCode,
-                    Category: selectedMenu, // 숫자로 변환
-                    LanguageCode: selectedLanguageCode, // 이제 int 타입으로 전송
+                    Category: selectedMenu, 
+                    LanguageCode: selectedLanguageCode, 
                     title: title,
                     contents: detail,
-                    UserId: userInfo?.name || 'unknown', // 기본값 설정
+                    UserId: userInfo?.name || 'unknown',
                     UserStatus: selectedUserStatus
                 })
             }); 
@@ -169,10 +169,10 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     const handleCheckboxChange = (lang: string) => {
         setSelectedLanguage(prevSelectedLanguages => {
             if (prevSelectedLanguages.includes(lang)) {
-                // 이미 선택된 언어라면 배열에서 제거
+                
                 return prevSelectedLanguages.filter(selectedLang => selectedLang !== lang);
             } else {
-                // 선택되지 않은 언어라면 배열에 추가
+               
                 return [...prevSelectedLanguages, lang];
             }
         });
@@ -214,7 +214,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                                 id={`lang-${index}`}
                                 value={lang.Lang}
                                 onChange={() => handleCheckboxChange(lang.Lang)}
-                                checked={selecetedLanguage.includes(lang.Lang)} // 선택된 언어 상태 반영
+                                checked={selecetedLanguage.includes(lang.Lang)}
                             />
                             <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
                         </div>

@@ -1,17 +1,13 @@
 import styles from './Department.module.css'
 
 const Department = () => {
-    return(
-        <div className="page-container">
-      <div className="page-content">
-        <div className='title-container'>
-          부서관리
+  return (
+    <div className={styles.pageContainer}>
+      <div className={styles.pageContent}>
+        <button className={styles.departmentAdd}>부서생성</button>
         </div>
-
-
-      </div>
     </div>
-    )
+  )
 }
 
 export default Department;

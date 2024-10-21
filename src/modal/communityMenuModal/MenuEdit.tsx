@@ -87,7 +87,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
                 closeModal();
                 window.location.reload();
             } else {
-                const errorResponse = await response.json(); // 오류 응답을 가져오기
+                const errorResponse = await response.json(); 
                 console.error("메뉴 상태 수정 실패:", errorResponse);
                 alert(`${t("menu_edited_failed")} ${errorResponse.error}`);
             }

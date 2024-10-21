@@ -124,8 +124,8 @@ const Editor: React.FC<EditorProps> = ({detail,setDetail}) => {
 	placeholder: `${t('detail')}`,
 		image: {
             toolbar: [
-                'imageTextAlternative', // 이미지 대체 텍스트
-                'imageStyle:inline', 'imageStyle:block', 'imageStyle:side' // 이미지 스타일
+                'imageTextAlternative',
+                'imageStyle:inline', 'imageStyle:block', 'imageStyle:side' 
             ]
         },
 		table: {
@@ -143,10 +143,10 @@ const Editor: React.FC<EditorProps> = ({detail,setDetail}) => {
                                 <CKEditor
                                     editor={ClassicEditor}
                                     config={editorConfig}
-                                    data={detail} // 에디터에 초기 데이터 설정
+                                    data={detail}
                                     onChange={(e:any, editor:any) => {
                                         const data = editor.getData();
-                                        setDetail(data); // 에디터 내용이 변경될 때마다 상태 업데이트
+                                        setDetail(data);
                                     }}
                                 />
                             )}

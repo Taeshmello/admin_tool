@@ -66,7 +66,7 @@ const Category = () => {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
-    // 선택된 게임에 따라 카테고리 필터링
+
     const filteredCategories = selectedGame 
         ? categories.filter(category => category.game_name === selectedGame) 
         : categories;
@@ -80,8 +80,7 @@ const Category = () => {
                     <select
                         name="game"
                         className={styles.gameSelect}
-                        onChange={(e) => setSelectedGame(e.target.value)} // 선택된 게임 상태 업데이트
-                    >
+                        onChange={(e) => setSelectedGame(e.target.value)}>
                         <option value="">All</option>
                         {games.map((game, index) => (
                             <option key={index} value={game.name}>

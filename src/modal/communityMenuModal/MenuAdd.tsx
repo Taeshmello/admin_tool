@@ -106,10 +106,10 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                 },
                 body: JSON.stringify({
                     ServiceCode: selectedServiceCode,
-                    Classify: selectedMenuName[0], // Section (Classify)
-                    SectionCode: selectedMenuName[2], // Menu Code
-                    LanguageCode: selectedMenuName[3], // Language Code
-                    Title: selectedMenuName[1], // Menu Name
+                    Classify: selectedMenuName[0],
+                    SectionCode: selectedMenuName[2],
+                    LanguageCode: selectedMenuName[3], 
+                    Title: selectedMenuName[1],
                     AdminStatus: selectedAdminStatus,
                     UserStatus: selectedUserStatus,
                 }),
@@ -152,7 +152,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     value={JSON.stringify(selectedMenuName)}
                     onChange={(e) => {
                         const selectedValue = JSON.parse(e.target.value);
-                        setSelectedMenuName(selectedValue); // selectedValue가 배열 형태여야 함
+                        setSelectedMenuName(selectedValue); 
                     }}
                 >
                     <option value="">{t('menu_select')}</option>

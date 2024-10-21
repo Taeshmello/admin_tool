@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from './FaqEdit.module.css';
-import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts"; // updateBoardItem 추가
-import DetailEditor from "../../components/DetailEditor.tsx"; // 에디터 사용 시 추가
+import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts"; 
+import DetailEditor from "../../components/DetailEditor.tsx";
 import { useTranslation } from "react-i18next";
 interface Game {
     id: number;
@@ -13,7 +13,7 @@ interface Category {
 }
 
 interface Board {
-    board_num: number; // 게시물 번호 추가
+    board_num: number; 
     games: number;
     category_name: string;
     title: string;
@@ -22,7 +22,7 @@ interface Board {
 
 interface FaqEditProps {
     closeEdit: () => void;
-    boardItem: Board; // 선택한 게시물 정보를 추가
+    boardItem: Board;
 }
 
 export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
@@ -84,14 +84,14 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             }
     
         const updatedData = {
-            board_num: boardItem.board_num, // 여기에서 board_num 추가
+            board_num: boardItem.board_num,
             game_id: selectedGame,
             category_name: selectedCategory,
             title: title,
             detail: detail,
         };
     
-        console.log("업데이트할 데이터:", updatedData); // 디버깅용 로그
+        console.log("업데이트할 데이터:", updatedData); 
         
     
         try {
@@ -107,7 +107,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
                 alert(`${t("faq_edited")}`);
                 closeEdit();
             } else {
-                const errorResponse = await response.json(); // 오류 응답을 가져오기
+                const errorResponse = await response.json(); 
                 console.error("FAQ 수정 실패:", errorResponse);
                 alert(`${t("faq_edited_failed")} ${errorResponse.error}`);
             }

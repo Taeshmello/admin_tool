@@ -76,7 +76,7 @@
 }
 
 .editBtn {
-  background-color: #5865f2; /* Discord blue */
+  background-color: #5865f2; 
   color: #ffffff;
   border: none;
   padding: 8px 12px;
@@ -86,7 +86,7 @@
 }
 
 .editBtn:hover {
-  background-color: #4752c4; /* Slightly darker blue on hover */
+  background-color: #4752c4; 
 }
 
 .editBtn:focus {

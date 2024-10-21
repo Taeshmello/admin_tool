@@ -25,7 +25,7 @@
 }
 
 .writeInput {
-    width: 96%; /* 너비를 100%로 변경 */
+    width: 96%; 
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -34,14 +34,14 @@
 }
 
 .detailInput {
-    width: 96%; /* 너비를 100%로 변경 */
+    width: 96%; 
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    min-height: 200px; /* 최소 높이 설정 */
-    height: auto; /* 자동 높이 조정 */
+    min-height: 200px; 
+    height: auto;
 }
 
 .writeButton {
@@ -85,8 +85,8 @@
 }
 
 .close {
-    cursor: pointer; /* 포인터 커서로 변경 */
-    font-size: 20px; /* 닫기 버튼 크기 */
-    float: right; /* 오른쪽으로 위치 */
-    margin-bottom: 20px; /* 아래 여백 */
+    cursor: pointer;
+    font-size: 20px; 
+    float: right;
+    margin-bottom: 20px; 
 }

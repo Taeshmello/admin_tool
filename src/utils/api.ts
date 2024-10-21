@@ -28,7 +28,7 @@ export const fetchUserData = async (): Promise<any> => {
             headers: {
                 "Content-Type": "application/json",
             },
-            credentials: "include" // Ensure credentials are included
+            credentials: "include"
         });
 
         if (response.ok) {
@@ -149,12 +149,12 @@ export const assignPermissions = async (data: { user_Idx: number; gameId: string
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data), // 데이터 JSON으로 변환
+            body: JSON.stringify(data),
         });
 
         // 성공 상태 코드 확인
 
-        return await response.json(); // 응답 데이터 반환
+        return await response.json();
     } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
         throw error; // 오류 재발생
@@ -194,7 +194,7 @@ export const fetchUserPermissions = async (userId: number, gameId: number, permi
         return await response.json(); 
     } catch (error) {
         console.error('사용자 권한 조회 중 오류 발생:', error);
-        throw error; // 오류 재발생
+        throw error;
     }
 };
 
