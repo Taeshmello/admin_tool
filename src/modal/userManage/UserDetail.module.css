@@ -27,13 +27,13 @@
     flex-direction: column;
 }
 
-/* Add specific styles for components */
-.userId, .ownedGames, .gameSelect, .permissions, .actions {
-    margin-bottom: 20px;
+
+.userId, .ownedGames, .userGames, .gameSelect, .permissions, .actions {
+    margin-bottom: 10px;
     width: 100%;
 }
 
-.userId label, .ownedGames label, .gameSelect label, .permissions label {
+.userId label, .ownedGames label, .userGames label, .gameSelect label, .permissions label {
     font-weight: bold;
     display: block;
     margin-bottom: 8px;
@@ -77,12 +77,16 @@
 }
 
 .saveButton {
-    background-color: #007bff;
+    background-color: #5865f2;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.saveButton:hover{
+    background-color: #4752c4;
 }
 
 .perActions {
@@ -91,3 +95,21 @@
 
 }
 
+.perGames{
+    background-color: #ccc;
+    padding: 3px 5px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 2px;
+}
+
+
+.userGames{
+    display: flex;
+    align-items: center;
+}
+
+.ownedGame{
+    display: flex;
+}

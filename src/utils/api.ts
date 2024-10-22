@@ -198,4 +198,24 @@ export const fetchUserPermissions = async (userId: number, gameId: number, permi
     }
 };
 
+export const fetchUserPermissionGames = async (userId: number): Promise<any> => {
+    try {
+        const response = await fetch(`http://localhost:5000/auth/user-games-permissions/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            throw new Error('사용자 게임 및 권한 정보를 불러오는 데 실패했습니다.');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('사용자 게임 및 권한 정보를 가져오는 중 오류 발생:', error);
+        throw error; // 오류를 재발생시킴
+    }
+};
 
