@@ -79,7 +79,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
 
     const handleSave = async () => {
             if (selectedGame === null || selectedCategory === null || !title) {
-                alert("모든 필드를 채워주세요.");
+                alert(`${t('"plz_fill_space"')}`);
                 return;
             }
     
@@ -91,7 +91,6 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             detail: detail,
         };
     
-        console.log("업데이트할 데이터:", updatedData); 
         
     
         try {
@@ -160,8 +159,8 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 <DetailEditor 
-                    detail={detail} // content를 detail로 변경
-                    setDetail={setDetail} // onChange를 setDetail로 변경
+                    detail={detail}
+                    setDetail={setDetail} 
                 />
                 <div className={styles.btnContainer}>
                     <button className={styles.close} onClick={closeEdit}>{t('close')}</button>

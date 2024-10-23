@@ -82,5 +82,6 @@
   "menu_deleted": "메뉴가 삭제되었습니다.",
   "menu_deleted_failed": "메뉴 삭제에 실패하였습니다.",
   "date": "기간",
-  "top_fixed" : "상단 고정"
+  "top_fixed" : "상단 고정",
+  "noGamesWithPermissions": "권한 보유중인 게임 없음"
 }

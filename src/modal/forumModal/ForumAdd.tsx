@@ -22,7 +22,7 @@ interface serviceCode {
 
 interface menu {
     sectionCode: string;
- 
+
 }
 
 interface userStatus {
@@ -124,7 +124,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     }, [selectedServiceCode, cookies.accessToken, setCookie, removeCookie])
 
     const handleSubmit = async () => {
-          if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {
+        if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {   
             alert(`${t('plz_fill_space')}`);
             return;
         }
@@ -143,19 +143,19 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
 
                 body: JSON.stringify({
                     ServiceCode: selectedServiceCode,
-                    Category: selectedMenu, 
-                    LanguageCode: selectedLanguageCode, 
+                    Category: selectedMenu,
+                    LanguageCode: selectedLanguageCode,
                     title: title,
                     contents: detail,
                     UserId: userInfo?.name || 'unknown',
                     UserStatus: selectedUserStatus
                 })
-            }); 
+            });
 
 
             if (!response.ok) {
                 throw new Error('서버 응답 오류');
-            }   
+            }
 
             const result = await response.json();
             alert("게시물 작성 완료")
@@ -169,17 +169,14 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     const handleCheckboxChange = (lang: string) => {
         setSelectedLanguage(prevSelectedLanguages => {
             if (prevSelectedLanguages.includes(lang)) {
-                
+
                 return prevSelectedLanguages.filter(selectedLang => selectedLang !== lang);
             } else {
-               
+
                 return [...prevSelectedLanguages, lang];
             }
         });
     };
-
-
-
 
     return (
         <div className={styles.modal}>

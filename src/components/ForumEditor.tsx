@@ -29,7 +29,7 @@ import {
 } from 'ckeditor5';
 import 'ckeditor5/ckeditor5.css';
 import styles from './ForumEdit.module.css'
-
+import { useTranslation } from 'react-i18next';
 interface EditorProps {
     detail: string;
     setDetail: (detail: string) => void;
@@ -42,7 +42,7 @@ const ForumEditor: React.FC<EditorProps> = ({ detail, setDetail }) => {
     const editorContainerRef = useRef(null)
     const editorRef = useRef(null);
     const [isLayoutReady, setIsLayoutReady] = useState(false);
-
+    const {t} = useTranslation()
     useEffect(() => {
         setIsLayoutReady(true);
         return () => setIsLayoutReady(false);
@@ -115,7 +115,7 @@ const ForumEditor: React.FC<EditorProps> = ({ detail, setDetail }) => {
                 }
             }
         },
-        placeholder: '내용',
+        placeholder: `${t('detail')}`,
         table: {
             contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
         }

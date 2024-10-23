@@ -16,16 +16,16 @@ export const fetchCategoriesByGameId = async (gameId: number) => {
 };
 
 
-export const fetchDetails = async(board_num:number):Promise<any> => {
-    try{
-        const response = await fetch(`http://localhost:5000/faq/details/${board_num}`,{
+export const fetchDetails = async (board_num: number): Promise<any> => {
+    try {
+        const response = await fetch(`http://localhost:5000/faq/details/${board_num}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
             credentials: "include",
         });
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error('게시판 조회 요청 실패');
         }
         return await response.json();
@@ -34,18 +34,18 @@ export const fetchDetails = async(board_num:number):Promise<any> => {
         throw error;
     }
 }
- 
 
-export const fetchBoard = async():Promise<any> => {
-    try{
-        const response = await fetch('http://localhost:5000/board/board',{
+
+export const fetchBoard = async (): Promise<any> => {
+    try {
+        const response = await fetch('http://localhost:5000/board/board', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
             credentials: "include",
         });
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error('게시판 조회 요청 실패');
         }
         return await response.json();
@@ -78,9 +78,9 @@ export const fetchBoardItem = async (boardNum: number) => {
         }
 
         const data = await response.json();
-        return data; // 데이터 반환
+        return data;
     } catch (error) {
         console.error("게시물 조회 오류:", error);
-        throw error; // 에러를 다시 던져 호출한 곳에서 처리할 수 있게
+        throw error;
     }
 };

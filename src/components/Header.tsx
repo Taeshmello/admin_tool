@@ -12,9 +12,9 @@ const Header = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
   const { t, i18n } = useTranslation();
 
-  
 
-  
+
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -52,7 +52,7 @@ const Header = () => {
       .catch((error) => {
         console.error("언어 변경 중 오류 발생:", error);
       });
-};
+  };
   return (
     <header className="header">
       <div className="header-left">
@@ -63,7 +63,7 @@ const Header = () => {
         <select className="language-select" onChange={handleLanguageChange} value={i18n.language}>
           <option value="ko">한국어</option>
           <option value="en">English</option>
-          <option value="cn">中文</option>  
+          <option value="cn">中文</option>
         </select>
 
         <div className="profile-container" onClick={toggleDropdown}>

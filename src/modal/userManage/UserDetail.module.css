@@ -1,39 +1,48 @@
 .modal {
-    position: fixed; 
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    z-index: 1000; 
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .modalContent {
-    background-color: #fff; 
-    border-radius: 8px; 
-    padding: 20px; 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
-    max-width: 500px; 
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
     width: 100%;
-    height: 60vh; 
-    overflow-y: auto; 
+    height: 60vh;
+    overflow-y: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
 
-.userId, .ownedGames, .userGames, .gameSelect, .permissions, .actions {
+.userId,
+.ownedGames,
+.userGames,
+.gameSelect,
+.permissions,
+.actions {
     margin-bottom: 10px;
     width: 100%;
 }
 
-.userId label, .ownedGames label, .userGames label, .gameSelect label, .permissions label {
+.userId label,
+.ownedGames label,
+.userGames label,
+.gameSelect label,
+.permissions label {
     font-weight: bold;
     display: block;
     margin-bottom: 8px;
@@ -85,17 +94,17 @@
     cursor: pointer;
 }
 
-.saveButton:hover{
+.saveButton:hover {
     background-color: #4752c4;
 }
 
 .perActions {
-    display: flex;  
+    display: flex;
     width: 100%;
 
 }
 
-.perGames{
+.perGames {
     background-color: #ccc;
     padding: 3px 5px;
     border: none;
@@ -105,11 +114,11 @@
 }
 
 
-.userGames{
+.userGames {
     display: flex;
     align-items: center;
 }
 
-.ownedGame{
+.ownedGame {
     display: flex;
 }

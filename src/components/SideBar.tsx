@@ -9,18 +9,14 @@ const SideBar: React.FC = () => {
   const handleNavItemClick = (index: number) => {
     setActiveItem(activeItem === index ? null : index);
   };
-
-
-
+  
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <h3>Menu</h3> 
+        <h3>Menu</h3>
       </div>
       <nav className="sidebar-nav">
         <ul>
-         
-
           <li className="nav-item">
             <span className="nav-text">
               <a href="userManage">{t('user_management')}</a>
@@ -35,14 +31,14 @@ const SideBar: React.FC = () => {
                   <a href="Category">{t('category_management')}</a>
                 </li>
                 <li>
-                  <a href="faqmanage">{t('faq_management')}</a> 
+                  <a href="faqmanage">{t('faq_management')}</a>
                 </li>
               </ul>
             )}
           </li>
 
           <li className="nav-item" onClick={() => handleNavItemClick(2)}>
-            <span className="nav-text">{t('main_screen_management')}</span> 
+            <span className="nav-text">{t('main_screen_management')}</span>
             {activeItem === 2 && (
               <ul className="sub-menu">
                 <li>

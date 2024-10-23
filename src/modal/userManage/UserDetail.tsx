@@ -22,7 +22,7 @@ interface DetailProps {
 interface UserGame {
     game_name: string;
     permission_name: string;
-}
+}   
 
 const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     const [games, setGames] = useState<{ name: string; id: string }[]>([]);
@@ -30,7 +30,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     const [selectedPermissions, setSelectedPermissions] = useState<boolean[]>([]);
     const [allSelected, setAllSelected] = useState(false);
     const [selectedGameId, setSelectedGameId] = useState<string>('');
-    const [userGames, setUserGames] = useState<UserGame[]>([]); // 유저의 권한을 가진 게임 목록
+    const [userGames, setUserGames] = useState<UserGame[]>([]);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -62,13 +62,13 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                 console.error('권한 목록을 불러오는 데 실패했습니다:', error);
             }
 
-            
+
         };
 
         const loadUserGames = async () => {
             if (!user) return;
             try {
-                const userGameList = await fetchUserPermissionGames(user.idx);  // 유저의 권한을 가진 게임 목록 불러오기
+                const userGameList = await fetchUserPermissionGames(user.idx);
                 setUserGames(userGameList);
             } catch (error) {
                 console.error('유저가 보유한 권한 게임을 불러오는 데 실패했습니다:', error);
@@ -111,6 +111,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             setSelectedPermissions(new Array(permissions.length).fill(false));
             setAllSelected(false);
             alert(`${t('selected_per_delete')}`);
+            window.location.reload()
         } catch (error) {
             console.error('권한 삭제 중 오류 발생:', error);
             alert(`${t('deleted_per_failed')}`);
@@ -135,6 +136,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
         try {
             await assignPermissions(requestBody);
             alert(`${t('per_saved')}`);
+            window.location.reload()
         } catch (error) {
             console.error('권한 저장 중 오류 발생:', error);
             alert(`${t('per_saved_failed')}`);
@@ -172,8 +174,8 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                         {games.map((game, index) => (
                             <option key={index} value={game.name}>
                                 {game.name}
-                            </option>
-                        ))}
+                                </option>
+                            ))}
                     </select>
                 </div>
 

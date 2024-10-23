@@ -152,12 +152,12 @@ export const assignPermissions = async (data: { user_Idx: number; gameId: string
             body: JSON.stringify(data),
         });
 
-        // 성공 상태 코드 확인
+       
 
         return await response.json();
     } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
-        throw error; // 오류 재발생
+        throw error;
     }
 };
 
@@ -215,7 +215,7 @@ export const fetchUserPermissionGames = async (userId: number): Promise<any> => 
         return await response.json();
     } catch (error) {
         console.error('사용자 게임 및 권한 정보를 가져오는 중 오류 발생:', error);
-        throw error; // 오류를 재발생시킴
+        throw error;
     }
 };
 

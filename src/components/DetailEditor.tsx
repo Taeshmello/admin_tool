@@ -27,7 +27,7 @@ import {
 	Underline,
 	Undo
 } from 'ckeditor5';
-
+import { useTranslation } from 'react-i18next';
 
 
 import 'ckeditor5/ckeditor5.css';
@@ -45,7 +45,7 @@ const DetailEditor: React.FC<EditorProps> = ({detail,setDetail}) => {
 	const editorContainerRef = useRef(null);
 	const editorRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
-
+	const {t} = useTranslation();
 	useEffect(() => {
 		setIsLayoutReady(true);
 		return () => setIsLayoutReady(false);
@@ -118,7 +118,7 @@ const DetailEditor: React.FC<EditorProps> = ({detail,setDetail}) => {
 				}
 			}
 		},
-		placeholder: '내용',
+		placeholder: `${t('detail')}`,
 		table: {
 			contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
 		}
