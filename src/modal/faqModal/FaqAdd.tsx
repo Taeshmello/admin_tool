@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from './Write.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
 import Editor from "../../components/Editor.tsx";
 import { useTranslation } from "react-i18next";
-import axios from "axios"; // Axios import 추가
+import axios from "axios"; // Axios import
+import { atom, useAtom } from 'jotai';
 
 interface Game {
     id: number;
@@ -18,13 +19,21 @@ interface WriteProps {
     closeModal: () => void;
 }
 
+// Define Jotai atoms
+const categoriesAtom = atom<Category[]>([]);
+const selectedCategoryAtom = atom<string | null>(null);
+const gamesAtom = atom<Game[]>([]);
+const selectedGameAtom = atom<number | null>(null);
+const titleAtom = atom<string>('');
+const detailAtom = atom<string>('');
+
 export const Write: React.FC<WriteProps> = ({ closeModal }) => {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [games, setGames] = useState<Game[]>([]);
-    const [selectedGame, setSelectedGame] = useState<number | null>(null);
-    const [title, setTitle] = useState<string>('');
-    const [detail, setDetail] = useState<string>(''); 
+    const [categories, setCategories] = useAtom(categoriesAtom);
+    const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
+    const [games, setGames] = useAtom(gamesAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [title, setTitle] = useAtom(titleAtom);
+    const [detail, setDetail] = useAtom(detailAtom);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -41,7 +50,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
             }
         };
         loadGameData();
-    }, []);
+    }, [setGames]);
 
     useEffect(() => {
         const loadCategoryData = async () => {
@@ -61,7 +70,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
             }
         };
         loadCategoryData();
-    }, [selectedGame]);
+    }, [selectedGame, setCategories]);
 
     const handleSubmit = async () => {
         if (selectedGame === null || selectedCategory === null || !title || !detail) {
@@ -79,7 +88,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
 
             if (response.status === 200) {
                 alert(`${t("faq_created")}`);
-                location.reload();
+                location.reload(); // Consider refactoring this to a better state management approach
             } else {
                 console.error("게시물 작성 실패:", response.statusText);
             }
