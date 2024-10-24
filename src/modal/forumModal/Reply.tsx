@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { fetchData, refreshAccessToken } from "../../utils/api";
 import { useCookies } from 'react-cookie';
 import { atom, useAtom } from 'jotai';
+import axios from 'axios';
 
 interface ForumReplyProp {
     closeReply: () => void;
@@ -49,24 +50,25 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
 
     const handleSubmit = async () => {
         const formData = new FormData();
-        
+
         formData.append("FB_idx", FB_idx.toString());
         formData.append("UserId", userInfo?.name || "");
         formData.append("NickName", userInfo?.name || "");
         formData.append("details", details);
         formData.append("check_status", "Y");
-    
+
         if (file) {
             formData.append("image", file);
         }
-    
+
         try {
-            const response = await fetch(`http://localhost:5000/forum/insertComment/${FB_idx}`, {
-                method: "POST",
-                body: formData,
+            const response = await axios.post(`http://localhost:5000/forum/insertComment/${FB_idx}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
             });
-    
-            if (response.ok) {
+
+            if (response.status === 200) {
                 closeReply(); 
             } else {
                 // Handle error response if needed
