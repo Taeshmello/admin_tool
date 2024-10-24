@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import UserManageStyle from './UserManage.module.css';
 import { fetchUserData, fetchGameGenres, fetchGames } from '../../utils/api';
 import UserDetail from '../../modal/userManage/UserDetail';

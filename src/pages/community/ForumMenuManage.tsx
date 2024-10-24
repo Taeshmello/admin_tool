@@ -25,7 +25,7 @@ interface ServiceCode {
     service_code: string;
 }
 
-// Define Jotai atoms
+
 const boardAtom = atom<Board[]>([]);
 const filteredBoardAtom = atom<Board[]>([]);
 const statusAtom = atom<userStatus[]>([]);

@@ -3,7 +3,7 @@ import styles from './Write.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
 import Editor from "../../components/Editor.tsx";
 import { useTranslation } from "react-i18next";
-import axios from "axios"; // Axios import
+import axios from "axios";
 import { atom, useAtom } from 'jotai';
 
 interface Game {
@@ -19,7 +19,7 @@ interface WriteProps {
     closeModal: () => void;
 }
 
-// Define Jotai atoms
+
 const categoriesAtom = atom<Category[]>([]);
 const selectedCategoryAtom = atom<string | null>(null);
 const gamesAtom = atom<Game[]>([]);

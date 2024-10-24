@@ -11,7 +11,7 @@ interface ForumReplyProp {
     FB_idx: number;
 }
 
-// Define Jotai atoms
+
 const fileAtom = atom<File | null>(null);
 const detailsAtom = atom<string>("");
 const userInfoAtom = atom<{ name: string } | null>(null);

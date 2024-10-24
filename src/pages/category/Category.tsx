@@ -18,7 +18,7 @@ interface Games {
     name: string;
 }
 
-// Define Jotai atoms
+
 const categoriesAtom = atom<Category[]>([]);
 const isModalOpenAtom = atom<boolean>(false);
 const isEditModalOpenAtom = atom<boolean>(false);

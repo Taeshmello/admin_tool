@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import './CategoryAdd.css';
 import { fetchGames } from "../../utils/faq.ts";
 import { useTranslation } from "react-i18next";
-import axios from 'axios'; // Axios import 추가
+import axios from 'axios'; 
 import { atom, useAtom } from 'jotai';
 
 interface Game {
@@ -14,7 +14,7 @@ interface CategoryProps {
     closeModal: () => void; 
 }
 
-// Define Jotai atoms
+
 const gamesAtom = atom<Game[]>([]);
 const selectedGameAtom = atom<number | null>(null);
 const categoryAtom = atom<string>("");

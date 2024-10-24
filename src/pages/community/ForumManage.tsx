@@ -21,7 +21,7 @@ interface Forum {
     UserStatus: string;
 }
 
-// Define Jotai atoms
+
 const forumsAtom = atom<Forum[]>([]);
 const isAddOpenAtom = atom<boolean>(false);
 const isEditOpenAtom = atom<boolean>(false);

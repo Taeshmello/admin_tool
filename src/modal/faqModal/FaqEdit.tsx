@@ -27,7 +27,7 @@ interface FaqEditProps {
     boardItem: Board;
 }
 
-// Define Jotai atoms
+
 const categoriesAtom = atom<Category[]>([]);
 const selectedCategoryAtom = atom<string | null>(null);
 const gamesAtom = atom<Game[]>([]);

@@ -17,7 +17,6 @@ interface FaqEditProps {
     closeEdit: () => void;
 }
 
-// Define Jotai atoms
 const gamesAtom = atom<Game[]>([]);
 const selectedGameAtom = atom<number | null>(null);
 const categoriesAtom = atom<Category[]>([]);

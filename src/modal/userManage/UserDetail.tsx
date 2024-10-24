@@ -19,7 +19,7 @@ interface DetailProps {
     user: User | null;
 }
 
-// Define Jotai atoms
+
 const gamesAtom = atom<{ name: string; id: string }[]>([]);
 const permissionsAtom = atom<Permission[]>([]);
 const selectedPermissionsAtom = atom<boolean[]>([]);

@@ -28,7 +28,7 @@ interface EditProps {
     menuItem: Board;
 }
 
-// Define Jotai atoms
+
 const statusAtom = atom<UserStatus[]>([]);
 const adminStatusAtom = atom<AdminStatus[]>([]);
 const selectedUserStatusAtom = atom<string | null>(null);
@@ -75,7 +75,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
         loadAdminStatusData();
     }, [setAdminStatus]);
 
-    // Set initial states based on menuItem
+    
     useEffect(() => {
         setSelectedUserStatus(menuItem.UserStatus);
         setSelectedAdminStatus(menuItem.AdminStatus);

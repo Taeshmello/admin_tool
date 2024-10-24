@@ -29,7 +29,7 @@ interface AddProps {
     closeAdd: () => void;
 }
 
-// Define Jotai atoms
+
 const statusAtom = atom<UserStatus[]>([]);
 const adminStatusAtom = atom<AdminStatus[]>([]);
 const serviceCodeAtom = atom<ServiceCode[]>([]);

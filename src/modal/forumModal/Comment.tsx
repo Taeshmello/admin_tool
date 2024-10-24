@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { fetchComments } from "../../utils/forum";
 import { atom, useAtom } from 'jotai';
 
-// Define Jotai atom for comments
+
 const commentsAtom = atom<any[]>([]);
 
 interface ForumCommentProp {
