@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import MenuEditStyle from './MenuEdit.module.css';
-import { fetchBoardUserStatus, fetchBoardAdminStatus, updateMenuStatus } from '../../utils/menu';
+import { fetchBoardUserStatus, fetchBoardAdminStatus } from '../../utils/menu';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios'; // Axios import 추가
+
 interface Board {
     CM_idx: number;
     service_code: string;
@@ -12,11 +14,9 @@ interface Board {
     AdminStatus: string;
 }
 
-
 interface EditProps {
     closeModal: () => void;
     menuItem: Board;
-
 }
 
 interface userStatus {
@@ -31,7 +31,8 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
     const [adminStatus, setAdminStatus] = useState<adminStatus[]>([]);
     const [selectedUserStatus, setSelectedUserStatus] = useState<string>(menuItem.UserStatus);
     const [selectedAdminStatus, setSelectedAdminStatus] = useState<string>(menuItem.AdminStatus);
-    const { t } = useTranslation()
+    const { t } = useTranslation();
+
     useEffect(() => {
         const loadStatusData = async () => {
             try {
@@ -74,20 +75,18 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
 
     const handleUpdate = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/menu/statusUpdate`, {
-                method: "PUT",
+            const response = await axios.put("http://localhost:5000/menu/statusUpdate", updatedData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(updatedData),
             });
 
-            if (response.ok) {
+            if (response.status === 200) {
                 alert(`${t('menu_edited')}`);
                 closeModal();
                 window.location.reload();
             } else {
-                const errorResponse = await response.json(); 
+                const errorResponse = response.data; // errorResponse를 response.data로 수정
                 console.error("메뉴 상태 수정 실패:", errorResponse);
                 alert(`${t("menu_edited_failed")} ${errorResponse.error}`);
             }
