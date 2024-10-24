@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import SignUpStyle from './SiginUp.module.css';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 type FormValues = {
   id: string;
@@ -14,27 +14,25 @@ const SignUp: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const navigate = useNavigate();
 
-
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[!@#])[\da-zA-Z!@#]{8,}$/;
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const response = await fetch("http://localhost:5000/auth/send", {
-        method: "POST",
+      const response = await axios.post("http://localhost:5000/auth/send", data, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        alert('signup success');
+      if (response.status === 200) {
+        alert('Signup success');
         navigate('/');
       } else {
-        const errorText = await response.text();
-        alert(`'signup_failed': ${errorText}`);
+        alert(`Signup failed: ${response.statusText}`);
       }
     } catch (error) {
+      console.error('Signup error:', error);
+      alert('An error occurred during signup.');
     }
   };
 
