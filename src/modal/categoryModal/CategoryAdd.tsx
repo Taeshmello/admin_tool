@@ -2,25 +2,23 @@ import React, { useEffect, useState } from "react";
 import './CategoryAdd.css';
 import { fetchGames } from "../../utils/faq.ts";
 import { useTranslation } from "react-i18next";
+import axios from 'axios'; // Axios import 추가
 
 interface Game {
     id: number;
     name: string;
 }
 
-
-
 interface CategoryProps {
     closeModal: () => void; 
 }
 
 export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
-    
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGame, setSelectedGame] = useState<number | null>(null);
-    const [category, setCategory] = useState<string | any>("");
-    const {t} = useTranslation();
+    const [category, setCategory] = useState<string>("");
+    const { t } = useTranslation();
 
     useEffect(() => {
         const loadGameData = async () => {
@@ -38,8 +36,6 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
         loadGameData();
     }, []);
 
-    
-
     const handleSubmit = async () => {
         if (selectedGame === null || !category) {
             alert(`${t("plz_fill_space")}`);
@@ -47,20 +43,17 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/category/insert", {
-                method: "POST",
+            const response = await axios.post("http://localhost:5000/category/insert", {
+                game_id: selectedGame,
+                category: category,
+            }, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    game_id: selectedGame,
-                    category:category,
-                    
-                }),
             });
 
-            if (response.ok) {
-                const result = await response.json();
+            if (response.status === 200) {
+                const result = response.data;
                 console.log("카테고리 생성 성공:", result);
                 alert(`${t('category_created')}`);
                 location.reload();
@@ -89,16 +82,16 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
                     ))}
                 </select>
                
-                    <input
+                <input
                     type="text"
                     className="write-input"
                     placeholder={t('category')}
                     value={category}
-                    onChange={(e) => setCategory(e.target.value) }
+                    onChange={(e) => setCategory(e.target.value)}
                 />
                 
                 <button className="write-button" onClick={handleSubmit}>
-                {t('add_category')}
+                    {t('add_category')}
                 </button>
             </div>
         </div>
