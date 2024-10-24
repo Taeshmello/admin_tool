@@ -1,7 +1,11 @@
 import commentStyles from "./Comment.module.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { fetchComments } from "../../utils/forum";
+import { atom, useAtom } from 'jotai';
+
+// Define Jotai atom for comments
+const commentsAtom = atom<any[]>([]);
 
 interface ForumCommentProp {
     closeComment: () => void;
@@ -10,7 +14,7 @@ interface ForumCommentProp {
 
 const Comment: React.FC<ForumCommentProp> = ({ closeComment, FB_idx }) => {
     const { t } = useTranslation();
-    const [comments, setComments] = useState<any[]>([]);
+    const [comments, setComments] = useAtom(commentsAtom);
 
     useEffect(() => {
         const loadComments = async () => {
@@ -23,7 +27,7 @@ const Comment: React.FC<ForumCommentProp> = ({ closeComment, FB_idx }) => {
         };
         
         loadComments();
-    }, [FB_idx]);
+    }, [FB_idx, setComments]);
 
     return (
         <div className={commentStyles.modal}>
@@ -45,7 +49,7 @@ const Comment: React.FC<ForumCommentProp> = ({ closeComment, FB_idx }) => {
                                 <tr key={comment.CommentID}>
                                     <td>{comment.UserId}</td>
                                     <td>{comment.NickName}</td>
-                                    <td>{comment.Images ? <img src={comment.Images} /> : '-'}</td>
+                                    <td>{comment.Images ? <img src={comment.Images} alt="Comment" /> : '-'}</td>
                                     <td>{comment.details}</td>
                                     <td>{new Date(comment.CreatedAt).toLocaleString()}</td>
                                     <td>{comment.check_status}</td>
