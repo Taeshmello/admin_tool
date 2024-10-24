@@ -2,6 +2,8 @@ import MenuAddStyle from './MenuAdd.module.css';
 import { fetchBoardAdminStatus, fetchBoardUserStatus, fetchServiceCode, fetchMenuName } from '../../utils/menu';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios'; // Axios import 추가
+
 interface userStatus {
     check_status: string;
 }
@@ -21,6 +23,7 @@ interface menuName {
 interface AddProps {
     closeAdd: () => void;
 }
+
 const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
     const [status, setStatus] = useState<userStatus[]>([]);
     const [adminStatus, setAdminStatus] = useState<adminStatus[]>([]);
@@ -30,7 +33,8 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
     const [selectedAdminStatus, setSelectedAdminStatus] = useState<string>();
     const [selectedServiceCode, setSelectedServiceCode] = useState<number | null>(null);
     const [selectedMenuName, setSelectedMenuName] = useState<number[]>([]);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
+
     useEffect(() => {
         const loadStatusData = async () => {
             try {
@@ -39,11 +43,12 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     setStatus(statusData);
                 } else {
                     console.error("상태 데이터 형식 오류:", statusData);
-                }   
+                }
             } catch (error) {
                 console.error("상태 데이터 불러오기 오류:", error);
             }
         };
+
         const loadAdminStatusData = async () => {
             try {
                 const statusData = await fetchBoardAdminStatus();
@@ -66,19 +71,20 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     console.error("서비스코드 형식 오류:", serviceCodeData);
                 }
             } catch (error) {
-                console.error("서비스 코드 불러오기 오류:", error)
+                console.error("서비스 코드 불러오기 오류:", error);
             }
         };
+
         const loadMenuName = async () => {
             try {
                 const menuNameData = await fetchMenuName();
                 if (menuNameData && Array.isArray(menuNameData)) {
                     setMenuName(menuNameData);
                 } else {
-                    console.error("서비스코드 형식 오류:", menuNameData);
+                    console.error("메뉴 이름 형식 오류:", menuNameData);
                 }
             } catch (error) {
-                console.error("서비스 코드 불러오기 오류:", error)
+                console.error("메뉴 이름 불러오기 오류:", error);
             }
         };
 
@@ -88,39 +94,29 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
         loadStatusData();
     }, []);
 
-
-
-
-
     const handleSave = async () => {
         if (selectedServiceCode == null || selectedMenuName == null || selectedAdminStatus == null || selectedUserStatus == null) {
-            alert("모든 항목을 선택해주세요.")
+            alert("모든 항목을 선택해주세요.");
             return;
         }
 
         try {
-            const response = await fetch("http://localhost:5000/menu/insert", {
-                method: "POST",
+            const response = await axios.post("http://localhost:5000/menu/insert", {
+                ServiceCode: selectedServiceCode,
+                Classify: selectedMenuName[0],
+                SectionCode: selectedMenuName[2],
+                LanguageCode: selectedMenuName[3], 
+                Title: selectedMenuName[1],
+                AdminStatus: selectedAdminStatus,
+                UserStatus: selectedUserStatus,
+            }, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    ServiceCode: selectedServiceCode,
-                    Classify: selectedMenuName[0],
-                    SectionCode: selectedMenuName[2],
-                    LanguageCode: selectedMenuName[3], 
-                    Title: selectedMenuName[1],
-                    AdminStatus: selectedAdminStatus,
-                    UserStatus: selectedUserStatus,
-                }),
             });
 
-
-
-            if (response.ok) {
-
-
-                alert(`${("menu_created")}`);
+            if (response.status === 200) {
+                alert(`${t('menu_created')}`);
                 location.reload();
             } else {
                 console.error("게시물 작성 실패:", response.statusText);
@@ -128,10 +124,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
         } catch (error) {
             console.error("게시물 작성 중 오류:", error);
         }
-    }
-
-
-
+    };
 
     return (
         <div className={MenuAddStyle.modal}>
@@ -152,7 +145,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     value={JSON.stringify(selectedMenuName)}
                     onChange={(e) => {
                         const selectedValue = JSON.parse(e.target.value);
-                        setSelectedMenuName(selectedValue); 
+                        setSelectedMenuName(selectedValue);
                     }}
                 >
                     <option value="">{t('menu_select')}</option>
@@ -187,14 +180,13 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                     ))}
                 </select>
 
-
                 <div className={MenuAddStyle.btnContent}>
                     <button className={MenuAddStyle.close} onClick={closeAdd}>{t('close')}</button>
                     <button className={MenuAddStyle.saveBtn} onClick={handleSave}>{t('save')}</button>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default MenuAdd;
