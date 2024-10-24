@@ -1,45 +1,60 @@
 import MenuAddStyle from './MenuAdd.module.css';
 import { fetchBoardAdminStatus, fetchBoardUserStatus, fetchServiceCode, fetchMenuName } from '../../utils/menu';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios'; // Axios import 추가
+import axios from 'axios';
+import { atom, useAtom } from 'jotai';
 
-interface userStatus {
+interface UserStatus {
     check_status: string;
 }
-interface adminStatus {
+
+interface AdminStatus {
     admin_status: string;
 }
-interface serviceCode {
+
+interface ServiceCode {
     service_idx: number;
     service_code: string;
 }
-interface menuName {
+
+interface MenuName {
     section: number;
     menu_name: string;
     menu_code: string;
     lang_code: string;
 }
+
 interface AddProps {
     closeAdd: () => void;
 }
 
+// Define Jotai atoms
+const statusAtom = atom<UserStatus[]>([]);
+const adminStatusAtom = atom<AdminStatus[]>([]);
+const serviceCodeAtom = atom<ServiceCode[]>([]);
+const menuNameAtom = atom<MenuName[]>([]);
+const selectedUserStatusAtom = atom<string | undefined>(undefined);
+const selectedAdminStatusAtom = atom<string | undefined>(undefined);
+const selectedServiceCodeAtom = atom<number | null>(null);
+const selectedMenuNameAtom = atom<number[]>([]);
+
 const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
-    const [status, setStatus] = useState<userStatus[]>([]);
-    const [adminStatus, setAdminStatus] = useState<adminStatus[]>([]);
-    const [serviceCode, setServiceCode] = useState<serviceCode[]>([]);
-    const [menuName, setMenuName] = useState<menuName[]>([]);
-    const [selectedUserStatus, setSelectedUserStatus] = useState<string>();
-    const [selectedAdminStatus, setSelectedAdminStatus] = useState<string>();
-    const [selectedServiceCode, setSelectedServiceCode] = useState<number | null>(null);
-    const [selectedMenuName, setSelectedMenuName] = useState<number[]>([]);
+    const [status, setStatus] = useAtom(statusAtom);
+    const [adminStatus, setAdminStatus] = useAtom(adminStatusAtom);
+    const [serviceCode, setServiceCode] = useAtom(serviceCodeAtom);
+    const [menuName, setMenuName] = useAtom(menuNameAtom);
+    const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
+    const [selectedAdminStatus, setSelectedAdminStatus] = useAtom(selectedAdminStatusAtom);
+    const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceCodeAtom);
+    const [selectedMenuName, setSelectedMenuName] = useAtom(selectedMenuNameAtom);
     const { t } = useTranslation();
 
     useEffect(() => {
         const loadStatusData = async () => {
             try {
                 const statusData = await fetchBoardUserStatus();
-                if (statusData && Array.isArray(statusData)) {
+                if (Array.isArray(statusData)) {
                     setStatus(statusData);
                 } else {
                     console.error("상태 데이터 형식 오류:", statusData);
@@ -65,7 +80,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
         const loadServiceCode = async () => {
             try {
                 const serviceCodeData = await fetchServiceCode();
-                if (serviceCodeData && Array.isArray(serviceCodeData)) {
+                if (Array.isArray(serviceCodeData)) {
                     setServiceCode(serviceCodeData);
                 } else {
                     console.error("서비스코드 형식 오류:", serviceCodeData);
@@ -78,7 +93,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
         const loadMenuName = async () => {
             try {
                 const menuNameData = await fetchMenuName();
-                if (menuNameData && Array.isArray(menuNameData)) {
+                if (Array.isArray(menuNameData)) {
                     setMenuName(menuNameData);
                 } else {
                     console.error("메뉴 이름 형식 오류:", menuNameData);
@@ -92,10 +107,10 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
         loadMenuName();
         loadAdminStatusData();
         loadStatusData();
-    }, []);
+    }, [setStatus, setAdminStatus, setServiceCode, setMenuName]);
 
     const handleSave = async () => {
-        if (selectedServiceCode == null || selectedMenuName == null || selectedAdminStatus == null || selectedUserStatus == null) {
+        if (selectedServiceCode == null || selectedMenuName.length === 0 || selectedAdminStatus == null || selectedUserStatus == null) {
             alert("모든 항목을 선택해주세요.");
             return;
         }
@@ -142,7 +157,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                 </select>
                 <select
                     className={MenuAddStyle.selectMenu}
-                    value={JSON.stringify(selectedMenuName)}
+                    value={JSON.stringify(selectedMenuName) || ""}
                     onChange={(e) => {
                         const selectedValue = JSON.parse(e.target.value);
                         setSelectedMenuName(selectedValue);
@@ -157,19 +172,19 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                 </select>
                 <select
                     className={MenuAddStyle.selectMenu}
-                    value={selectedAdminStatus}
+                    value={selectedAdminStatus || ""}
                     onChange={(e) => setSelectedAdminStatus(e.target.value)}
                 >
                     <option value="">{t('admin_status')}</option>
-                    {adminStatus.map((admin_status, index) => (
-                        <option key={index} value={admin_status.admin_status}>
-                            {admin_status.admin_status}
+                    {adminStatus.map((admin, index) => (
+                        <option key={index} value={admin.admin_status}>
+                            {admin.admin_status}
                         </option>
                     ))}
                 </select>
                 <select
                     className={MenuAddStyle.selectMenu}
-                    value={selectedUserStatus}
+                    value={selectedUserStatus || ""}
                     onChange={(e) => setSelectedUserStatus(e.target.value)}
                 >
                     <option value="">{t('show_select')}</option>
