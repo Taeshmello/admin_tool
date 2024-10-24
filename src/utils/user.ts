@@ -1,99 +1,84 @@
+import axios from 'axios';
+
+// 권한 할당 API 호출
 export const assignPermissions = async (data: { user_Idx: number; gameId: string; permissions: number[] }) => {
     try {
-        const response = await fetch('http://localhost:5000/auth/assign-permissions', {
-            method: 'POST',
+        const response = await axios.post('http://localhost:5000/auth/assign-permissions', data, {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data), 
         });
 
-        // 성공 상태 코드 확인
-
-        return await response.json(); 
+        return response.data; // 응답 데이터 반환
     } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
         throw error; // 오류 재발생
     }
 };
 
+// 권한 삭제 API 호출
 export const deletePermissions = async (requestBody: { userId: number; gameId: number; permissionId: number }) => {
-    const response = await fetch('http://localhost:5000/auth/delete-permissions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-    });
-    if (!response.ok) {
-        throw new Error('권한 삭제 요청에 실패했습니다.');
-    }
-    return await response.json();
-};
-
-
-export const fetchUserPermissions = async (userId: number, gameId: number, permission:number): Promise<any> => {
     try {
-        const response = await fetch('http://localhost:5000/auth/user-permissions', {
-            method: 'POST',
+        const response = await axios.post('http://localhost:5000/auth/delete-permissions', requestBody, {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userId, gameId, permission }),
-            credentials: "include"
         });
 
-        if (!response.ok) {
-            throw new Error('사용자 권한 조회 요청에 실패했습니다.');
-        }
+        return response.data; // 응답 데이터 반환
+    } catch (error) {
+        console.error('권한 삭제 요청 실패:', error);
+        throw error; // 오류 재발생
+    }
+};
 
-        return await response.json(); 
+// 사용자 권한 조회 API 호출
+export const fetchUserPermissions = async (userId: number, gameId: number, permission: number): Promise<any> => {
+    try {
+        const response = await axios.post('http://localhost:5000/auth/user-permissions', { userId, gameId, permission }, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true, // credentials: "include" 대체
+        });
+
+        return response.data; // 응답 데이터 반환
     } catch (error) {
         console.error('사용자 권한 조회 중 오류 발생:', error);
-        throw error; 
+        throw error; // 오류 재발생
     }
 };
 
-
+// 사용자 데이터 조회 API 호출
 export const fetchUserData = async (): Promise<any> => {
     try {
-        const response = await fetch("http://localhost:5000/auth/users", {
-            method: "GET",
+        const response = await axios.get("http://localhost:5000/auth/users", {
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
-            credentials: "include"
+            withCredentials: true,
         });
 
-        if (response.ok) {
-            return await response.json();
-        } else {
-            throw new Error("사용자 정보를 불러오지 못했습니다.");
-        }
+        return response.data; // 응답 데이터 반환
     } catch (error) {
-        console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+        console.error('사용자 정보를 가져오는 중 오류 발생:', error);
         return null;
     }
 };
 
-
-
+// 사용자 상태 체크 API 호출
 export const userStatusCheck = async (): Promise<any> => {
     try {
-        const response = await fetch("http://localhost:5000/auth/statusCheck", {
-            method: "GET",
+        const response = await axios.get("http://localhost:5000/auth/statusCheck", {
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
-            credentials: "include"
+            withCredentials: true,
         });
-        if (response.ok) {
-            return await response.json();
-        } else {
-            throw new Error("상태값을 불러오지 못함");
-        }
+
+        return response.data; // 응답 데이터 반환
     } catch (error) {
-        console.error("사용자 상태를 가져오는 중 오류 발생:", error);
+        console.error('사용자 상태를 가져오는 중 오류 발생:', error);
         return null;
     }
-}
+};
