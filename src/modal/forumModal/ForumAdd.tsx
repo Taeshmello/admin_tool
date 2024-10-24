@@ -11,7 +11,7 @@ interface ForumAddProp {
 }
 
 interface languages {
-    Lang_idx: number;
+    Lang_idx: number;   
     Lang: string;
 }
 
@@ -26,7 +26,7 @@ interface menu {
 }
 
 interface userStatus {
-    check_status: string;
+    check_status: string;   
 }
 
 const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
@@ -51,8 +51,6 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 const languageData = await fetchLanguage();
                 if (languageData && Array.isArray(languageData)) {
                     setLanguages(languageData);
-                } else {
-                    console.error("언어 데이터 형식 오류:", languageData)
                 }
 
             } catch (error) {
@@ -64,8 +62,6 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 const serviceCodeData = await fetchServiceCode();
                 if (serviceCodeData && Array.isArray(serviceCodeData)) {
                     setServiceCode(serviceCodeData);
-                } else {
-                    console.error("서비스코드 형식 오류:", serviceCodeData);
                 }
             } catch (error) {
                 console.error("서비스 코드 불러오기 오류:", error)
@@ -78,8 +74,6 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     const menuData = await fetchMenuByServiceCodeId(selectedServiceCode);
                     if (Array.isArray(menuData)) {
                         setMenu(menuData)
-                    } else {
-                        console.error("메뉴 데이터 형식 오류:", menuData)
                     }
                 } catch (error) {
                     console.error("메뉴 데이터 불러오기 오류:", error)
@@ -94,9 +88,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 const statusData = await fetchBoardUserStatus();
                 if (statusData && Array.isArray(statusData)) {
                     setStatus(statusData);
-                } else {
-                    console.error("상태 데이터 형식 오류:", statusData);
-                }
+                } 
             } catch (error) {
                 console.error("상태 데이터 불러오기 오류:", error);
             }
@@ -158,7 +150,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
             }
 
             const result = await response.json();
-            alert("게시물 작성 완료")
+            alert(`${t("forum_add_complete")}`)
             console.log(result);
         } catch (error) {
             console.error("게시물 작성 중 오류:", error);

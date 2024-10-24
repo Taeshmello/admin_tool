@@ -34,7 +34,7 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
             } catch (error) {
                 console.error("게임 데이터 불러오기 오류:", error);
             }
-        };
+        };  
         loadGameData();
     }, []);
 

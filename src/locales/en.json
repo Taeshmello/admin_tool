@@ -42,7 +42,7 @@
   "logout": "Logout",
   "category": "Category",
   "game_select": "Select Game",
-  "edit_faq": "Edit FAQ",
+  "edit_faq": "FAQ details",
   "category_select": "Select Category",
   "close": "Close",
   "save": "Save",
@@ -84,7 +84,8 @@
   "content": "Content",
   "image": "Image",
   "pleaseFillReplyContent": "Please fill in the reply content",
-  "date" : "Date",
-  "top_fixed" : "Top Fixed",
-  "noGamesWithPermissions": "No games with permissions"
+  "date": "Date",
+  "top_fixed": "Top Fixed",
+  "noGamesWithPermissions": "No games with permissions",
+  "forum_add_complete": "Post Addition Completed"
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchCategories, deleteCategoryItem } from "../../utils/category";
 import { fetchGames } from "../../utils/api";
 import { CategoryAdd } from "../../modal/categoryModal/CategoryAdd";
+import { CategoryEdit } from "../../modal/categoryModal/CategoryEdit";
 import styles from './Category.module.css';
 import { useTranslation } from "react-i18next";
 
@@ -19,6 +20,7 @@ interface Games {
 const Category = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
     const [games, setGames] = useState<Games[]>([]);
     const [selectedGame, setSelectedGame] = useState<string>("");
     const {t} = useTranslation();
@@ -50,7 +52,7 @@ const Category = () => {
     }, []);
 
     const handleDelete = async (GC_idx: number) => {
-        const confirmDelete = window.confirm(`${('check_category_delete')}`);
+        const confirmDelete = window.confirm(`${t('check_category_delete')}`);
         if (confirmDelete) {
             try {
                 await deleteCategoryItem(GC_idx);
@@ -65,6 +67,8 @@ const Category = () => {
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+    const openEdit = () => setIsEditModalOpen(true);
+    const closeEdit = () => setIsEditModalOpen(false);
 
 
     const filteredCategories = selectedGame 
@@ -116,7 +120,7 @@ const Category = () => {
                                     <td>{category.category}</td>
                                     <td>{created_date}</td>
                                     <td>
-                                        <button className={styles.info}>{t('info')}</button>
+                                        <button className={styles.info} onClick={openEdit}>{t('info')}</button>
                                         <button className={styles.deleteBtn} onClick={() => handleDelete(category.GC_idx)}>{t('delete')}</button>
                                     </td>
                                 </tr>
@@ -126,6 +130,7 @@ const Category = () => {
                 </table>
             </div>
             {isModalOpen && <CategoryAdd closeModal={closeModal} />}
+            {isEditModalOpen && <CategoryEdit closeEdit={closeEdit} />}
         </div>
     );
 }

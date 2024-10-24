@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styles from './FaqEdit.module.css';
+import styles from './CategoryEdit.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
-import Editor from "../../components/Editor.tsx";
 import { useTranslation } from "react-i18next";
 
 interface Game {
@@ -17,14 +16,12 @@ interface FaqEditProps {
     closeEdit: () => void;
 }
 
-export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
+export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [games, setGames] = useState<Game[]>([]);
     const [selectedGame, setSelectedGame] = useState<number | null>(null);
     const [title, setTitle] = useState<string>('');
-    const [detail, setDetail] = useState<string>('');
-    const [selectedDetail, setSelectedDetail] = useState<string | null>("");
     const {t} = useTranslation();
 
     
@@ -64,8 +61,6 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
         };
         loadCategoryData();
     }, [selectedGame]);
-
-
     
 
     return (

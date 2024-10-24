@@ -40,7 +40,7 @@
     "default_language": "默认语言",
     "logout": "注销",
     "game_select": "选择游戏",
-    "edit_faq": "编辑常见问题",
+    "edit_faq": "常见问题 详细信息",
     "category_select": "选择类别",
     "close": "关闭",
     "save": "保存",
@@ -80,5 +80,7 @@
     "menu_deleted": "菜单已删除。",
     "menu_deleted_failed": "无法删除菜单。",
     "date": "时间",
-    "top_fixed": "上端固定"
+    "top_fixed": "上端固定",
+    "noGamesWithPermissions": "没有权限游戏 。",
+    "forum_add_complete": "帖子添加完毕。"
 }
