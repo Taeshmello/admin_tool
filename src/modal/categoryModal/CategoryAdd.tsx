@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import './CategoryAdd.css';
 import { fetchGames } from "../../utils/faq.ts";
 import { useTranslation } from "react-i18next";
 import axios from 'axios'; // Axios import 추가
+import { atom, useAtom } from 'jotai';
 
 interface Game {
     id: number;
@@ -13,11 +14,15 @@ interface CategoryProps {
     closeModal: () => void; 
 }
 
+// Define Jotai atoms
+const gamesAtom = atom<Game[]>([]);
+const selectedGameAtom = atom<number | null>(null);
+const categoryAtom = atom<string>("");
+
 export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [games, setGames] = useState<Game[]>([]);
-    const [selectedGame, setSelectedGame] = useState<number | null>(null);
-    const [category, setCategory] = useState<string>("");
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [games, setGames] = useAtom(gamesAtom);
+    const [category, setCategory] = useAtom(categoryAtom);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -34,7 +39,7 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
             }
         };  
         loadGameData();
-    }, []);
+    }, [setGames]);
 
     const handleSubmit = async () => {
         if (selectedGame === null || !category) {
