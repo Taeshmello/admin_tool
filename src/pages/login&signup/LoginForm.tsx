@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import LoginStyle from './LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
 import { refreshAccessToken, userStatusCheck } from '../../utils/api';
 
 type FormValues = {
@@ -17,16 +18,14 @@ const LoginForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const response = await fetch("http://localhost:5000/auth/login", {
-        method: "POST",
+      const response = await axios.post("http://localhost:5000/auth/login", data, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
-        credentials: "include",
+        withCredentials: true,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         await refreshAccessToken(setCookie);
         const statusResponse = await userStatusCheck();
         if (statusResponse) {
