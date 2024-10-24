@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import UserDetailStyles from './UserDetail.module.css';
 import { fetchGames, userPermissions, assignPermissions, deletePermissions, fetchUserPermissionGames } from "../../utils/api";
 import { useTranslation } from "react-i18next";
+import { atom, useAtom } from 'jotai';
 
 interface User {
     idx: number;
@@ -18,19 +19,26 @@ interface DetailProps {
     user: User | null;
 }
 
+// Define Jotai atoms
+const gamesAtom = atom<{ name: string; id: string }[]>([]);
+const permissionsAtom = atom<Permission[]>([]);
+const selectedPermissionsAtom = atom<boolean[]>([]);
+const allSelectedAtom = atom<boolean>(false);
+const selectedGameIdAtom = atom<string>('');
+const userGamesAtom = atom<UserGame[]>([]);
 
 interface UserGame {
     game_name: string;
     permission_name: string;
-}   
+}
 
 const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
-    const [games, setGames] = useState<{ name: string; id: string }[]>([]);
-    const [permissions, setPermissions] = useState<Permission[]>([]);
-    const [selectedPermissions, setSelectedPermissions] = useState<boolean[]>([]);
-    const [allSelected, setAllSelected] = useState(false);
-    const [selectedGameId, setSelectedGameId] = useState<string>('');
-    const [userGames, setUserGames] = useState<UserGame[]>([]);
+    const [games, setGames] = useAtom(gamesAtom);
+    const [permissions, setPermissions] = useAtom(permissionsAtom);
+    const [selectedPermissions, setSelectedPermissions] = useAtom(selectedPermissionsAtom);
+    const [allSelected, setAllSelected] = useAtom(allSelectedAtom);
+    const [selectedGameId, setSelectedGameId] = useAtom(selectedGameIdAtom);
+    const [userGames, setUserGames] = useAtom(userGamesAtom);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -61,8 +69,6 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             } catch (error) {
                 console.error('권한 목록을 불러오는 데 실패했습니다:', error);
             }
-
-
         };
 
         const loadUserGames = async () => {
@@ -78,7 +84,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
         loadGames();
         loadPermissions();
         loadUserGames();
-    }, [user]);
+    }, [user, setGames, setPermissions, setUserGames]);
 
     const handleSelectAll = () => {
         const newSelection = selectedPermissions.map(() => !allSelected);
@@ -111,7 +117,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             setSelectedPermissions(new Array(permissions.length).fill(false));
             setAllSelected(false);
             alert(`${t('selected_per_delete')}`);
-            window.location.reload()
+            window.location.reload();
         } catch (error) {
             console.error('권한 삭제 중 오류 발생:', error);
             alert(`${t('deleted_per_failed')}`);
@@ -136,7 +142,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
         try {
             await assignPermissions(requestBody);
             alert(`${t('per_saved')}`);
-            window.location.reload()
+            window.location.reload();
         } catch (error) {
             console.error('권한 저장 중 오류 발생:', error);
             alert(`${t('per_saved_failed')}`);
@@ -174,8 +180,8 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                         {games.map((game, index) => (
                             <option key={index} value={game.name}>
                                 {game.name}
-                                </option>
-                            ))}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
