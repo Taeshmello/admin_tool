@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './ForumManage.module.css';
 import ForumAdd from '../../modal/forumModal/ForumAdd';
 import Comment from '../../modal/forumModal/Comment';
@@ -6,6 +6,7 @@ import Reply from '../../modal/forumModal/Reply';
 import ForumEdit from '../../modal/forumModal/ForumEdit';
 import { fetchForum } from '../../utils/forum';
 import { useTranslation } from 'react-i18next';
+import { atom, useAtom } from 'jotai';
 
 interface Forum {
     FB_idx: number;
@@ -20,14 +21,22 @@ interface Forum {
     UserStatus: string;
 }
 
+// Define Jotai atoms
+const forumsAtom = atom<Forum[]>([]);
+const isAddOpenAtom = atom<boolean>(false);
+const isEditOpenAtom = atom<boolean>(false);
+const isCommentOpenAtom = atom<boolean>(false);
+const isReplyOpenAtom = atom<boolean>(false);
+const selectedFBidxAtom = atom<number | null>(null);
+
 const ForumManage: React.FC = () => {
-    const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
-    const [forums, setForums] = useState<Forum[]>([]);
+    const [forums, setForums] = useAtom(forumsAtom);
+    const [isAddOpen, setIsAddOpen] = useAtom(isAddOpenAtom);
+    const [isEditOpen, setIsEditOpen] = useAtom(isEditOpenAtom);
+    const [isCommentOpen, setIsCommentOpen] = useAtom(isCommentOpenAtom);
+    const [isReplyOpen, setIsReplyOpen] = useAtom(isReplyOpenAtom);
+    const [selectedFBidx, setSelectedFBidx] = useAtom(selectedFBidxAtom);
     const { t } = useTranslation();
-    const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
-    const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
-    const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false);
-    const [selectedFBidx, setSelectedFBidx] = useState<number | null>(null);
 
     useEffect(() => {
         const loadForums = async () => {
@@ -37,12 +46,10 @@ const ForumManage: React.FC = () => {
             } catch (error) {
                 console.error(error);
             }
-            
         };
 
         loadForums();
-        
-    }, []);
+    }, [setForums]);
 
     const openAdd = () => {
         setIsAddOpen(true);
@@ -63,7 +70,7 @@ const ForumManage: React.FC = () => {
     const openComment = (FB_idx: number) => {
         setSelectedFBidx(FB_idx);
         setIsCommentOpen(true);
-    };t
+    };
 
     const closeComment = () => {
         setIsCommentOpen(false);
@@ -79,8 +86,6 @@ const ForumManage: React.FC = () => {
         setIsReplyOpen(false);
         setSelectedFBidx(null);
     };
-
-    
 
     return (
         <div className={styles.pageContainer}>
@@ -130,7 +135,7 @@ const ForumManage: React.FC = () => {
             </div>
 
             {isAddOpen && <ForumAdd closeAdd={closeAdd} />}
-            {isEditOpen && <ForumEdit closeEdit={closeEdit} forumItem = {forums}/>}
+            {isEditOpen && <ForumEdit closeEdit={closeEdit} forumItem={forums.find(forum => forum.FB_idx === selectedFBidx) || null} />}
             {isCommentOpen && selectedFBidx !== null && (
                 <Comment closeComment={closeComment} FB_idx={selectedFBidx} />
             )}
