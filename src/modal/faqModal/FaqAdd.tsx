@@ -3,6 +3,8 @@ import styles from './Write.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
 import Editor from "../../components/Editor.tsx";
 import { useTranslation } from "react-i18next";
+import axios from "axios"; // Axios import 추가
+
 interface Game {
     id: number;
     name: string;
@@ -23,7 +25,8 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
     const [selectedGame, setSelectedGame] = useState<number | null>(null);
     const [title, setTitle] = useState<string>('');
     const [detail, setDetail] = useState<string>(''); 
-    const {t} = useTranslation()
+    const { t } = useTranslation();
+
     useEffect(() => {
         const loadGameData = async () => {
             try {
@@ -67,23 +70,14 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/faq/insert", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    game_id: selectedGame,
-                    category_name: selectedCategory,
-                    title: title,
-                    detail: detail,
-                }),
+            const response = await axios.post("http://localhost:5000/faq/insert", {
+                game_id: selectedGame,
+                category_name: selectedCategory,
+                title: title,
+                detail: detail,
             });
 
-
-            if (response.ok) {
-                
-                
+            if (response.status === 200) {
                 alert(`${t("faq_created")}`);
                 location.reload();
             } else {
@@ -135,7 +129,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
                 />
                 <Editor detail={detail} setDetail={setDetail} />
                 <button className={styles.writeButton} onClick={handleSubmit}>
-                {t('add_faq')}
+                    {t('add_faq')}
                 </button>
             </div>
         </div>
