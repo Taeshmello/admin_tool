@@ -1,49 +1,63 @@
-import { useEffect, useState } from "react";
-import styles from "./ForumAdd.module.css"
+import { useEffect } from "react";
+import styles from "./ForumAdd.module.css";
 import { fetchLanguage, fetchMenuByServiceCodeId } from "../../utils/forum";
 import { fetchServiceCode, fetchBoardUserStatus } from "../../utils/menu";
 import { useTranslation } from "react-i18next";
 import ForumEditor from "../../components/ForumEditor";
 import { useCookies } from 'react-cookie';
 import { refreshAccessToken, fetchData } from "../../utils/api";
+import { atom, useAtom } from 'jotai';
+
 interface ForumAddProp {
-    closeAdd: () => void
+    closeAdd: () => void;
 }
 
-interface languages {
-    Lang_idx: number;   
+interface Language {
+    Lang_idx: number;
     Lang: string;
 }
 
-interface serviceCode {
+interface ServiceCode {
     service_idx: number;
     service_code: string;
 }
 
-interface menu {
+interface Menu {
     sectionCode: string;
-
 }
 
-interface userStatus {
-    check_status: string;   
+interface UserStatus {
+    check_status: string;
 }
+
+// Define Jotai atoms
+const languagesAtom = atom<Language[]>([]);
+const cookiesAtom = atom<{ accessToken: string | undefined } | null>(null);
+const userInfoAtom = atom<{ name: string } | null>(null);
+const selectedLanguageAtom = atom<string[]>([]);
+const serviceCodeAtom = atom<ServiceCode[]>([]);
+const selectedServiceCodeAtom = atom<number | null>(null);
+const selectedMenuAtom = atom<string | null>(null);
+const menuAtom = atom<Menu[]>([]);
+const selectedUserStatusAtom = atom<string | null>("");
+const statusAtom = atom<UserStatus[]>([]);
+const titleAtom = atom<string>("");
+const detailAtom = atom<string>("");
 
 const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
-    const [languages, setLanguages] = useState<languages[]>([]);
-    const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
-    const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
-    const [selecetedLanguage, setSelectedLanguage] = useState<string[]>([]);
-    const [serviceCode, setServiceCode] = useState<serviceCode[]>([]);
-    const [selectedServiceCode, setSelectedServiceCode] = useState<number | null>(null);
-    const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
-    const [menu, setMenu] = useState<menu[]>([]);
-    const [selectedUserStatus, setSelectedUserStatus] = useState<string | null>("");
-    const [status, setStatus] = useState<userStatus[]>([]);
+    const [languages, setLanguages] = useAtom(languagesAtom);
+    const [cookies, setCookies] = useAtom(cookiesAtom);
+    const [userInfo, setUserInfo] = useAtom(userInfoAtom);
+    const [selectedLanguage, setSelectedLanguage] = useAtom(selectedLanguageAtom);
+    const [serviceCode, setServiceCode] = useAtom(serviceCodeAtom);
+    const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceCodeAtom);
+    const [selectedMenu, setSelectedMenu] = useAtom(selectedMenuAtom);
+    const [menu, setMenu] = useAtom(menuAtom);
+    const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
+    const [status, setStatus] = useAtom(statusAtom);
+    const [title, setTitle] = useAtom(titleAtom);
+    const [detail, setDetail] = useAtom(detailAtom);
     const { t } = useTranslation();
-    const [title, setTitle] = useState<string>('');
-    const [detail, setDetail] = useState<string>('');
-
 
     useEffect(() => {
         const loadLanguageData = async () => {
@@ -52,11 +66,11 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 if (languageData && Array.isArray(languageData)) {
                     setLanguages(languageData);
                 }
-
             } catch (error) {
-                console.error("언어 데이터 불러오기 오류:", error)
+                console.error("언어 데이터 불러오기 오류:", error);
             }
         };
+
         const loadServiceCode = async () => {
             try {
                 const serviceCodeData = await fetchServiceCode();
@@ -64,7 +78,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     setServiceCode(serviceCodeData);
                 }
             } catch (error) {
-                console.error("서비스 코드 불러오기 오류:", error)
+                console.error("서비스 코드 불러오기 오류:", error);
             }
         };
 
@@ -73,33 +87,34 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 try {
                     const menuData = await fetchMenuByServiceCodeId(selectedServiceCode);
                     if (Array.isArray(menuData)) {
-                        setMenu(menuData)
+                        setMenu(menuData);
                     }
                 } catch (error) {
-                    console.error("메뉴 데이터 불러오기 오류:", error)
+                    console.error("메뉴 데이터 불러오기 오류:", error);
                 }
             } else {
                 setMenu([]);
             }
-        }
+        };
 
         const loadStatusData = async () => {
             try {
                 const statusData = await fetchBoardUserStatus();
                 if (statusData && Array.isArray(statusData)) {
                     setStatus(statusData);
-                } 
+                }
             } catch (error) {
                 console.error("상태 데이터 불러오기 오류:", error);
             }
         };
+
         const fetchUser = async () => {
             try {
-                if (!cookies.accessToken) {
-                    await refreshAccessToken(setCookie);
+                if (!cookies?.accessToken) {
+                    await refreshAccessToken(setCookies);
                 }
 
-                if (cookies.accessToken) {
+                if (cookies?.accessToken) {
                     const userData = await fetchData(cookies.accessToken);
                     setUserInfo(userData);
                 }
@@ -113,26 +128,22 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
         loadLanguageData();
         loadServiceCode();
         loadStatusData();
-    }, [selectedServiceCode, cookies.accessToken, setCookie, removeCookie])
+    }, [selectedServiceCode, cookies, setCookies]);
 
     const handleSubmit = async () => {
-        if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {   
+        if (!selectedMenu || !selectedServiceCode || !selectedLanguage.length || !selectedUserStatus || !title || !detail) {
             alert(`${t('plz_fill_space')}`);
             return;
         }
 
-
         try {
-            const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx;
+            const selectedLanguageCode = languages.find(lang => lang.Lang === selectedLanguage[0])?.Lang_idx;
 
             const response = await fetch("http://localhost:5000/forum/insert", {
-
                 method: "POST",
-
                 headers: {
                     "Content-Type": "application/json",
                 },
-
                 body: JSON.stringify({
                     ServiceCode: selectedServiceCode,
                     Category: selectedMenu,
@@ -144,27 +155,25 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 })
             });
 
-
             if (!response.ok) {
                 throw new Error('서버 응답 오류');
             }
 
             const result = await response.json();
-            alert(`${t("forum_add_complete")}`)
+            alert(`${t("forum_add_complete")}`);
             console.log(result);
         } catch (error) {
             console.error("게시물 작성 중 오류:", error);
         }
         closeAdd();
-        window.location.reload()
+        window.location.reload();
     };
+
     const handleCheckboxChange = (lang: string) => {
         setSelectedLanguage(prevSelectedLanguages => {
             if (prevSelectedLanguages.includes(lang)) {
-
                 return prevSelectedLanguages.filter(selectedLang => selectedLang !== lang);
             } else {
-
                 return [...prevSelectedLanguages, lang];
             }
         });
@@ -203,7 +212,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                                 id={`lang-${index}`}
                                 value={lang.Lang}
                                 onChange={() => handleCheckboxChange(lang.Lang)}
-                                checked={selecetedLanguage.includes(lang.Lang)}
+                                checked={selectedLanguage.includes(lang.Lang)}
                             />
                             <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
                         </div>
@@ -224,20 +233,17 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     </select>
                 </div>
 
-
-                <input type="text" onChange={(e) => setTitle(e.target.value)} placeholder={t('input_title')} className={styles.inputTitle}></input>
+                <input type="text" onChange={(e) => setTitle(e.target.value)} placeholder={t('input_title')} className={styles.inputTitle} />
                 <div className={styles.editorContainer}>
                     <ForumEditor detail={detail} setDetail={setDetail} />
                 </div>
                 <div className={styles.btnContainer}>
-
                     <button className={styles.close} onClick={closeAdd}>{t('close')}</button>
                     <button className={styles.save} onClick={handleSubmit}>{t('save')}</button>
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
-
-export default ForumAdd;            
+export default ForumAdd;
