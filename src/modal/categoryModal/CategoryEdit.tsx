@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from './CategoryEdit.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
 import { useTranslation } from "react-i18next";
+import { atom, useAtom } from 'jotai';
 
 interface Game {
     id: number;
@@ -16,15 +17,20 @@ interface FaqEditProps {
     closeEdit: () => void;
 }
 
-export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [games, setGames] = useState<Game[]>([]);
-    const [selectedGame, setSelectedGame] = useState<number | null>(null);
-    const [title, setTitle] = useState<string>('');
-    const {t} = useTranslation();
+// Define Jotai atoms
+const gamesAtom = atom<Game[]>([]);
+const selectedGameAtom = atom<number | null>(null);
+const categoriesAtom = atom<Category[]>([]);
+const selectedCategoryAtom = atom<string | null>(null);
+const titleAtom = atom<string>('');
 
-    
+export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
+    const [games, setGames] = useAtom(gamesAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [categories, setCategories] = useAtom(categoriesAtom);
+    const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
+    const [title, setTitle] = useAtom(titleAtom);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const loadGameData = async () => {
@@ -40,7 +46,7 @@ export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
             }
         };
         loadGameData();
-    }, []);
+    }, [setGames]);
 
     useEffect(() => {
         const loadCategoryData = async () => {
@@ -60,8 +66,7 @@ export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
             }
         };
         loadCategoryData();
-    }, [selectedGame]);
-    
+    }, [selectedGame, setCategories]);
 
     return (
         <div className={styles.modal}>
@@ -101,15 +106,11 @@ export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
-                
-                    
-                    <div className={styles.btnContainer}>
+                <div className={styles.btnContainer}>
                     <button className={styles.close} onClick={closeEdit}>{t('close')}</button>
                     <button className={styles.save}>{t('save')}</button>
                 </div>
-                </div>
-                
             </div>
-        
+        </div>
     );
 };
