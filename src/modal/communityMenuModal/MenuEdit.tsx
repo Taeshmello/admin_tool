@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import MenuEditStyle from './MenuEdit.module.css';
 import { fetchBoardUserStatus, fetchBoardAdminStatus } from '../../utils/menu';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios'; // Axios import 추가
+import axios from 'axios';
+import { atom, useAtom } from 'jotai';
 
 interface Board {
     CM_idx: number;
@@ -14,23 +15,30 @@ interface Board {
     AdminStatus: string;
 }
 
+interface UserStatus {
+    check_status: string;
+}
+
+interface AdminStatus {
+    admin_status: string;
+}
+
 interface EditProps {
     closeModal: () => void;
     menuItem: Board;
 }
 
-interface userStatus {
-    check_status: string;
-}
-interface adminStatus {
-    admin_status: string;
-}
+// Define Jotai atoms
+const statusAtom = atom<UserStatus[]>([]);
+const adminStatusAtom = atom<AdminStatus[]>([]);
+const selectedUserStatusAtom = atom<string | null>(null);
+const selectedAdminStatusAtom = atom<string | null>(null);
 
 const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
-    const [status, setStatus] = useState<userStatus[]>([]);
-    const [adminStatus, setAdminStatus] = useState<adminStatus[]>([]);
-    const [selectedUserStatus, setSelectedUserStatus] = useState<string>(menuItem.UserStatus);
-    const [selectedAdminStatus, setSelectedAdminStatus] = useState<string>(menuItem.AdminStatus);
+    const [status, setStatus] = useAtom(statusAtom);
+    const [adminStatus, setAdminStatus] = useAtom(adminStatusAtom);
+    const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
+    const [selectedAdminStatus, setSelectedAdminStatus] = useAtom(selectedAdminStatusAtom);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -48,7 +56,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
         };
 
         loadStatusData();
-    }, []);
+    }, [setStatus]);
 
     useEffect(() => {
         const loadAdminStatusData = async () => {
@@ -65,7 +73,13 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
         };
 
         loadAdminStatusData();
-    }, []);
+    }, [setAdminStatus]);
+
+    // Set initial states based on menuItem
+    useEffect(() => {
+        setSelectedUserStatus(menuItem.UserStatus);
+        setSelectedAdminStatus(menuItem.AdminStatus);
+    }, [menuItem, setSelectedUserStatus, setSelectedAdminStatus]);
 
     const updatedData = {
         CM_idx: menuItem.CM_idx,
@@ -86,7 +100,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
                 closeModal();
                 window.location.reload();
             } else {
-                const errorResponse = response.data; // errorResponse를 response.data로 수정
+                const errorResponse = response.data;
                 console.error("메뉴 상태 수정 실패:", errorResponse);
                 alert(`${t("menu_edited_failed")} ${errorResponse.error}`);
             }
@@ -110,7 +124,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
                             <td>
                                 <select
                                     name="status"
-                                    value={selectedUserStatus}
+                                    value={selectedUserStatus ?? ""}
                                     onChange={(e) => setSelectedUserStatus(e.target.value)}
                                 >
                                     {status.map((status, index) => (
@@ -126,7 +140,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
                             <td>
                                 <select
                                     name="adminStatus"
-                                    value={selectedAdminStatus}
+                                    value={selectedAdminStatus ?? ""}
                                     onChange={(e) => setSelectedAdminStatus(e.target.value)}
                                 >
                                     {adminStatus.map((admin, index) => (
