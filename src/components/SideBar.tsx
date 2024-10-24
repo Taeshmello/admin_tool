@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { atom, useAtom } from 'jotai';
 import './SideBar.css';
+
+// Define Jotai atom for managing the active nav item
+const activeItemAtom = atom<number | null>(null);
 
 const SideBar: React.FC = () => {
   const { t } = useTranslation();
-  const [activeItem, setActiveItem] = useState<number | null>(null);
+  const [activeItem, setActiveItem] = useAtom(activeItemAtom);
 
   const handleNavItemClick = (index: number) => {
     setActiveItem(activeItem === index ? null : index);
