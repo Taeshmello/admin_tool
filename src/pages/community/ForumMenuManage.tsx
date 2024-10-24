@@ -1,9 +1,10 @@
 import ForumMenuManageStyle from './ForumMenuManage.module.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem, fetchServiceCode } from '../../utils/menu';
 import MenuEdit from '../../modal/communityMenuModal/MenuEdit';
 import MenuAdd from '../../modal/communityMenuModal/MenuAdd';
 import { useTranslation } from 'react-i18next';
+import { atom, useAtom } from 'jotai';
 
 interface Board {
     CM_idx: number;
@@ -24,16 +25,27 @@ interface ServiceCode {
     service_code: string;
 }
 
+// Define Jotai atoms
+const boardAtom = atom<Board[]>([]);
+const filteredBoardAtom = atom<Board[]>([]);
+const statusAtom = atom<userStatus[]>([]);
+const isModalOpenAtom = atom<boolean>(false);
+const selectedMenuItemAtom = atom<Board | null>(null);
+const isAddOpenAtom = atom<boolean>(false);
+const serviceCodeAtom = atom<ServiceCode[]>([]);
+const selectedServiceCodeAtom = atom<string>('');
+
 const ForumMenuManage: React.FC = () => {
-    const [board, setBoard] = useState<Board[]>([]);
-    const [filteredBoard, setFilteredBoard] = useState<Board[]>([]);
-    const [status, setStatus] = useState<userStatus[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [selectedMenuItem, setSelectedBoardMenuItem] = useState<Board | null>(null);
-    const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
-    const [serviceCode, setServiceCode] = useState<ServiceCode[]>([]);
-    const [selectedServiceCode, setSelectedServiceCode] = useState<string>('');
+    const [board, setBoard] = useAtom(boardAtom);
+    const [filteredBoard, setFilteredBoard] = useAtom(filteredBoardAtom);
+    const [status, setStatus] = useAtom(statusAtom);
+    const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
+    const [selectedMenuItem, setSelectedBoardMenuItem] = useAtom(selectedMenuItemAtom);
+    const [isAddOpen, setIsAddOpen] = useAtom(isAddOpenAtom);
+    const [serviceCode, setServiceCode] = useAtom(serviceCodeAtom);
+    const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceCodeAtom);
     const { t } = useTranslation();
+
     useEffect(() => {
         const loadMenuData = async () => {
             try {
@@ -76,7 +88,7 @@ const ForumMenuManage: React.FC = () => {
         loadStatusData();
         loadMenuData();
         loadServiceCodeData();
-    }, []);
+    }, [setBoard, setFilteredBoard, setServiceCode, setStatus]);
 
     useEffect(() => {
         const filtered = board.filter(item => {
@@ -84,7 +96,7 @@ const ForumMenuManage: React.FC = () => {
             return matchesServiceCode;
         });
         setFilteredBoard(filtered);
-    }, [board, selectedServiceCode]);
+    }, [board, selectedServiceCode, setFilteredBoard]);
 
     const handelEdit = async (CM_idx: number) => {
         try {
@@ -125,7 +137,8 @@ const ForumMenuManage: React.FC = () => {
                                     {sc.service_code}
                                 </option>
                             ))}
-                        </select></div>
+                        </select>
+                    </div>
 
                     <button className={ForumMenuManageStyle.add} onClick={openAdd}>{t('add_menu')}</button>
                 </div>
