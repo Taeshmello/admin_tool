@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from './FaqEdit.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts"; 
 import DetailEditor from "../../components/DetailEditor.tsx";
 import { useTranslation } from "react-i18next";
+import { atom, useAtom } from 'jotai';
+
 interface Game {
     id: number;
     name: string;
@@ -25,15 +27,27 @@ interface FaqEditProps {
     boardItem: Board;
 }
 
+// Define Jotai atoms
+const categoriesAtom = atom<Category[]>([]);
+const selectedCategoryAtom = atom<string | null>(null);
+const gamesAtom = atom<Game[]>([]);
+const selectedGameAtom = atom<number | null>(null);
+const titleAtom = atom<string>("");
+const detailAtom = atom<string>("");
+
 export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(boardItem.category_name);
-    const [games, setGames] = useState<Game[]>([]);
-    const [selectedGame, setSelectedGame] = useState<number | null>(null);
-    const [title, setTitle] = useState<string>(boardItem.title);
-    const [detail, setDetail] = useState<string>(boardItem.detail);
-    const {t} = useTranslation()
+    const [categories, setCategories] = useAtom(categoriesAtom);
+    const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
+    const [games, setGames] = useAtom(gamesAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [title, setTitle] = useAtom(titleAtom);
+    const [detail, setDetail] = useAtom(detailAtom);
+    const { t } = useTranslation();
+
     useEffect(() => {
+        setTitle(boardItem.title);
+        setDetail(boardItem.detail);
+        setSelectedCategory(boardItem.category_name);
         const loadGameData = async () => {
             try {
                 const gamesData = await fetchGames();
@@ -51,7 +65,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             }
         };
         loadGameData();
-    }, [boardItem.games]);
+    }, [boardItem, setGames, setSelectedGame, setTitle, setDetail, setSelectedCategory]);
 
     useEffect(() => {
         const loadCategoryData = async () => {
@@ -75,14 +89,14 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             }
         };
         loadCategoryData();
-    }, [selectedGame, boardItem.category_name]);
+    }, [selectedGame, boardItem.category_name, setCategories, setSelectedCategory]);
 
     const handleSave = async () => {
-            if (selectedGame === null || selectedCategory === null || !title) {
-                alert(`${t('"plz_fill_space"')}`);
-                return;
-            }
-    
+        if (selectedGame === null || selectedCategory === null || !title) {
+            alert(`${t('plz_fill_space')}`);
+            return;
+        }
+
         const updatedData = {
             board_num: boardItem.board_num,
             game_id: selectedGame,
@@ -90,9 +104,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             title: title,
             detail: detail,
         };
-    
-        
-    
+
         try {
             const response = await fetch(`http://localhost:5000/faq/update`, {
                 method: "PUT",
@@ -101,7 +113,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
                 },
                 body: JSON.stringify(updatedData),
             });
-    
+
             if (response.ok) {
                 alert(`${t("faq_edited")}`);
                 closeEdit();
@@ -115,10 +127,6 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             alert(`${t("faq_edited_error")}`);
         }
     };
-    
-    
-
-    
 
     return (
         <div className={styles.modal}>
