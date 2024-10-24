@@ -1,10 +1,11 @@
 import FaqManageStyle from './FaqManage.module.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { fetchGames } from '../../utils/api';
 import { fetchBoard, deleteBoardItem, fetchBoardItem } from '../../utils/faq';
 import { Write } from '../../modal/faqModal/FaqAdd';
 import { FaqEdit } from '../../modal/faqModal/FaqEdit';
 import { useTranslation } from 'react-i18next';
+import { atom, useAtom } from 'jotai';
 
 interface Game {
     name: string;
@@ -20,16 +21,27 @@ interface Board {
     detail: string;
 }
 
+const searchTermAtom = atom<string>('');
+const boardAtom = atom<Board[]>([]);
+const filteredBoardAtom = atom<Board[]>([]);
+const gamesAtom = atom<Game[]>([]);
+const selectedGameAtom = atom<string>('');
+const isModalOpenAtom = atom<boolean>(false);
+const isEditOpenAtom = atom<boolean>(false);
+const selectedBoardItemAtom = atom<Board | null>(null);
+
 const FaqManage = () => {
-    const [searchTerm, setSearchTerm] = useState<string>('');
-    const [board, setBoard] = useState<Board[]>([]);
-    const [filteredBoard, setFilteredBoard] = useState<Board[]>([]);
-    const [games, setGames] = useState<Game[]>([]);
-    const [selectedGame, setSelectedGame] = useState<string>('');
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
-    const [selectedBoardItem, setSelectedBoardItem] = useState<Board | null>(null);
-    const {t} = useTranslation();
+    const [searchTerm, setSearchTerm] = useAtom(searchTermAtom);
+    const [board, setBoard] = useAtom(boardAtom);
+    const [filteredBoard, setFilteredBoard] = useAtom(filteredBoardAtom);
+    const [games, setGames] = useAtom(gamesAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
+    const [isEditOpen, setIsEditOpen] = useAtom(isEditOpenAtom);
+    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedBoardItemAtom);
+    const { t } = useTranslation();
+
+
     const handleEdit = async (boardNum: number) => {
         try {
             const boardItem = await fetchBoardItem(boardNum);

@@ -3,6 +3,7 @@ import UserManageStyle from './UserManage.module.css';
 import { fetchUserData, fetchGameGenres, fetchGames } from '../../utils/api';
 import UserDetail from '../../modal/userManage/UserDetail';
 import { useTranslation } from 'react-i18next';
+import { atom, useAtom } from 'jotai';
 
 interface User {
     idx: number;
@@ -20,17 +21,28 @@ interface Genre {
     genre_name: string;
 }
 
+
+const usersAtom = atom<User[]>([]);
+const filteredUsersAtom = atom<User[]>([]);
+const searchTermAtom = atom<string>('');
+const selectedUserAtom = atom<User | null>(null);
+const isModalOpenAtom = atom<boolean>(false);
+const genresAtom = atom<Genre[]>([]);
+const gamesAtom = atom<Game[]>([]);
+const selectedGenreAtom = atom<string>('');
+const selectedGameAtom = atom<string>('');
+
 const UserManage: React.FC = () => {
     const { t } = useTranslation();
-    const [users, setUsers] = useState<User[]>([]);
-    const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
-    const [searchTerm, setSearchTerm] = useState<string>('');
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [genres, setGenres] = useState<Genre[]>([]);
-    const [games, setGames] = useState<Game[]>([]);
-    const [selectedGenre, setSelectedGenre] = useState<string>('');
-    const [selectedGame, setSelectedGame] = useState<string>('');
+    const [users, setUsers] = useAtom(usersAtom);
+    const [filteredUsers, setFilteredUsers] = useAtom(filteredUsersAtom);
+    const [searchTerm, setSearchTerm] = useAtom(searchTermAtom);
+    const [selectedUser, setSelectedUser] = useAtom(selectedUserAtom);
+    const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
+    const [genres, setGenres] = useAtom(genresAtom);
+    const [games, setGames] = useAtom(gamesAtom);
+    const [selectedGenre, setSelectedGenre] = useAtom(selectedGenreAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
 
     useEffect(() => {
         const loadUserData = async () => {
