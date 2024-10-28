@@ -48,12 +48,23 @@
     margin-bottom: 8px;
 }
 
-.gameButton {
+.gameButton1 {
     margin-right: 8px;
     margin-bottom: 8px;
     padding: 5px 10px;
-    background-color: #f0f0f0;
+    background-color: #00ff6a;
     border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.gameButton2 {
+    margin-right: 8px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    background-color: #f02626;
+    border: 1px solid #ccc;
+    color: white;
     border-radius: 4px;
     cursor: pointer;
 }

@@ -245,10 +245,10 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                 </div>
 
                 <div className={UserDetailStyles.perActions}>
-                    <button className={UserDetailStyles.gameButton} onClick={handleSelectAll}>
+                    <button className={UserDetailStyles.gameButton1} onClick={handleSelectAll}>
                         {allSelected ? `${t('allselect_off')}` : `${t('all_select')}`}
                     </button>
-                    <button className={UserDetailStyles.gameButton} onClick={handleDeletePermissions}>
+                    <button className={UserDetailStyles.gameButton2} onClick={handleDeletePermissions}>
                         {t('delete_per')}
                     </button>
                 </div>
