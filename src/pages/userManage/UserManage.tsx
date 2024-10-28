@@ -135,6 +135,7 @@ const UserManage: React.FC = () => {
                     <div className={UserManageStyle.userSearch}>
                         
                         <input
+                        className={UserManageStyle.searchInput}
                             type="text"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}

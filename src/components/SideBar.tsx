@@ -2,7 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { atom, useAtom } from 'jotai';
 import './SideBar.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 // Define Jotai atom for managing the active nav item
 const activeItemAtom = atom<number | null>(null);
 
@@ -23,7 +24,7 @@ const SideBar: React.FC = () => {
         <ul>
           <li className="nav-item">
             <span className="nav-text">
-              <a href="userManage">{t('user_management')}</a>
+              <a href="userManage"><FontAwesomeIcon icon={faUser} /> {t('user_management')}</a>
             </span>
           </li>
 
