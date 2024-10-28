@@ -1,107 +1,114 @@
 .pageContainer {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    margin-left: 250px;
-    margin-top: 50px;
-    overflow: hidden;
-  }
-
-  .pageContent {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    box-sizing: border-box;
-  }
-
-  
-  .tableContainer {
-    font-family: Arial, sans-serif;
-    max-height: 500px;
-    overflow-y: auto;
-  }
-  
-  .boardTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .boardTable th,
-  .boardTable td {
-    border: 1px solid #3a3c40;
-    padding: 5px;
-    text-align: left;
-    line-height: 1.2; 
-    height: 30px;
-    font-size: 15px;
-  }
-  
-  .boardTable th {
-    background-color: #292b2f;
-    color: #e4e6eb;
-  }
-  
-  .boardTable td {
-    background-color: #2c2f33;
-    color: #e4e6eb;
-  }
-  
-  .boardTable tr:nth-child(even) {
-    background-color: #2c2f33;
-  }
-  
-  .boardTable tr:nth-child(odd) {
-    background-color: #202225;
-  }
-
-
-  .editBtn {
-    background-color: #5865f2; 
-    color: #ffffff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-right: 10px;
-  }
-  
-  .editBtn:hover {
-    background-color: #4752c4;
-  }
-
-  .searchContainer{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .add{
-    cursor: pointer; 
-    font-size: 12px; 
-    padding: 4px 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: white;
-  }
-
-  .add:hover{
-    background-color: #5865f2;;
-    color: white;
-}
-.add{
-    background-color: #4752c4;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-left: 250px;
+  margin-top: 50px;
+  overflow: hidden;
 }
 
-.scContainer{
+.pageContent {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+
+.tableContainer {
+  font-family: Arial, sans-serif;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.boardTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.boardTable th,
+.boardTable td {
+  padding: 5px;
+  text-align: left;
+  line-height: 1.2;
+  height: 30px;
+  font-size: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.boardTable th {
+  color: #333333;
+  background-color: #f7f7f7;
+  font-weight: 600;
+}
+
+.boardTable td {
+  color: #333333;
+  background-color: #ffffff;
+}
+
+.boardTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.boardTable tr:nth-child(odd) {
+  background-color: #202225;
+}
+
+
+.editBtn {
+  background-color: #5865f2;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.editBtn:hover {
+  background-color: #4752c4;
+}
+
+.searchContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.add {
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: white;
+}
+
+.add:hover {
+  background-color: #5865f2;
+  ;
+  color: white;
+}
+
+.add {
+  background-color: #4752c4;
+}
+
+.scContainer {
   width: 100%;
 }
-.scTitle{
+
+.scTitle {
   margin-right: 10px;
   color: white;
 }
-.scFind{
+
+.scFind {
   display: flex;
   width: 50%;
   padding: 0;

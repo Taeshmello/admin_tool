@@ -147,7 +147,7 @@ const UserManage: React.FC = () => {
                     <table className={UserManageStyle.userTable}>
                         <thead>
                             <tr>
-                                <th>{t('registration_number')}</th>
+                                {/* <th>{t('registration_number')}</th> */}
                                 <th>{t('user_id')}</th>
                                 <th>{t('registration_date')}</th>
                                 <th>{t('actions')}</th>
@@ -160,7 +160,7 @@ const UserManage: React.FC = () => {
                                     : ' ';
                                 return (
                                     <tr key={index}>
-                                        <td>{user.idx}</td>
+                                        {/* <td>{user.idx}</td> */}
                                         <td>{user.id}</td>
                                         <td>{signupDate}</td>
                                         <td>

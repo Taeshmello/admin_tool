@@ -46,6 +46,7 @@
   border-collapse: collapse;
   margin-top: 20px;
   font-family: Arial, sans-serif;
+  
 }
 
 .userTable th,
@@ -71,7 +72,7 @@
 }
 
 .editBtn {
-  background-color: #5865f2; 
+  background-color: #0011ff; 
   color: #ffffff;
   border: none;
   padding: 8px 12px;

@@ -1,9 +1,8 @@
 .sidebar-container {
-  width: 250px;
-  height: 90vh;
-  background: #00c6ff;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  width: 230px;
+  height: 100vh;
+  background: #292929;
+
 
 
   color: #ffffff;
@@ -11,9 +10,7 @@ background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, F
   flex-direction: column;
   position: fixed;
   overflow-y: auto;
-  border-radius: 45px;
-  margin-top: 20px;
-  margin-left: 10px;
+
 }
 
 
@@ -37,7 +34,7 @@ sidebar-title {
 }
 
 
-.sidebar-nav {  
+.sidebar-nav {
   flex: 1;
   overflow-y: auto;
   padding: 10px;
@@ -64,10 +61,26 @@ sidebar-title {
   color: black;
 }
 
+.nav-item:hover {
+  background-color: white;
+  color: black;
+}
+
+.nav-item:hover .nav-text a {
+  color: black;
+}
+
+.nav-item:hover .sub-menu a {
+  color: black;
+}
+
+
 .nav-text {
   font-size: 16px;
 
 }
+
+
 
 
 
@@ -76,6 +89,7 @@ sidebar-title {
   padding: 0;
   margin: 0;
   margin-left: 20px;
+  
 }
 
 .sub-menu li {
@@ -83,7 +97,7 @@ sidebar-title {
 }
 
 .sub-menu a {
-  color: #b9bbbe;
+  color: white;
   text-decoration: none;
   font-size: 15px;
 }
