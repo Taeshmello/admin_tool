@@ -13,11 +13,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 60vh;
+  height: 450px;
   background-color: #36393f; 
   color: white;
   border: black 1px solid;
-  width: 45vh;
+  width: 400px;
   border-radius: 3%;
 }
 
@@ -125,8 +125,12 @@
   margin-top: 10px; 
 }
 
-h4 {
-  margin-right: 10px;
+.siginIn {
+  color: rgb(70, 177, 240);
+}
+
+.siginIn:hover{
+  text-decoration: underline;
 }
 
 .login:hover {

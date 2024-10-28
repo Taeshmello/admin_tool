@@ -6,12 +6,16 @@ import { useTranslation } from "react-i18next";
 import ForumEditor from "../../components/ForumEditor";
 import { useCookies } from 'react-cookie';
 import { refreshAccessToken, fetchData } from "../../utils/api";
+import axios from "axios";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 interface ForumAddProp {
     closeAdd: () => void
 }
 
 interface languages {
-    Lang_idx: number;   
+    Lang_idx: number;
     Lang: string;
 }
 
@@ -26,7 +30,7 @@ interface menu {
 }
 
 interface userStatus {
-    check_status: string;   
+    check_status: string;
 }
 
 const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
@@ -43,6 +47,8 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     const { t } = useTranslation();
     const [title, setTitle] = useState<string>('');
     const [detail, setDetail] = useState<string>('');
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
 
     useEffect(() => {
@@ -76,7 +82,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                         setMenu(menuData)
                     }
                 } catch (error) {
-                    console.error("메뉴 데이터 불러오기 오류:", error)
+                    console.error("메뉴 데이터 불러오기 오류:", error)  
                 }
             } else {
                 setMenu([]);
@@ -88,7 +94,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 const statusData = await fetchBoardUserStatus();
                 if (statusData && Array.isArray(statusData)) {
                     setStatus(statusData);
-                } 
+                }
             } catch (error) {
                 console.error("상태 데이터 불러오기 오류:", error);
             }
@@ -116,7 +122,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     }, [selectedServiceCode, cookies.accessToken, setCookie, removeCookie])
 
     const handleSubmit = async () => {
-        if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {   
+        if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {
             alert(`${t('plz_fill_space')}`);
             return;
         }
@@ -125,33 +131,26 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
         try {
             const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx;
 
-            const response = await fetch("http://localhost:5000/forum/insert", {
+            const response = await axios.post("http://localhost:5000/forum/insert", {
+                ServiceCode: selectedServiceCode,
+                Category: selectedMenu,
+                LanguageCode: selectedLanguageCode,
+                title: title,
+                contents: detail,
+                UserId: userInfo?.name || 'unknown',
+                UserStatus: selectedUserStatus
 
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json",
-                },
-
-                body: JSON.stringify({
-                    ServiceCode: selectedServiceCode,
-                    Category: selectedMenu,
-                    LanguageCode: selectedLanguageCode,
-                    title: title,
-                    contents: detail,
-                    UserId: userInfo?.name || 'unknown',
-                    UserStatus: selectedUserStatus
-                })
             });
 
 
-            if (!response.ok) {
-                throw new Error('서버 응답 오류');
+            if (response.status === 200) {
+                alert(`${t("forum_add_complete")}`)
+                location.reload()
+            } else {
+                console.error("게시물 작성 실패", response.statusText)
             }
 
-            const result = await response.json();
-            alert(`${t("forum_add_complete")}`)
-            console.log(result);
+
         } catch (error) {
             console.error("게시물 작성 중 오류:", error);
         }
@@ -169,6 +168,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
             }
         });
     };
+
 
     return (
         <div className={styles.modal}>
@@ -195,6 +195,25 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                         </option>
                     ))}
                 </select>
+                <div className={styles.dateSelect}>
+                <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    endDate={endDate}   
+                />
+                <h4>~</h4>
+                <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                />
+                </div>
+                
                 <div className={styles.languageContainer}>
                     {languages.map((lang, index) => (
                         <div key={index}>

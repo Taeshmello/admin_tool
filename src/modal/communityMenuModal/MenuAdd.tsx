@@ -111,7 +111,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
 
     const handleSave = async () => {
         if (selectedServiceCode == null || selectedMenuName.length === 0 || selectedAdminStatus == null || selectedUserStatus == null) {
-            alert("모든 항목을 선택해주세요.");
+            alert(`${t('plz_fill_space')}`);
             return;
         }
 

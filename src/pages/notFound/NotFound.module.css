@@ -1,0 +1,49 @@
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #2f3136;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.title {
+    font-size: 6rem;
+    color: #ff6347;
+}
+
+.message {
+    font-size: 1.5rem;
+    color: white;
+    margin: 20px 0;
+}
+
+.illustration {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 20px 0;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #5865f2;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #4752c4;
+}
+
+
+.seceretMessage{
+    color: #2f3136;
+    font-size: 0.7rem;
+}

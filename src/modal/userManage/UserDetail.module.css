@@ -14,14 +14,14 @@
 }
 
 .modalContent {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
+   background-color: #fff; 
+    border-radius: 8px; 
+    padding: 20px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+    max-width: 500px; 
     width: 100%;
-    height: 60vh;
-    overflow-y: auto;
+    height: 45vh; 
+    overflow-y: auto; 
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -70,9 +70,10 @@
 }
 
 .actions {
+    margin-top: 50px;
+    width: 96%;
     display: flex;
     justify-content: space-between;
-    width: 100%;
 
 }
 
@@ -117,8 +118,14 @@
 .userGames {
     display: flex;
     align-items: center;
+    cursor: default;
+}
+
+.userGames:hover{
+    
 }
 
 .ownedGame {
     display: flex;
 }
+

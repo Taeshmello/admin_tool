@@ -82,8 +82,8 @@ const SignUp: React.FC = () => {
           </div>
 
           <div className={SignUpStyle.signUpContainer}>
-            <h4>Do you already have an account?</h4>
-            <a href="/" className={SignUpStyle.login}>login</a>
+            <h4 ><a href="/" className={SignUpStyle.siginIn}>Do you already have an account?</a></h4>
+            
           </div>
 
           <button type="submit" className={SignUpStyle.loginButton}>Sign Up</button>

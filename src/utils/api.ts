@@ -155,3 +155,15 @@ export const fetchUserPermissionGames = async (userId: number): Promise<any> => 
         throw error;
     }
 };
+
+export const fetchUserPermissionGamesDetail = async (userId: number, gameId:number):Promise<any> => {
+    try{
+        const response = await axios.get(`http://localhost:5000/auth/permissions-details/${userId}/${gameId}`,{
+            withCredentials: true,
+        });
+        return response.data;
+    } catch(error) {
+        console.error("사용자 게임 권한 세부 정보를 가져오는 중 오류 발생:",error);
+        throw error
+    }
+}

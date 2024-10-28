@@ -1,4 +1,4 @@
-/* LoginForm.module.css */
+
 
 .formContainer {
   display: flex;
@@ -13,11 +13,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 45vh;
+  position: fixed;
+  height: 350px;
   background-color: #36393f; 
   color: white;
   border: black 1px solid;
-  width: 45vh;
+  width: 350px;
   border-radius: 3%;
 }
 
@@ -113,7 +114,7 @@
 
 .signup {
   text-decoration: none;
-  color: #b9bbbe;
+  color: rgb(70, 177, 240);
 }
 
 .signup:hover {

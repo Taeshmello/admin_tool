@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
           if (UserStatus === 0) {
             navigate('/waiting');
           } else if (UserStatus === 1) {
-            navigate('/mainpage');
+            navigate('/userManage');
           } else if (UserStatus === 2) {
             alert("Unable to log in.");
           }

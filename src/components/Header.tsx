@@ -11,11 +11,7 @@ const Header = () => {
   const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
   const { t, i18n } = useTranslation();
-
-
-
-
-
+  
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -56,7 +52,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <span className="title"><a href="/mainpage">VFUN-Admin</a></span>
+        <span className="title"><a href="/userManage">VFUN-Admin</a></span>
       </div>
 
       <div className="header-right">
