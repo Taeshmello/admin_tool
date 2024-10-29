@@ -47,7 +47,7 @@
   "close": "닫기",
   "save": "저장",
   "servicecode_select": "서비스코드 선택",
-  "menu_select": "메뉴 선택", 
+  "menu_select": "메뉴 선택",
   "show_select": "공개/비공개 선택",
   "status_select": "상태 선택",
   "input_title": "제목 입력",
@@ -69,7 +69,7 @@
   "menu_edited_error": "메뉴 수정 중 오류가 발생하였습니다.",
   "faq_created": "카테고리 등록 완료",
   "faq_edited": "FAQ가 수정되었습니다.",
-  "faq_edtied_failed": "FAQ 수정에 실패하였습니다:",  
+  "faq_edtied_failed": "FAQ 수정에 실패하였습니다:",
   "faq_edited_error": "fAQ 수정 중 오류가 발생하였습니다.",
   "selected_per_delete": "선택된 권한이 삭제되었습니다.",
   "deleted_per_failed": "권한 삭제에 실패하였습니다.",
@@ -84,5 +84,7 @@
   "date": "기간",
   "top_fixed": "상단 고정",
   "noGamesWithPermissions": "권한 보유중인 게임 없음",
-  "forum_add_complete": "게시물 추가 완료"
+  "forum_add_complete": "게시물 추가 완료",
+  "Content": "내용",
+  "Image": "이미지"
 }

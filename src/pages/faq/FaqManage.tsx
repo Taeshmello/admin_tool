@@ -97,17 +97,17 @@ const FaqManage = () => {
     }, [board, selectedGame, searchTerm]);
 
     const handleDelete = async (boardNum: number) => {
-        const confirmDelete = window.confirm(`${("check_menu_delete")}`);
+        const confirmDelete = window.confirm(`${t("check_menu_delete")}`);
         if (confirmDelete) {
             try {
                 await deleteBoardItem(boardNum);
                 const updatedBoard = board.filter(item => item.board_num !== boardNum);
                 setBoard(updatedBoard);
                 setFilteredBoard(updatedBoard);
-                alert(`${("menu_deleted")}`);
+                alert(`${t("menu_deleted")}`);
             } catch (error) {
                 console.error("삭제 오류:", error);
-                alert(`${('menu_deleted_failed')}`);
+                alert(`${t('menu_deleted_failed')}`);
             }
         }
     };
@@ -121,7 +121,7 @@ const FaqManage = () => {
             <div className={FaqManageStyle.pageContent}>
                 <div className={FaqManageStyle.searchContainer}>
                     <div className={FaqManageStyle.gamesContainer}>
-                        <h3 className={FaqManageStyle.gameTitle}>Game</h3>
+                        <h3 className={FaqManageStyle.gameTitle}>Game:</h3>
                         <select
                             name="game"
                             className={FaqManageStyle.selectGame}

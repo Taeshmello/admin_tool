@@ -82,5 +82,7 @@
     "date": "时间",
     "top_fixed": "上端固定",
     "noGamesWithPermissions": "没有权限游戏 。",
-    "forum_add_complete": "帖子添加完毕。"
+    "forum_add_complete": "帖子添加完毕。",
+    "Content": "内容物",
+  "Image": "照片"
 }

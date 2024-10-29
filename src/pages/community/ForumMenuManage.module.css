@@ -83,23 +83,20 @@
 
 .add {
   cursor: pointer;
-  font-size: 12px;
-  padding: 4px 4px;
-  border: 1px solid #ccc;
+  font-size: 14px;
+  padding: 8px 12px;
   border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ccc;
   color: white;
+  background-color: #5865f2;
 }
 
 .add:hover {
-  background-color: #5865f2;
-  ;
-  color: white;
+  background-color: #4752c4;
   transform: translateY(-2px);
 }
 
-.add {
-  background-color: #4752c4;
-}
 
 .scContainer {
   width: 100%;

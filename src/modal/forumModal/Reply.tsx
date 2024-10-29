@@ -71,7 +71,7 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
             if (response.status === 200) {
                 closeReply(); 
             } else {
-                // Handle error response if needed
+               
             }
         } catch (error) {
             console.error("에러 발생:", error);
