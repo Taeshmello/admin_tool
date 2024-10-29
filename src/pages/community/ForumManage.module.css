@@ -29,6 +29,7 @@
 
 .addBtn:hover{
   background-color: #4752c4;
+  transform: translateY(-2px);
 }
   
 
@@ -85,6 +86,9 @@
   font-size: 14px;
   margin-right: 10px;
 }
+.editBtn:hover{
+  transform: translateY(-2px);
+}
 
 .replyBtn{
   background-color: #5865f2;
@@ -97,6 +101,10 @@
   margin-right: 10px;
 }
 
+.replyBtn:hover{
+  transform: translateY(-2px);
+}
+
 .commentBtn{
   background-color: #5865f2;
   color: #ffffff;
@@ -105,4 +113,8 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+}
+
+.commentBtn:hover{
+  transform: translateY(-2px);
 }
