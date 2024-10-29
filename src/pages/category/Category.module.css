@@ -12,6 +12,7 @@
 
 .categoryAdd:hover {
   background-color: #4752c4;
+  transform: translateY(-2px);
 }
 
 .pageContainer {
@@ -80,6 +81,7 @@
 
 .editBtn:hover {
   background-color: #4752c4;
+  
 }
 
 .deleteBtn {
@@ -96,6 +98,7 @@
 
 .deleteBtn:hover {
   background-color: rgb(209, 2, 2);
+  transform: translateY(-2px);
 }
 
 .tableContainer {
@@ -154,6 +157,10 @@
     cursor: pointer;
     font-size: 14px;
     margin-right: 10px;
+}
+
+.info:hover{
+  transform: translateY(-2px);
 }
 
 .searchContainer{
