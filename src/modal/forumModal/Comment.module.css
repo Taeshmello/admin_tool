@@ -9,7 +9,13 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    animation: fadeIn 0.3s ease;
 }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 
 .modalContent {
     background-color: #ffffff;
@@ -24,29 +30,43 @@
     flex-direction: column;
     justify-content: space-between;
     height: 80%;
+    animation: slideUp 0.3s ease;
 }
 
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
 .close, .save {
     cursor: pointer;
     font-size: 16px;
-    padding: 8px 12px;
+    padding: 10px 20px;
     border: none;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 .save {
-    background-color: #5865f2;
-    color: white;
+    background: linear-gradient(135deg, #4e73f8, #7b8df1);
+    color: #fff;
+    margin-right: 8px;
 }
 .save:hover {
-    background-color: #4752c4;
+    background: linear-gradient(135deg, #3c5ed1, #6679e1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 .close {
-    background-color: #e0e0e0;
-    color: #333;
+    background-color: #e3e3e3;
+    color: #555;
 }
 .close:hover {
-    background-color: #d0d0d0;
+    background-color: #cacaca;
+    transform: translateY(-2px);
 }
 
 .btnContainer {
