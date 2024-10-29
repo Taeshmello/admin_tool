@@ -59,7 +59,7 @@
     resize: vertical;
 }
 
-/* Fade-in 및 Scale 효과 추가 */
+
 .modal {
     position: fixed; 
     top: 0;
@@ -72,7 +72,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1000; 
-    animation: fadeIn 0.3s ease; /* Fade-in 효과 */
+    animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -80,7 +80,7 @@
     to { opacity: 1; }
 }
 
-/* Modal 내용의 Fade-in 및 Scale 효과 추가 */
+
 .modalContent {
     background-color: #fff; 
     border-radius: 8px; 
@@ -92,12 +92,12 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    animation: scaleIn 0.3s ease; /* Scale-in 효과 */
+    animation: scaleIn 0.3s ease;
 }
 
 @keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.95); } /* 시작 상태 */
-    to { opacity: 1; transform: scale(1); } /* 끝 상태 */
+    from { opacity: 0; transform: scale(0.95); } 
+    to { opacity: 1; transform: scale(1); }
 }
 
 .close, .save {
