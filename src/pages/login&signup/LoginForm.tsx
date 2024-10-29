@@ -79,8 +79,13 @@ const LoginForm: React.FC = () => {
           </div>
 
           <button type="submit" className={LoginStyle.loginButton}>Login</button>
+          
         </form>
+        
       </div>
+      {Array.from({ length: 20 }).map((_, index) => (
+                <div key={index} className={`${LoginStyle.star} ${LoginStyle[`star${index}`]}`}></div>
+            ))}
     </div>
   );
 };

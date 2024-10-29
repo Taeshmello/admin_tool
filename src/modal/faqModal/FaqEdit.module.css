@@ -132,7 +132,7 @@
     transform: translateY(-2px);
 }
 
-/* 버튼 컨테이너 스타일 */
+
 .btnContainer {
     margin-top: auto;
     width: 100%;
@@ -140,3 +140,4 @@
     justify-content: space-between;
     padding-top: 15px;
 }
+

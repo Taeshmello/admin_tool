@@ -89,6 +89,9 @@ const SignUp: React.FC = () => {
           <button type="submit" className={SignUpStyle.loginButton}>Sign Up</button>
         </form>
       </div>
+      {Array.from({ length: 20 }).map((_, index) => (
+                <div key={index} className={`${SignUpStyle.star} ${SignUpStyle[`star${index}`]}`}></div>
+            ))}
     </div>
   );
 };

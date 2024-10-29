@@ -131,7 +131,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
     return (
         <div className={styles.modal}>
             <div className={styles.modalContent}>
-            <span className={styles.close} onClick={closeEdit}>&times;</span>
+          
                 <h2 className={styles.writeTitle}>{t('faq_detail')}({t('edit')})</h2>
                 <select
                     name="game"
