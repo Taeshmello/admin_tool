@@ -86,5 +86,7 @@
   "noGamesWithPermissions": "권한 보유중인 게임 없음",
   "forum_add_complete": "게시물 추가 완료",
   "Content": "내용",
-  "Image": "이미지"
+  "image": "이미지",
+  "pleaseFillReplyContent": "답글을 적어주세요.",
+  "nickName":"닉네임"
 }

@@ -38,7 +38,7 @@ const Comment: React.FC<ForumCommentProp> = ({ closeComment, FB_idx }) => {
                             <tr>
                                 <th>{t('user_id')}</th>
                                 <th>{t('nickName')}</th>
-                                <th>{t('images')}</th>
+                                <th>{t('image')}</th>
                                 <th>{t('detail')}</th>
                                 <th>{t('registration_date')}</th>
                                 <th>{t('status')}</th>

@@ -84,5 +84,7 @@
     "noGamesWithPermissions": "没有权限游戏 。",
     "forum_add_complete": "帖子添加完毕。",
     "Content": "内容物",
-  "Image": "照片"
+  "image": "照片",
+  "pleaseFillReplyContent" : "请填写回复内容。",
+  "nickName" : "昵称"
 }

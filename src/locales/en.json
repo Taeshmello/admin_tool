@@ -87,6 +87,7 @@
   "date": "Date",
   "top_fixed": "Top Fixed",
   "noGamesWithPermissions": "No games with permissions",
-  "forum_add_complete": "Post Addition Completed"
+  "forum_add_complete": "Post Addition Completed",
+  "nickName" : "NickName"
   
 }
