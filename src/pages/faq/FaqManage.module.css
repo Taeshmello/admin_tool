@@ -21,6 +21,7 @@
 
 .faqAdd:hover{
   background-color: #4752c4;
+  transform: translateY(-2px);
 }
 
 .pageContent {
@@ -81,6 +82,7 @@
 
 .editBtn:hover {
   background-color: #4752c4;
+  transform: translateY(-2px);
 }
 
 .deleteBtn {
@@ -97,6 +99,7 @@
 
 .deleteBtn:hover {
   background-color: rgb(209, 2, 2);
+  transform: translateY(-2px);
 }
 
 .tableContainer {
