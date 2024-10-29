@@ -81,6 +81,7 @@
 
 .editBtn:hover {
   background-color: #4752c4; 
+  transform: translateY(-2px);
 }
 
 .editBtn:focus {
