@@ -1,4 +1,4 @@
-/* 쓰기 컨테이너 스타일 */
+    /* 쓰기 컨테이너 스타일 */
 .writeContainer {
     max-width: 500px;
     margin: 20px auto;
@@ -51,7 +51,6 @@
     resize: vertical;
 }
 
-/* 버튼 스타일 */
 .writeButton {
     width: 100%;
     padding: 12px;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from './Write.module.css';
+import styles from './FaqAdd.module.css';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
 import Editor from "../../components/Editor.tsx";
 import { useTranslation } from "react-i18next";
