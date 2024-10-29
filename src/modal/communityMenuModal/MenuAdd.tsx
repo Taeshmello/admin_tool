@@ -197,7 +197,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
 
                 <div className={MenuAddStyle.btnContainer}>
                     <button className={MenuAddStyle.close} onClick={closeAdd}>{t('close')}</button>
-                    <button className={MenuAddStyle.saveBtn} onClick={handleSave}>{t('save')}</button>
+                    <button className={MenuAddStyle.save} onClick={handleSave}>{t('save')}</button>
                 </div>
             </div>
         </div>
