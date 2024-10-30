@@ -8,8 +8,21 @@ body {
     background: #E0EAFC;
     background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);
     background: linear-gradient(to right, #CFDEF3, #E0EAFC);
-  
+
 
 }
 
+input {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s ease;
+}
 
+
+input:hover {
+    border-color: #0037ff;
+    box-shadow: 0 0 6px rgba(78, 115, 248, 0.3);
+}

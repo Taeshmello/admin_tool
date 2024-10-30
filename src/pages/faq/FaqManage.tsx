@@ -140,6 +140,7 @@ const FaqManage = () => {
                             className={FaqManageStyle.find}
                             type="text"
                             value={searchTerm}
+                            placeholder={t('search_placeholder')}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                         <button className={FaqManageStyle.faqAdd} onClick={openModal}>{t('add_faq')}</button>

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { atom, useAtom } from 'jotai';
 import './SideBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faCircleQuestion, faLaptop } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faCircleQuestion, faLaptop, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
 const activeItemAtom = atom<number | null>(null);
 
 const SideBar: React.FC = () => {
@@ -13,7 +13,7 @@ const SideBar: React.FC = () => {
   const handleNavItemClick = (index: number) => {
     setActiveItem(activeItem === index ? null : index);
   };
-  
+
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
@@ -23,18 +23,20 @@ const SideBar: React.FC = () => {
         <ul>
           <li className="nav-item">
             <span className="nav-text">
-              <a href="userManage"><FontAwesomeIcon icon={faUser}/> {t('user_management')}</a>
+              <a href="userManage"><FontAwesomeIcon icon={faUser} /> {t('user_management')}</a>
             </span>
           </li>
 
           <li className="nav-item" onClick={() => handleNavItemClick(1)}>
-            <span className="nav-text"><FontAwesomeIcon icon={faCircleQuestion}/> {t('customer_service')}</span>
+            <span className="nav-text"><FontAwesomeIcon icon={faCircleQuestion} /> {t('customer_service')}</span>
             {activeItem === 1 && (
               <ul className="sub-menu">
                 <li>
-                  <a href="Category">{t('category_management')}</a> 
+                  <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
+                  <a href="Category">{t('category_management')}</a>
                 </li>
                 <li>
+                  <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
                   <a href="faqmanage">{t('faq_management')}</a>
                 </li>
               </ul>
@@ -42,18 +44,21 @@ const SideBar: React.FC = () => {
           </li>
 
           <li className="nav-item" onClick={() => handleNavItemClick(2)}>
-            <span className="nav-text"><FontAwesomeIcon icon={faLaptop}/> {t('main_screen_management')}</span>
+            <span className="nav-text"><FontAwesomeIcon icon={faLaptop} /> {t('main_screen_management')}</span>
             {activeItem === 2 && (
               <ul className="sub-menu">
                 <li>
+                  <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
                   <a href="ForumMenuManage">{t('board_menu_management')}</a>
                 </li>
                 <li>
+                  <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
                   <a href="ForumManage">{t('board_post_management')}</a>
                 </li>
-                <li>
+                {/* <li>
+                <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
                   <a href="Department">{t('department_management')}</a>
-                </li>
+                </li> */}
               </ul>
             )}
           </li>

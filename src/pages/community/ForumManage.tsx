@@ -142,7 +142,7 @@ const ForumManage: React.FC = () => {
             {isReplyOpen && selectedFBidx !== null && (
                 <Reply closeReply={closeReply} FB_idx={selectedFBidx} />
             )}
-        </div>  
+        </div>
     );
 }
 

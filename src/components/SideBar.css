@@ -45,7 +45,7 @@ sidebar-title {
   padding: 0;
   margin: 0;
 }
-  
+
 .nav-item {
   padding: 8px 12px;
   display: flex;
@@ -89,7 +89,7 @@ sidebar-title {
   padding: 0;
   margin: 0;
   margin-left: 20px;
-  
+
 }
 
 .sub-menu li {
@@ -104,4 +104,11 @@ sidebar-title {
 
 .sub-menu a:hover {
   text-decoration: underline;
+}
+
+
+.arrowIcon {
+  font-size: 15px;
+  margin-right: 10px;
+  margin-left: 15px;
 }
