@@ -108,7 +108,7 @@ const UserManage: React.FC = () => {
                 <h3 className={UserManageStyle.searchTitle}>{t('search')}</h3>
                     <select
                         name="genre"
-                        className='game-select'
+                        className={UserManageStyle.genreSearch}
                         onChange={(e) => setSelectedGenre(e.target.value)}
                         value={selectedGenre}
                     >
@@ -121,7 +121,7 @@ const UserManage: React.FC = () => {
                     </select>
                     <select
                         name="game"
-                        className='game-select'
+                        className={UserManageStyle.gameSearch}
                         onChange={(e) => setSelectedGame(e.target.value)}
                         value={selectedGame}
                     >

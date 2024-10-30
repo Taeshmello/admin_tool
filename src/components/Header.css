@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #292929;
+  background: #2B3A67;
 
 
   color: #ffffff;
@@ -170,14 +170,19 @@
 
 .language-select {
   width: 20%;
-  border: none;
-  background-color: #202225;
+  border: 1px solid black;
+  background-color: black;
   color: #b9bbbe;
   padding: 8px;
   font-size: 12px;
   border-top: 1px solid #40444b;
   margin-right: 30px;
-  height: 50px;
+  height: 40px;
+}
+
+.languageIcon{
+  height: 35px;
+  margin-right: 5px;
 }
 
 .profile-name {

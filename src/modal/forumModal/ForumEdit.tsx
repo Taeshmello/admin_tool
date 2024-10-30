@@ -30,28 +30,28 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, forumItem }) => {
 
         <div className={EditStyles.modal}>
             <div className={EditStyles.modalContent}>
-            <table className={EditStyles.table}>
-            <thead className={EditStyles.thead}>
-                <th className={EditStyles.th}>{t('service_code')}</th>
-                <th className={EditStyles.th}>{t('category')}</th>
-                <th className={EditStyles.th}>{t('date')}</th>
-                <th className={EditStyles.th}>{t('top_fixed')}</th>
-                <th className={EditStyles.th}>{t('status')}</th>
-                <th className={EditStyles.th}>{t('title')}</th>
-                <th className={EditStyles.th}>{t('detail')}</th>
-            </thead>
-            <tbody className={EditStyles.tbody}>
-                <tr className={EditStyles.tr}>
-                    <td className={EditStyles.td}>
-                    <select ></select>
-                    </td>
-                    <td className={EditStyles.td}>
-                        <select name="" id=""></select>
-                    </td>
-                </tr>
-            </tbody>
-            </table>
-            <div className={EditStyles.btnContainer}>
+                <table className={EditStyles.table}>
+                    <thead className={EditStyles.thead}>
+                        <th className={EditStyles.th}>{t('service_code')}</th>
+                        <th className={EditStyles.th}>{t('category')}</th>
+                        <th className={EditStyles.th}>{t('date')}</th>
+                        <th className={EditStyles.th}>{t('top_fixed')}</th>
+                        <th className={EditStyles.th}>{t('status')}</th>
+                        <th className={EditStyles.th}>{t('title')}</th>
+                        <th className={EditStyles.th}>{t('detail')}</th>
+                    </thead>
+                    <tbody className={EditStyles.tbody}>
+                        <tr className={EditStyles.tr}>
+                            <td className={EditStyles.td}>
+                                <select ></select>
+                            </td>
+                            <td className={EditStyles.td}>
+                                <select name="" id=""></select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div className={EditStyles.btnContainer}>
                     <button className={EditStyles.close} onClick={closeEdit}>
                         {t('close')}
                     </button>

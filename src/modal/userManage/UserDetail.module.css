@@ -32,6 +32,7 @@
     flex-direction: column;
     gap: 16px;
     animation: slideUp 0.3s ease;
+    overflow-x: hidden;
 }
 
 @keyframes slideUp {

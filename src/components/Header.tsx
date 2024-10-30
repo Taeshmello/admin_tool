@@ -50,12 +50,13 @@ const Header = () => {
       });
   };
   return (
-    <header className="header">
+    <header className="header"> 
       <div className="header-left">
         <span className="title"><a href="/userManage">VFUN-Admin</a></span>
       </div>
 
       <div className="header-right">
+      
         <select className="language-select" onChange={handleLanguageChange} value={i18n.language}>
           <option value="ko">한국어</option>
           <option value="en">English</option>

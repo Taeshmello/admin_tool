@@ -20,7 +20,10 @@
 
 .searchTitle {
   color: white;
-  margin-left: 10px;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+.genreSearch{
   margin-right: 10px;
 }
 
@@ -96,3 +99,25 @@
 select{
   height: 20px;
 }
+
+select {
+  height: 30px;
+  transition: all 0.3s ease;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+select:hover {
+  border-color: #5865f2;
+  background-color: #f0f8ff;
+  transform: scale(1.02);
+}
+
+select:focus {
+  outline: none;
+  border-color: #5865f2;
+  box-shadow: 0 0 5px rgba(88, 101, 242, 0.5);
+}
+
+
