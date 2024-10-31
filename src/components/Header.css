@@ -81,6 +81,12 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.profile-container:hover{
+  border-color: #0037ff;
+    box-shadow: 0 0 6px rgba(78, 115, 248, 0.3);
 }
 
 .dropdown-menu {

@@ -10,11 +10,17 @@
     height: 100%;
     z-index: 1000;
     animation: fadeIn 0.3s ease;
-    
+
 }
+
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .modalContent {
@@ -24,7 +30,7 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     max-width: 800px;
 
-    width: 50vw;
+    width: 45vw;
 
     max-height: 100vh;
     overflow-y: auto;
@@ -35,11 +41,21 @@
     height: 80%;
     animation: slideUp 0.3s ease;
 }
+
 @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
-.close, .save {
+
+.close,
+.save {
     cursor: pointer;
     font-size: 16px;
     padding: 10px 20px;
@@ -52,20 +68,24 @@
     align-items: center;
     justify-content: center;
 }
+
 .save {
     background: linear-gradient(135deg, #4e73f8, #7b8df1);
     color: #fff;
     margin-right: 8px;
 }
+
 .save:hover {
     background: linear-gradient(135deg, #3c5ed1, #6679e1);
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
 .close {
     background-color: #e3e3e3;
     color: #555;
 }
+
 .close:hover {
     background-color: #cacaca;
     transform: translateY(-2px);
@@ -77,28 +97,56 @@
     display: flex;
     justify-content: space-between;
 }
-.ServiceCode{
+
+.ServiceCode {
+    width: 50%;
     margin-bottom: 10px;
-}
-.classification{
-    margin-bottom: 10px;
-}
-.dateSelect{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
-.selectContainer{
-    width: 60%;
+.classification {
+    width: 50%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.dateSelect {
+    width: 50%;
     display: flex;
+    justify-content: center;
+
+}
+
+.selectContainer {
+    width: 62%;
+    display: flex;
+    padding: 10px;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(199, 199, 199);
 }
 
-.languageContainer{
+.languageContainer {
     display: flex;
-    gap: 10px; 
-    padding: 10px; 
+    gap: 10px;
+    padding: 10px;
     justify-content: center;
     width: 100%;
+}
+
+.title {
+    text-align: center;
+    width: 49%;
+    margin-bottom: 5px;
+}
+
+.selectFixed {
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.status {
+    width: 50%;
+    margin-bottom: 10px;
 }

@@ -6,7 +6,6 @@ import { fetchMenuByServiceCodeId, fetchLanguage } from '../../utils/forum';
 import DatePicker from 'react-datepicker';
 interface ForumEditProp {
     closeEdit: () => void
-
 }
 
 interface languages {
@@ -43,42 +42,42 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, forumItem }) => {
                         <option>{t('servicecode_select')}</option>
                     </select>
                     <select className={EditStyles.classification}></select>
-                </div>
-
-
-                <div className={EditStyles.dateSelect}>
-                    <DatePicker
+                    <div className={EditStyles.dateSelect}>
+                        <DatePicker
                             selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        selectsStart
-                        startDate={startDate}
-                        endDate={endDate}
-                    /><h4>~</h4>
-                    <DatePicker
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                        selectsEnd
-                        startDate={startDate}
-                        endDate={endDate}
-                        minDate={startDate}
-                    />
+                            onChange={(date) => setStartDate(date)}
+                            selectsStart
+                            startDate={startDate}
+                            endDate={endDate}
+                            className={EditStyles.startDate}
+                        /><h4>~</h4>
+                        <DatePicker
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)}
+                            selectsEnd
+                            startDate={startDate}
+                            endDate={endDate}
+                            minDate={startDate}
+                            className={EditStyles.endDate}
+                        />
+                    </div>
+                    <div className={EditStyles.languageContainer}>
+                        {languages.map((lang, index) => (
+                            <div key={index}>
+                                <input
+                                    type="checkbox"
+                                    id={`lang-${index}`}
+                                    value={lang.Lang}
+                                />
+                                <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
+                            </div>
+                        ))}
+                    </div>
+                    <select className={EditStyles.selectFixed}></select>
+                    <select className={EditStyles.status}></select>
+                    <input className={EditStyles.title} placeholder={t("input_title")} />
                 </div>
-                <div className={EditStyles.languageContainer}>
-                    {languages.map((lang, index) => (
-                        <div key={index}>
-                            <input
-                                type="checkbox"
-                                id={`lang-${index}`}
-                                value={lang.Lang}
-                            />
-                            <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
-                        </div>
-                    ))}
-                </div>
-                <select className={EditStyles.selectFixed}></select>
-                <select className={EditStyles.status}></select>
-                <input className={EditStyles.title} placeholder={t("input_title")}/>
-                <ForumEditor/>
+                <ForumEditor />
                 <div className={EditStyles.btnContainer}>
                     <button className={EditStyles.close} onClick={closeEdit}>
                         {t('close')}
