@@ -179,11 +179,10 @@
   margin-right: 30px;
   height: 40px;
 }
-
-.languageIcon{
-  height: 35px;
-  margin-right: 5px;
+.language-select:hover{
+  background-color: black;
 }
+
 
 .profile-name {
   font-size: 18px;

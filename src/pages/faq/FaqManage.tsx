@@ -161,7 +161,7 @@ const FaqManage = () => {
                         </thead>
                         <tbody>
                             {filteredBoard.map((boardItem, index) => {
-                                const created_date = boardItem.created_at
+                                const created_date = boardItem.created_at   
                                     ? new Date(boardItem.created_at).toLocaleString('ko-KR', { timeZone: 'UTC' })
                                     : ' ';
                                 return (

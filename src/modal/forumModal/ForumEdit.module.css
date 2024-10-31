@@ -10,6 +10,7 @@
     height: 100%;
     z-index: 1000;
     animation: fadeIn 0.3s ease;
+    
 }
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -23,13 +24,14 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     max-width: 800px;
 
-    width: 80vw;
+    width: 50vw;
 
     max-height: 100vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     height: 80%;
     animation: slideUp 0.3s ease;
 }
@@ -75,22 +77,28 @@
     display: flex;
     justify-content: space-between;
 }
-
-
-.table {
+.ServiceCode{
+    margin-bottom: 10px;
+}
+.classification{
+    margin-bottom: 10px;
+}
+.dateSelect{
+    width: 100%;
     display: flex;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    overflow-x: auto;
-    overflow-y: hidden;
+    justify-content: center;
 }
 
-
-.tbody {
-    display: flex
+.selectContainer{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
 }
 
-.th,
-.td {
-    display: block
+.languageContainer{
+    display: flex;
+    gap: 10px; 
+    padding: 10px; 
+    justify-content: center;
+    width: 100%;
 }
