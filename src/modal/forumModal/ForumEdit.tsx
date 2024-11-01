@@ -1,23 +1,39 @@
 import EditStyles from './ForumEdit.module.css'
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
-import ForumEditor from "../../components/ForumEditor";
+import ForumEditEditor from '../../components/ForumEditEditor';
 import { fetchMenuByServiceCodeId, fetchLanguage } from '../../utils/forum';
 import DatePicker from 'react-datepicker';
-interface ForumEditProp {
-    closeEdit: () => void
-}
+
 
 interface languages {
     Lang_idx: number;
     Lang: string;
 }
-const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, forumItem }) => {
+interface Forum {
+    FB_idx: number;
+    ServiceCode: string;
+    Category: string;
+    LanguageCode: string;
+    Title: string;
+    HaveFile: string;
+    UserId: string;
+    UserIp: string;
+    CreatedAt: string;
+    UserStatus: string;
+}
+
+interface ForumEditProp {   
+    closeEdit: () => void
+    boardItem: Forum;   
+}
+
+const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
     const { t } = useTranslation();
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [languages, setLanguages] = useState<languages[]>([]);
-
+    
     useEffect(() => {
         const loadLanguageData = async () => {
             try {
@@ -25,7 +41,6 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, forumItem }) => {
                 if (languageData && Array.isArray(languageData)) {
                     setLanguages(languageData);
                 }
-
             } catch (error) {
                 console.error("언어 데이터 불러오기 오류:", error)
             }
@@ -77,7 +92,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, forumItem }) => {
                     <select className={EditStyles.status}></select>
                     <input className={EditStyles.title} placeholder={t("input_title")} />
                 </div>
-                <ForumEditor />
+                <ForumEditEditor/>
                 <div className={EditStyles.btnContainer}>
                     <button className={EditStyles.close} onClick={closeEdit}>
                         {t('close')}
@@ -92,4 +107,4 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, forumItem }) => {
     )
 }
 
-export default ForumEdit;
+export default ForumEdit;   

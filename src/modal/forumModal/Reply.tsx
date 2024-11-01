@@ -50,7 +50,7 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
 
     const handleSubmit = async () => {
         const formData = new FormData();
-
+        
         formData.append("FB_idx", FB_idx.toString());
         formData.append("UserId", userInfo?.name || "");
         formData.append("NickName", userInfo?.name || "");

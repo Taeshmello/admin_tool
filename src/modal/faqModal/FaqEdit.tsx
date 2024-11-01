@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styles from './FaqEdit.module.css';
+import axios from 'axios';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts"; 
 import DetailEditor from "../../components/DetailEditor.tsx";
 import { useTranslation } from "react-i18next";
@@ -27,7 +28,6 @@ interface FaqEditProps {
     boardItem: Board;
 }
 
-
 const categoriesAtom = atom<Category[]>([]);
 const selectedCategoryAtom = atom<string | null>(null);
 const gamesAtom = atom<Game[]>([]);
@@ -43,7 +43,7 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
     const [title, setTitle] = useAtom(titleAtom);
     const [detail, setDetail] = useAtom(detailAtom);
     const { t } = useTranslation();
-
+    
     useEffect(() => {
         setTitle(boardItem.title);
         setDetail(boardItem.detail);
@@ -106,21 +106,18 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
         };
 
         try {
-            const response = await fetch(`http://localhost:5000/faq/update`, {
-                method: "PUT",
+            const response = await axios.put(`http://localhost:5000/faq/update`, updatedData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(updatedData),
             });
 
-            if (response.ok) {
+            if (response.status === 200) {
                 alert(`${t("faq_edited")}`);
                 closeEdit();
             } else {
-                const errorResponse = await response.json(); 
-                console.error("FAQ 수정 실패:", errorResponse);
-                alert(`${t("faq_edited_failed")} ${errorResponse.error}`);
+                console.error("FAQ 수정 실패:", response.data);
+                alert(`${t("faq_edited_failed")} ${response.data.error}`);
             }
         } catch (error) {
             console.error("FAQ 수정 중 오류:", error);
@@ -131,7 +128,6 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
     return (
         <div className={styles.modal}>
             <div className={styles.modalContent}>
-          
                 <h2 className={styles.writeTitle}>{t('faq_detail')}({t('edit')})</h2>
                 <select
                     name="game"

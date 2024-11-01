@@ -28,7 +28,7 @@ const isEditOpenAtom = atom<boolean>(false);
 const isCommentOpenAtom = atom<boolean>(false);
 const isReplyOpenAtom = atom<boolean>(false);
 const selectedFBidxAtom = atom<number | null>(null);
-
+const selectedBoardItemAtom = atom<Forum | null>(null);
 const ForumManage: React.FC = () => {
     const [forums, setForums] = useAtom(forumsAtom);
     const [isAddOpen, setIsAddOpen] = useAtom(isAddOpenAtom);
@@ -36,6 +36,7 @@ const ForumManage: React.FC = () => {
     const [isCommentOpen, setIsCommentOpen] = useAtom(isCommentOpenAtom);
     const [isReplyOpen, setIsReplyOpen] = useAtom(isReplyOpenAtom);
     const [selectedFBidx, setSelectedFBidx] = useAtom(selectedFBidxAtom);
+    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedBoardItemAtom);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -135,7 +136,7 @@ const ForumManage: React.FC = () => {
             </div>
 
             {isAddOpen && <ForumAdd closeAdd={closeAdd} />}
-            {isEditOpen && <ForumEdit closeEdit={closeEdit} forumItem={forums.find(forum => forum.FB_idx === selectedFBidx) || null} />}
+            {isEditOpen && <ForumEdit closeEdit={closeEdit} boardItem={selectedBoardItem} />}
             {isCommentOpen && selectedFBidx !== null && (
                 <Comment closeComment={closeComment} FB_idx={selectedFBidx} />
             )}

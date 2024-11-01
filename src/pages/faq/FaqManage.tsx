@@ -15,7 +15,7 @@ interface Game {
 interface Board {
     board_num: number;
     games: string;
-    category_name: string;
+    category_name: string;  
     title: string;
     created_at: string;
     detail: string;
