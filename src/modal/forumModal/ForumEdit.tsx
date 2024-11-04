@@ -34,6 +34,8 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
     const [endDate, setEndDate] = useState(new Date());
     const [languages, setLanguages] = useState<languages[]>([]);
     
+
+    
     useEffect(() => {
         const loadLanguageData = async () => {
             try {

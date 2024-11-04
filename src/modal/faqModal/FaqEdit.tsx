@@ -129,10 +129,10 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
         <div className={styles.modal}>
             <div className={styles.modalContent}>
                 <h2 className={styles.writeTitle}>{t('faq_detail')}({t('edit')})</h2>
-                <select
+                <select 
                     name="game"
                     className={styles.select}
-                    onChange={(e) => setSelectedGame(Number(e.target.value))}
+                    onChange={(e) => setSelectedGame(Number(e.  target.value))}
                     value={selectedGame ?? ""}
                 >
                     <option value="">{t('game_select')}</option>

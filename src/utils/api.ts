@@ -22,7 +22,7 @@ export const fetchUserData = async (): Promise<any> => {
     } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류 발생:", error);
         return null;
-    }
+    }   
 };
 
 // 유저 상태 체크 함수
@@ -32,6 +32,7 @@ export const userStatusCheck = async (): Promise<any> => {
         return response.data;
     } catch (error) {
         console.error("사용자 상태를 가져오는 중 오류 발생:", error);
+        window.location.href = '/';
         return null;
     }
 };
@@ -48,7 +49,7 @@ export const fetchData = async (accessToken: string): Promise<any> => {
         return response.data;
     } catch (error) {
         console.error("protected data를 가져오는 중 오류 발생:", error);
-        return null;
+        window.location.href = '/';
     }
 };
 
@@ -67,7 +68,7 @@ export const fetchGameGenres = async (): Promise<any> => {
 export const fetchGames = async (): Promise<any> => {
     try {
         const response = await axios.get('http://localhost:5000/auth/games');
-        return response.data;
+        return response.data;   
     } catch (error) {
         console.error("게임 데이터를 가져오는 중 오류 발생:", error);
         throw error;

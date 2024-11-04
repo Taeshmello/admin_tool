@@ -104,6 +104,19 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn{
+  from {
+    transform: translateY(0);
+    opacity: 0;
+}
+
+to {
+    transform: translateY(20px);
+    opacity: 1;
+}
 }
 
 .dropdown-menu .logout-button {

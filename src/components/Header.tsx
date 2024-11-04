@@ -67,7 +67,7 @@ const Header = () => {
           <img src="/asset/profile.jpg" className="profile-icon" alt="Profile" />
 
           {isDropdownOpen && (
-            <div className="dropdown-menu">
+            <div className="dropdown-menu"> 
               {userInfo ? (
                 <div className='profileName-container'><span className="profile-name">{userInfo.name}</span></div>
               ) : (
