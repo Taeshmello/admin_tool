@@ -39,6 +39,23 @@ const ForumManage: React.FC = () => {
     const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedBoardItemAtom);
     const { t } = useTranslation();
 
+    const handleEdit = async (FB_idx: number) => {
+        try {
+            const response = await fetch(`http://localhost:5000/forum/details/${FB_idx}`);
+            if (response.ok) {
+                const boardItem = await response.json();
+                setSelectedBoardItem(boardItem);
+                setIsEditOpen(true); 
+            } else {
+                alert('게시물 조회에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error("게시물 조회 오류:", error);
+            alert('게시물 조회에 실패했습니다.');
+        }
+    };
+    
+
     useEffect(() => {
         const loadForums = async () => {
             try {
@@ -60,10 +77,7 @@ const ForumManage: React.FC = () => {
         setIsAddOpen(false);
     };
 
-    const openEdit = () => {
-        setIsEditOpen(true);
-    };
-
+ 
     const closeEdit = () => {
         setIsEditOpen(false);
     };
@@ -123,7 +137,7 @@ const ForumManage: React.FC = () => {
                                     <td>{forum.UserIp}</td>
                                     <td>{forum.CreatedAt}</td>
                                     <td>
-                                        <button className={styles.editBtn} onClick={openEdit}>{t('edit')}</button>
+                                        <button className={styles.editBtn} onClick={()=> handleEdit(forum.FB_idx)}>{t('edit')}</button>
                                         <button className={styles.replyBtn} onClick={() => openReply(forum.FB_idx)}>{t('reply')}</button>
                                         <button className={styles.commentBtn} onClick={() => openComment(forum.FB_idx)}>{t('comment_check')}</button>
                                     </td>

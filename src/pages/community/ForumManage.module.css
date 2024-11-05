@@ -99,6 +99,7 @@
   cursor: pointer;
   font-size: 14px;
   margin-right: 10px;
+  margin-top: 5px;
 }
 
 .replyBtn:hover{
@@ -113,7 +114,7 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 5px;
 } 
 
 .commentBtn:hover{

@@ -31,9 +31,12 @@ import 'ckeditor5/ckeditor5.css';
 import styles from './ForumEdit.module.css'
 import { useTranslation } from 'react-i18next';
 
+interface EditorProps {
+    detail: string;
+    setDetail: (detail: string) => void;
+}
 
-
-const ForumEditEditor: React.FC = () => {
+const ForumEditEditor: React.FC<EditorProps> = ({detail,setDetail}) =>{
 
     const editorContainerRef = useRef(null)
     const editorRef = useRef(null);
@@ -128,10 +131,12 @@ const ForumEditEditor: React.FC = () => {
                                 <CKEditor
                                     editor={ClassicEditor}
                                     config={editorConfig}
-                                    data={"엄준식"}
-                                    
-
-                                />
+                                    data={detail}
+                                    onChange={(event: any, editor: any) => {
+                                        const data = editor.getData();
+                                        setDetail(data);
+                                    }}
+                                    />
                             )}
                         </div>
 
