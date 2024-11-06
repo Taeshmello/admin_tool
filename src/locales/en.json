@@ -88,6 +88,6 @@
   "top_fixed": "Top Fixed",
   "noGamesWithPermissions": "No games with permissions",
   "forum_add_complete": "Post Addition Completed",
-  "nickName" : "NickName"
-  
+  "nickName" : "NickName",
+  "forum_update_complete":"Forum update complete"
 }

@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
 import ForumEditEditor from '../../components/ForumEditEditor';
 import { fetchLanguage } from '../../utils/forum';
-import DatePicker from 'react-datepicker';
 import { fetchMenuName, fetchBoardUserStatus } from '../../utils/menu'
 import { atom, useAtom } from 'jotai';
-
+import axios from 'axios';
 
 interface languages {
     Lang_idx: number;
@@ -41,22 +40,22 @@ interface UserStatus {
     check_status: string;
 }
 const statusAtom = atom<UserStatus[]>([]);
-const selectedMenuNameAtom = atom<number[]>([]);
+const selectedMenuNameAtom = atom<string | null>(null);
 const menuNameAtom = atom<MenuName[]>([]);
 const selectedUserStatusAtom = atom<string | null>(null);
 const detailAtom = atom<string>("");
 
 const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
     const { t } = useTranslation();
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
     const [languages, setLanguages] = useState<languages[]>([]);
+    const [selecetedLanguage, setSelectedLanguage] = useState<string[]>([]);
     const [selectedMenuName, setSelectedMenuName] = useAtom(selectedMenuNameAtom);
     const [menuName, setMenuName] = useAtom(menuNameAtom);
     const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
     const [status, setStatus] = useAtom(statusAtom);
     const [detail, setDetail] = useAtom(detailAtom);
     const [isClosing, setIsClosing] = useState(false);
+    const [title, setTitle] = useState(boardItem.Title);
 
     useEffect(() => {
         const loadLanguageData = async () => {
@@ -101,12 +100,54 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
         loadMenuName();
     }, [setMenuName, setLanguages, setStatus]);
 
+    const handleCheckboxChange = (lang: string) => {
+        setSelectedLanguage(prevSelectedLanguages => {
+            if (prevSelectedLanguages.includes(lang)) {
+
+                return prevSelectedLanguages.filter(selectedLang => selectedLang !== lang);
+            } else {
+
+                return [...prevSelectedLanguages, lang];
+            }
+        });
+    };
 
     const handleClose = () => {
         setIsClosing(true);
         setTimeout(() => {
             closeEdit();
-        }, 300); 
+        }, 300);
+    };
+
+    const handleSubmit = async () => {
+        if (!selectedMenuName || !selectedUserStatus || !title || !detail) {
+            alert(`${t('plz_fill_space')}`);
+            return;
+        }
+
+        try {
+            const selectedLanguageCode = languages.find(lang => lang.Lang === boardItem.LanguageCode[0])?.Lang_idx;
+            const isFixed = "N";
+
+            const response = await axios.put("http://localhost:5000/forum/update", {
+                FB_idx: boardItem.FB_idx,
+                Category: selectedMenuName,
+                LanguageCode: selectedLanguageCode,
+                Title: title,
+                details: detail,
+                isFixed: isFixed,
+                UserStatus: selectedUserStatus,
+            });
+
+            if (response.status === 200) {
+                alert(`${t("forum_update_complete")}`);
+                closeEdit();
+            } else {
+                console.error("게시물 수정 실패", response.statusText);
+            }
+        } catch (error) {
+            console.error("게시물 수정 중 오류:", error);
+        }
     };
 
     return (
@@ -117,44 +158,29 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
 
                     <select
                         className={EditStyles.classification}
-                        value={JSON.stringify(selectedMenuName) || ""}
+                        value={selectedMenuName || ""}
                         onChange={(e) => {
-                            const selectedValue = JSON.parse(e.target.value);
-                            setSelectedMenuName(selectedValue);
+                            setSelectedMenuName(e.target.value)
                         }}
                     >
                         <option value="">{t('menu_select')}</option>
                         {menuName.map((menu, index) => (
-                            <option key={index} value={JSON.stringify([menu.section, menu.menu_name, menu.menu_code, menu.lang_code])}>
+                            <option key={index} value={menu.menu_name}>
                                 {menu.menu_name}
                             </option>
                         ))}
                     </select>
 
-                    <div className={EditStyles.dateSelect}>
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(date:any) => setStartDate(date)}
-                            selectsStart
-                            startDate={startDate}
-                            endDate={endDate}
-                            className={EditStyles.startDate}
-                        /><h4>~</h4>
-                        <DatePicker
-                            selected={endDate}
-                            onChange={(date:any) => setEndDate(date)}
-                            selectsEnd
-                            startDate={startDate}
-                            endDate={endDate}
-                            minDate={startDate}
-                            className={EditStyles.endDate}
-                        />
-                    </div>
-
                     <div className={EditStyles.languageContainer}>
                         {languages.map((lang, index) => (
                             <div key={index}>
-                                <input type="checkbox" id={`lang-${index}`} value={lang.Lang} />
+                                <input
+                                    type="checkbox"
+                                    id={`lang-${index}`}
+                                    value={lang.Lang}
+                                    onChange={() => handleCheckboxChange(lang.Lang)}
+                                    checked={selecetedLanguage.includes(lang.Lang)}
+                                />
                                 <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
                             </div>
                         ))}
@@ -170,7 +196,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                         className={EditStyles.status}
                         value={selectedUserStatus ?? ""}
                         onChange={(e) => setSelectedUserStatus(e.target.value)}
-                    >   
+                    >
                         {status.map((status, index) => (
                             <option key={index} value={status.check_status}>
                                 {status.check_status}
@@ -178,7 +204,12 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                         ))}
                     </select>
 
-                    <input className={EditStyles.title} placeholder={t("input_title")} />
+                    <input
+                        className={EditStyles.title}
+                        placeholder={t("input_title")}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
                 </div>
 
                 <ForumEditEditor detail={detail} setDetail={setDetail} />
@@ -187,13 +218,13 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                     <button className={EditStyles.close} onClick={handleClose}>
                         {t('close')}
                     </button>
-                    <button className={EditStyles.save}>
+                    <button className={EditStyles.save} onClick={handleSubmit}>
                         {t('save')}
                     </button>
-                </div>          
+                </div>
             </div>
         </div>
     );
 };
 
-export default ForumEdit;   
+export default ForumEdit;

@@ -36,12 +36,12 @@ interface EditorProps {
     setDetail: (detail: string) => void;
 }
 
-const ForumEditEditor: React.FC<EditorProps> = ({detail,setDetail}) =>{
+const ForumAddEditor: React.FC<EditorProps> = ({ detail, setDetail }) => {
 
     const editorContainerRef = useRef(null)
     const editorRef = useRef(null);
     const [isLayoutReady, setIsLayoutReady] = useState(false);
-    const {t} = useTranslation()
+    const { t } = useTranslation()
     useEffect(() => {
         setIsLayoutReady(true);
         return () => setIsLayoutReady(false);
@@ -125,18 +125,18 @@ const ForumEditEditor: React.FC<EditorProps> = ({detail,setDetail}) =>{
             <div className={styles.mainContainer}>
                 <div className={`${styles.editorContainer_classicEditor} editorContainer`}>
                     <div className={`${styles.editorContainer__editor} editorContainer__editor`}
-                        ref = {editorContainerRef}>
+                        ref={editorContainerRef}>
                         <div ref={editorRef}>
                             {isLayoutReady && (
                                 <CKEditor
                                     editor={ClassicEditor}
                                     config={editorConfig}
                                     data={detail}
-                                    onChange={(e: any, editor: any) => {
+                                    onChange={(event: any, editor: any) => {
                                         const data = editor.getData();
                                         setDetail(data);
                                     }}
-                                    />
+                                />
                             )}
                         </div>
 
@@ -148,5 +148,4 @@ const ForumEditEditor: React.FC<EditorProps> = ({detail,setDetail}) =>{
     );
 }
 
-export default ForumEditEditor;	
- 
+export default ForumAddEditor;

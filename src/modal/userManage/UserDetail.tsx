@@ -204,29 +204,11 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                             {Array.from(new Set(userGames.map(game => game.game_name))).map((gameName, index) => (
                                  <div
                                  className={UserDetailStyles.perGames}
-                                 key={index}
-                                 onMouseEnter={() => handleMouseEnter(gameName)}
-                                 onMouseLeave={handleMouseLeave}>
+                                 key={index}>
                                  {gameName}
                              </div>
                             ))}
-                               {hoveredGame && (
-                                <div
-                                    className={UserDetailStyles.hoveredInfo}
-                                    style={{
-                                        position: 'absolute',
-                                        left: mousePosition.x + 10,
-                                        top: mousePosition.y + 10, 
-                                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                                        color: 'white',
-                                        padding: '5px',
-                                        borderRadius: '3px',
-                                        zIndex: 1000,
-                                    }}
-                                >
-                                    {hoveredGame}
-                                </div>
-                            )}
+                              
                         </div>
                     ) : (
                         <span>{t('noGamesWithPermissions')}</span>

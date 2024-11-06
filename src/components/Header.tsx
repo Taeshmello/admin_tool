@@ -26,7 +26,7 @@ const Header = () => {
       } catch (error) {
         console.error("유저 정보를 가져오는 중 오류 발생:", error);
       }
-    };
+    };  
 
     fetchUser();
   }, [cookies.accessToken, setCookie, removeCookie]);

@@ -47,8 +47,6 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     const { t } = useTranslation();
     const [title, setTitle] = useState<string>('');
     const [detail, setDetail] = useState<string>('');
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
 
 
     useEffect(() => {
@@ -195,7 +193,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                         </option>
                     ))}
                 </select>
-                <div className={styles.dateSelect}>
+                {/* <div className={styles.dateSelect}>
                 <DatePicker
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
@@ -212,7 +210,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     endDate={endDate}
                     minDate={startDate}
                 />
-                </div>
+                </div> */}
                 
                 <div className={styles.languageContainer}>
                     {languages.map((lang, index) => (

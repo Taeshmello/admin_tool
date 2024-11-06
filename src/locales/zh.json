@@ -23,7 +23,7 @@
     "category_name": "类别名称",
     "option": "选项",
     "info": "特别的",
-    "new_registration": "新注册",
+    "new_registration": "新注册", 
     "post_number": "发帖数",
     "service_code": "服务代码",
     "language_code": "语言代码",
@@ -86,5 +86,6 @@
     "Content": "内容物",
   "image": "照片",
   "pleaseFillReplyContent" : "请填写回复内容。",
-  "nickName" : "昵称"
+  "nickName" : "昵称",
+  "forum_update_complete":"论坛更新完成"
 }
