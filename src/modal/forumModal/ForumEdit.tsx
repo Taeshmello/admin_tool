@@ -45,8 +45,8 @@ const selectedMenuNameAtom = atom<number[]>([]);
 const menuNameAtom = atom<MenuName[]>([]);
 const selectedUserStatusAtom = atom<string | null>(null);
 const detailAtom = atom<string>("");
-const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
 
+const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
     const { t } = useTranslation();
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -56,8 +56,8 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
     const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
     const [status, setStatus] = useAtom(statusAtom);
     const [detail, setDetail] = useAtom(detailAtom);
+    const [isClosing, setIsClosing] = useState(false);
 
-    
     useEffect(() => {
         const loadLanguageData = async () => {
             try {
@@ -69,6 +69,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                 console.error("언어 데이터 불러오기 오류:", error)
             }
         };
+
         const loadMenuName = async () => {
             try {
                 const menuNameData = await fetchMenuName();
@@ -81,6 +82,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                 console.error("메뉴 이름 불러오기 오류:", error);
             }
         };
+
         const loadStatusData = async () => {
             try {
                 const statusData = await fetchBoardUserStatus();
@@ -97,22 +99,30 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
         loadStatusData();
         loadLanguageData();
         loadMenuName();
-    }, [setMenuName, setLanguages, setStatus])
+    }, [setMenuName, setLanguages, setStatus]);
+
+
+    const handleClose = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            closeEdit();
+        }, 300); 
+    };
 
     return (
-
-        <div className={EditStyles.modal}>
+        <div className={`${EditStyles.modal} ${isClosing ? EditStyles.closing : ''}`}>
             <div className={EditStyles.modalContent}>
                 <div className={EditStyles.selectContainer}>
                     <input type="text" className={EditStyles.ServiceCode} placeholder={boardItem.ServiceCode} disabled />
 
-
-                    <select className={EditStyles.classification}
-                    value={JSON.stringify(selectedMenuName) || ""}
-                    onChange={(e) => {
-                        const selectedValue = JSON.parse(e.target.value);
-                        setSelectedMenuName(selectedValue);
-                    }}>
+                    <select
+                        className={EditStyles.classification}
+                        value={JSON.stringify(selectedMenuName) || ""}
+                        onChange={(e) => {
+                            const selectedValue = JSON.parse(e.target.value);
+                            setSelectedMenuName(selectedValue);
+                        }}
+                    >
                         <option value="">{t('menu_select')}</option>
                         {menuName.map((menu, index) => (
                             <option key={index} value={JSON.stringify([menu.section, menu.menu_name, menu.menu_code, menu.lang_code])}>
@@ -120,10 +130,11 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                             </option>
                         ))}
                     </select>
+
                     <div className={EditStyles.dateSelect}>
                         <DatePicker
                             selected={startDate}
-                            onChange={(date) => setStartDate(date)}
+                            onChange={(date:any) => setStartDate(date)}
                             selectsStart
                             startDate={startDate}
                             endDate={endDate}
@@ -131,7 +142,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                         /><h4>~</h4>
                         <DatePicker
                             selected={endDate}
-                            onChange={(date) => setEndDate(date)}
+                            onChange={(date:any) => setEndDate(date)}
                             selectsEnd
                             startDate={startDate}
                             endDate={endDate}
@@ -139,52 +150,50 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                             className={EditStyles.endDate}
                         />
                     </div>
+
                     <div className={EditStyles.languageContainer}>
                         {languages.map((lang, index) => (
                             <div key={index}>
-                                <input
-                                    type="checkbox"
-                                    id={`lang-${index}`}
-                                    value={lang.Lang}
-                                />
+                                <input type="checkbox" id={`lang-${index}`} value={lang.Lang} />
                                 <label htmlFor={`lang-${index}`}>{lang.Lang}</label>
                             </div>
                         ))}
                     </div>
+
                     <select className={EditStyles.selectFixed}>
                         <option>{t('top_fixed')}</option>
                         <option>Y</option>
                         <option>N</option>
                     </select>
-                    <select className={EditStyles.status}
+
+                    <select
+                        className={EditStyles.status}
                         value={selectedUserStatus ?? ""}
                         onChange={(e) => setSelectedUserStatus(e.target.value)}
-                    >
+                    >   
                         {status.map((status, index) => (
                             <option key={index} value={status.check_status}>
                                 {status.check_status}
                             </option>
                         ))}
                     </select>
+
                     <input className={EditStyles.title} placeholder={t("input_title")} />
                 </div>
-                <ForumEditEditor
-                    detail={detail}
-                    setDetail={setDetail}
 
-                />
+                <ForumEditEditor detail={detail} setDetail={setDetail} />
+
                 <div className={EditStyles.btnContainer}>
-                    <button className={EditStyles.close} onClick={closeEdit}>
+                    <button className={EditStyles.close} onClick={handleClose}>
                         {t('close')}
                     </button>
                     <button className={EditStyles.save}>
                         {t('save')}
                     </button>
-                </div>
-
+                </div>          
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default ForumEdit;   
