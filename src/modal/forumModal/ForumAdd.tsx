@@ -7,7 +7,7 @@ import ForumEditor from "../../components/ForumEditor";
 import { useCookies } from 'react-cookie';
 import { refreshAccessToken, fetchData } from "../../utils/api";
 import axios from "axios";
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 interface ForumAddProp {

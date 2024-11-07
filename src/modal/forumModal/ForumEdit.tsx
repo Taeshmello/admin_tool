@@ -43,7 +43,7 @@ const statusAtom = atom<UserStatus[]>([]);
 const selectedMenuNameAtom = atom<string | null>(null);
 const menuNameAtom = atom<MenuName[]>([]);
 const selectedUserStatusAtom = atom<string | null>(null);
-const detailAtom = atom<string>("");
+const detailAtom = atom<string>(""  );
 
 const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
     const { t } = useTranslation();
@@ -98,7 +98,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
         loadStatusData();
         loadLanguageData();
         loadMenuName();
-    }, [setMenuName, setLanguages, setStatus]);
+    }, [boardItem,setMenuName, setLanguages, setStatus]);
 
     const handleCheckboxChange = (lang: string) => {
         setSelectedLanguage(prevSelectedLanguages => {
@@ -126,7 +126,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
         }
 
         try {
-            const selectedLanguageCode = languages.find(lang => lang.Lang === boardItem.LanguageCode[0])?.Lang_idx;
+            const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx;
             const isFixed = "N";
 
             const response = await axios.put("http://localhost:5000/forum/update", {
@@ -134,20 +134,24 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                 Category: selectedMenuName,
                 LanguageCode: selectedLanguageCode,
                 Title: title,
-                details: detail,
+                contents: detail,
                 isFixed: isFixed,
                 UserStatus: selectedUserStatus,
             });
 
+            
+
             if (response.status === 200) {
                 alert(`${t("forum_update_complete")}`);
                 closeEdit();
+                window.location.reload;
             } else {
                 console.error("게시물 수정 실패", response.statusText);
             }
         } catch (error) {
             console.error("게시물 수정 중 오류:", error);
         }
+        
     };
 
     return (
@@ -158,14 +162,14 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
 
                     <select
                         className={EditStyles.classification}
-                        value={selectedMenuName || ""}
+                        value={selectedMenuName ?? ""}
                         onChange={(e) => {
                             setSelectedMenuName(e.target.value)
                         }}
                     >
                         <option value="">{t('menu_select')}</option>
                         {menuName.map((menu, index) => (
-                            <option key={index} value={menu.menu_name}>
+                            <option key={index} value={menu.menu_code}>
                                 {menu.menu_name}
                             </option>
                         ))}
@@ -205,6 +209,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                     </select>
 
                     <input
+                    type='text'
                         className={EditStyles.title}
                         placeholder={t("input_title")}
                         value={title}
@@ -212,15 +217,13 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                     />
                 </div>
 
-                <ForumEditEditor detail={detail} setDetail={setDetail} />
-
+                <ForumEditEditor 
+                    detail={detail} 
+                    setDetail={setDetail} 
+                />
                 <div className={EditStyles.btnContainer}>
-                    <button className={EditStyles.close} onClick={handleClose}>
-                        {t('close')}
-                    </button>
-                    <button className={EditStyles.save} onClick={handleSubmit}>
-                        {t('save')}
-                    </button>
+                    <button className={EditStyles.close} onClick={handleClose}>{t('close')}</button>
+                    <button className={EditStyles.save} onClick={handleSubmit}>{t('save')}</button>
                 </div>
             </div>
         </div>
