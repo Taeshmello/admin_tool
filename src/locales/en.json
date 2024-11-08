@@ -89,5 +89,6 @@
   "noGamesWithPermissions": "No games with permissions",
   "forum_add_complete": "Post Addition Completed",
   "nickName" : "NickName",
-  "forum_update_complete":"Forum update complete"
+  "forum_update_complete":"Forum update complete",
+  "select_game" : "Please select the game"
 }

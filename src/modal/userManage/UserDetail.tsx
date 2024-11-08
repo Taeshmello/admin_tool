@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useEffect } from "react";
 import UserDetailStyles from './UserDetail.module.css';
 import {
     fetchGames,
@@ -6,15 +6,15 @@ import {
     assignPermissions,
     deletePermissions,
     fetchUserPermissionGames,
-    fetchUserPermissionGamesDetail
+
 } from "../../utils/api";
 import { useTranslation } from "react-i18next";
 import { atom, useAtom } from 'jotai';
 
 interface User {
     idx: number;
-        id: string;
-    }
+    id: string;
+}
 
 interface Permission {
     permissions: string;
@@ -30,14 +30,14 @@ interface DetailProps {
 const gamesAtom = atom<{ name: string; id: string }[]>([]);
 const permissionsAtom = atom<Permission[]>([]);
 const selectedPermissionsAtom = atom<boolean[]>([]);
-const allSelectedAtom = atom<boolean>(false);   
+const allSelectedAtom = atom<boolean>(false);
 const selectedGameIdAtom = atom<string>('');
 const userGamesAtom = atom<UserGame[]>([]);
 
 interface UserGame {
     game_name: string;
     permission_name: string;
-    
+
 }
 
 const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
@@ -48,10 +48,6 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     const [selectedGameId, setSelectedGameId] = useAtom(selectedGameIdAtom);
     const [userGames, setUserGames] = useAtom(userGamesAtom);
     const { t } = useTranslation();
-    const [hoveredGame, setHoveredGame] = useState<string | null>(null);
-    const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-
-
     useEffect(() => {
         const loadGames = async () => {
             try {
@@ -73,8 +69,8 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                 setPermissions(permissionsWithId);
 
                 const currentPermissions = new Array(permissionsWithId.length).fill(false);
-            setSelectedPermissions(currentPermissions);
-            setAllSelected(false);
+                setSelectedPermissions(currentPermissions);
+                setAllSelected(false);
             } catch (error) {
                 console.error('권한 목록을 불러오는 데 실패했습니다:', error);
             }
@@ -89,27 +85,14 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                 console.error('유저가 보유한 권한 게임을 불러오는 데 실패했습니다:', error);
             }
         };
-
-            
-
-
-
+        
         loadGames();
         loadPermissions();
         loadUserGames();
     }, [user, setGames, setPermissions, setUserGames]);
 
 
-    const loadPermissionsDetail = async()=>{
-        if(!user) return;
-        try{
-            const userPerGamesList = await fetchUserPermissionGamesDetail(user.idx, Number(selectedGameId));
-            setHoveredGame(userPerGamesList)
-        }
-        catch(error){
-            console.error("불러오기 실패:",error)
-        }
-    }
+
 
     const handleSelectAll = () => {
         const newSelection = selectedPermissions.map(() => !allSelected);
@@ -144,12 +127,12 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             alert(`${t('selected_per_delete')}`);
             window.location.reload();
         } catch (error) {
-            console.error('권한 삭제 중 오류 발생:', error);
+            console.error('권한 삭제 중 오류 발생:', error);    
             alert(`${t('deleted_per_failed')}`);
         }
     };
 
-    const handleSavePermissions = async () => {
+    const handleSavePermissions = async () => { 
         if (!user || !user.idx) {
             return;
         }
@@ -173,42 +156,27 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             alert(`${t('per_saved_failed')}`);
         }
     };
-
-
-
-    const handleMouseEnter = (gameName: string) => {
-        setHoveredGame(gameName);
-        loadPermissionsDetail()
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredGame(null);
-    };
-
-    const handleMouseMove = (event: React.MouseEvent) => {
-        setMousePosition({ x: event.clientX, y: event.clientY });
-    };
     return (
         <div className={UserDetailStyles.modal}>
             <div className={UserDetailStyles.modalContent}>
-         
+
                 <div className={UserDetailStyles.userId}>
                     <label>{t('userId')}:</label>
                     <span>{user?.id}</span>
                 </div>
 
-                <div className={UserDetailStyles.userGames} onMouseMove={handleMouseMove}>
+                <div className={UserDetailStyles.userGames}>
                     <label>{t('userGames')}:</label>
                     {userGames.length > 0 ? (
                         <div className={UserDetailStyles.ownedGame}>
                             {Array.from(new Set(userGames.map(game => game.game_name))).map((gameName, index) => (
-                                 <div
-                                 className={UserDetailStyles.perGames}
-                                 key={index}>
-                                 {gameName}
-                             </div>
+                                <div
+                                    className={UserDetailStyles.perGames}
+                                    key={index}>
+                                    {gameName}
+                                </div>
                             ))}
-                              
+
                         </div>
                     ) : (
                         <span>{t('noGamesWithPermissions')}</span>
@@ -242,7 +210,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                             <input
                                 type="checkbox"
                                 checked={selectedPermissions[index]}
-                                onChange={() => handlePermissionChange(index)}  
+                                onChange={() => handlePermissionChange(index)}
                             />
                             {permission.permissions}
                         </div>

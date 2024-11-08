@@ -89,5 +89,6 @@
   "image": "이미지",
   "pleaseFillReplyContent": "답글을 적어주세요.",
   "nickName":"닉네임" ,
-  "forum_update_complete":"게시물 업데이트 완료"
+  "forum_update_complete":"게시물 업데이트 완료",
+  "select_game": "게임을 선택해주세요"
 }

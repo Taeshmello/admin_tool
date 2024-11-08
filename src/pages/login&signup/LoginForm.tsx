@@ -15,7 +15,8 @@ const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['accessToken']);
-
+  
+  // Form submission handler
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const response = await axios.post("http://localhost:5000/auth/login", data, {
@@ -38,12 +39,16 @@ const LoginForm: React.FC = () => {
             alert("Unable to log in.");
           }
         }
-      } else {
-        alert("The ID or password is not valid.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("로그인 요청 실패:", error);
-      alert("There was a problem communicating with the server.");
+      
+      
+      if (error.response && error.response.data && error.response.data.error) {
+        alert(error.response.data.error); 
+      } else {
+        alert("There was a problem communicating with the server.");
+      }
     }
   };
 
@@ -79,13 +84,11 @@ const LoginForm: React.FC = () => {
           </div>
 
           <button type="submit" className={LoginStyle.loginButton}>Login</button>
-          
         </form>
-        
       </div>
       {Array.from({ length: 20 }).map((_, index) => (
-                <div key={index} className={`${LoginStyle.star} ${LoginStyle[`star${index}`]}`}></div>
-            ))}
+        <div key={index} className={`${LoginStyle.star} ${LoginStyle[`star${index}`]}`}></div>
+      ))}
     </div>
   );
 };

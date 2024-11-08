@@ -87,5 +87,6 @@
   "image": "照片",
   "pleaseFillReplyContent" : "请填写回复内容。",
   "nickName" : "昵称",
-  "forum_update_complete":"论坛更新完成"
+  "forum_update_complete":"论坛更新完成",
+  "select_game" : "请选择一个游戏"
 }
