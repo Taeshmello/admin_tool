@@ -1,148 +1,61 @@
-import { useState, useEffect, useRef } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import {
-	ClassicEditor,
-	AccessibilityHelp,
-	Autoformat,
-	Autosave,
-	Bold,
-	Essentials,
-	FontBackgroundColor,
-	FontColor,
-	FontSize,
-	Indent,
-	IndentBlock,
-	Italic,
-	Link,
-	Paragraph,
-	SelectAll,
-	Strikethrough,
-	Table,
-	TableCaption,
-	TableCellProperties,
-	TableColumnResize,
-	TableProperties,
-	TableToolbar,
-	TextTransformation,
-	Underline,
-	Undo
-} from 'ckeditor5';
+import React, { useState, useEffect } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // 기본 툴바 스타일
+import EditorStyle from './Editor.module.css'; // 기존 스타일 유지
+
 import { useTranslation } from 'react-i18next';
-
-
-import 'ckeditor5/ckeditor5.css';
-import EditorStyle from './Editor.module.css';
-
 
 interface EditorProps {
     detail: string;
     setDetail: (detail: string) => void;
 }
 
+const DetailEditor: React.FC<EditorProps> = ({ detail, setDetail }) => {
+    const [isLayoutReady, setIsLayoutReady] = useState(false);
+    const { t } = useTranslation();
 
+    useEffect(() => {
+        setIsLayoutReady(true);
+        return () => setIsLayoutReady(false);
+    }, []);
 
-const DetailEditor: React.FC<EditorProps> = ({detail,setDetail}) => {
-	const editorContainerRef = useRef(null);
-	const editorRef = useRef(null);
-	const [isLayoutReady, setIsLayoutReady] = useState(false);
-	const {t} = useTranslation();
-	useEffect(() => {
-		setIsLayoutReady(true);
-		return () => setIsLayoutReady(false);
-	}, []);
+    // Quill의 툴바 옵션 설정
+    const modules = {
+        toolbar: [
+            [{ 'font': [] }, { 'size': ['10', '12', '14', '18', '20', '22', 'default'] }],
+            [{ 'align': [] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'color': [] }, { 'background': [] }],
+            ['link', 'image', 'blockquote', 'code-block'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['indent', '-1', '+1'],
+            ['clean'], // 서식 초기화
+            ['table'] // 테이블 삽입 기능
+        ],
+    };
 
-	const editorConfig = {
-		toolbar: {
-			items: [
-				'undo',
-				'redo',
-				'|',
-				'fontSize',
-				'fontColor',
-				'fontBackgroundColor',
-				'|',
-				'bold',
-				'italic',
-				'underline',
-				'strikethrough',
-				'|',
-				'link',
-				'insertTable',
-				'|',
-				'outdent',
-				'indent'
-			],
-			shouldNotGroupWhenFull: false
-		},
-		plugins: [
-			AccessibilityHelp,
-			Autoformat,
-			Autosave,
-			Bold,
-			Essentials,
-			FontBackgroundColor,
-			FontColor,
-			FontSize,
-			Indent,
-			IndentBlock,
-			Italic,
-			Link,
-			Paragraph,
-			SelectAll,
-			Strikethrough,
-			Table,
-			TableCaption,
-			TableCellProperties,
-			TableColumnResize,
-			TableProperties,
-			TableToolbar,
-			TextTransformation,
-			Underline,
-			Undo
-		],
-		fontSize: {
-			options: [10, 12, 14, 'default', 18, 20, 22],
-			supportAllValues: true
-		},
-		initialData: '',
-		link: {
-			addTargetToExternalLinks: true,
-			defaultProtocol: 'https://',
-			decorators: {
-				toggleDownloadable: {
-					mode: 'manual' as 'manual',
-					label: 'Downloadable',
-					attributes: {
-						download: 'file'
-					}
-				}
-			}
-		},
-		placeholder: `${t('detail')}`,
-		table: {
-			contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
-		}
-	};
+    // Quill 에디터 설정
+    const editorConfig = {
+        placeholder: `${t('detail')}`, // 초기 텍스트 설정
+    };
 
-	return (
+    return (
         <div>
             <div className={EditorStyle.mainContainer}>
                 <div className={`${EditorStyle.editorContainer_classicEditor} editorContainer`}>
-                    <div className={`${EditorStyle.editorContainer__editor} editorContainer__editor`} ref={editorRef}>
-                        <CKEditor
-                            editor={ClassicEditor}
-                            config={editorConfig}
-                            data={detail} 
-                            onChange={(event: any, editor: any) => {
-                                const data = editor.getData();
-                                setDetail(data);
-                            }}
+                    <div className={`${EditorStyle.editorContainer__editor} editorContainer__editor`}>
+                        {/* React Quill 에디터 */}
+                        <ReactQuill
+                            value={detail}
+                            onChange={(value: string) => setDetail(value)}
+                            modules={modules}
+                            placeholder={editorConfig.placeholder}
                         />
                     </div>
                 </div>
             </div>
         </div>
     );
-}
+};
 
-export default DetailEditor;	
+export default DetailEditor;
