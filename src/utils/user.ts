@@ -3,7 +3,7 @@ import axios from 'axios';
 // 권한 할당 API 호출
 export const assignPermissions = async (data: { user_Idx: number; gameId: string; permissions: number[] }) => {
     try {
-        const response = await axios.post('http://localhost:5000/auth/assign-permissions', data, {
+        const response = await axios.post('http://localhost:5000/user/assign-permissions', data, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -19,7 +19,7 @@ export const assignPermissions = async (data: { user_Idx: number; gameId: string
 // 권한 삭제 API 호출
 export const deletePermissions = async (requestBody: { userId: number; gameId: number; permissionId: number }) => {
     try {
-        const response = await axios.post('http://localhost:5000/auth/delete-permissions', requestBody, {
+        const response = await axios.post('http://localhost:5000/user/delete-permissions', requestBody, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -35,7 +35,7 @@ export const deletePermissions = async (requestBody: { userId: number; gameId: n
 // 사용자 권한 조회 API 호출
 export const fetchUserPermissions = async (userId: number, gameId: number, permission: number): Promise<any> => {
     try {
-        const response = await axios.post('http://localhost:5000/auth/user-permissions', { userId, gameId, permission }, {
+        const response = await axios.post('http://localhost:5000/user/user-permissions', { userId, gameId, permission }, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -80,5 +80,24 @@ export const userStatusCheck = async (): Promise<any> => {
     } catch (error) {
         console.error('사용자 상태를 가져오는 중 오류 발생:', error);
         return null;
+    }
+};
+
+
+// 특정 게임에 대한 사용자의 권한을 조회하는 API 호출
+export const fetchPermissionsForGame = async (userId: number, gameId: string): Promise<number[]> => {
+    try {
+        const response = await axios.get(`http://localhost:5000/user/permissions-details/${userId}/${gameId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true, // credentials: "include" 대체
+        });
+
+        // 응답 데이터는 permission_id들의 배열이므로 그 값을 반환
+        return response.data; // 권한 ID 배열 반환
+    } catch (error) {
+        console.error('게임 권한 조회 중 오류 발생:', error);
+        throw error; // 오류 재발생
     }
 };
