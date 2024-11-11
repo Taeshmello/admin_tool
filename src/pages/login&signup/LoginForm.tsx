@@ -16,7 +16,6 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['accessToken']);
   
-  // Form submission handler
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const response = await axios.post("http://localhost:5000/auth/login", data, {

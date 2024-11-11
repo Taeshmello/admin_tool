@@ -5,10 +5,12 @@ import { useCookies } from 'react-cookie';
 import { fetchData, refreshAccessToken, logout } from '../utils/api';
 import { useTranslation } from 'react-i18next';
 import './Header.css';
+import { userPermissionsCheck } from '../utils/user';
+
 
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useAtom(dropdownAtom);
-  const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
+  const [userInfo, setUserInfo] = useState<{ name: string} | null>(null);
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
   const { t, i18n } = useTranslation();
   
@@ -27,7 +29,16 @@ const Header = () => {
         console.error("유저 정보를 가져오는 중 오류 발생:", error);
       }
     };  
-
+    
+    // const fetchPermissions = async () => {
+    //   try{
+    //     const permissionsData = await userPermissionsCheck()
+    //     console.log(permissionsData)
+    //   }catch(error){
+    //     console.error("권한 불러오기 실패")
+    //   }
+    // }
+    // fetchPermissions()
     fetchUser();
   }, [cookies.accessToken, setCookie, removeCookie]);
 

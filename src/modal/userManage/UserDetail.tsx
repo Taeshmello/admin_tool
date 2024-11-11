@@ -25,6 +25,10 @@ interface DetailProps {
     closeModal: () => void;
     user: User | null;
 }
+interface UserGame {
+    game_name: string;
+    permission_name: string;
+}
 
 
 const gamesAtom = atom<{ name: string; id: string }[]>([]);
@@ -34,10 +38,6 @@ const allSelectedAtom = atom<boolean>(false);
 const selectedGameIdAtom = atom<string>('');
 const userGamesAtom = atom<UserGame[]>([]);
 
-interface UserGame {
-    game_name: string;
-    permission_name: string;
-}
 
 const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     const [games, setGames] = useAtom(gamesAtom);
@@ -53,7 +53,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
         const loadGames = async () => {
             try {
                 const gameList = await fetchGames();
-                setGames(gameList);  // 게임 목록 상태 업데이트
+                setGames(gameList);
             } catch (error) {
                 console.error('게임 목록을 불러오는 데 실패했습니다:', error);
             }
@@ -69,9 +69,9 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                     permissions: perm.permissions,
                     id: index + 1,
                 }));
-                setPermissions(permissionsWithId);  // 권한 목록 상태 업데이트
-                setSelectedPermissions(new Array(permissionsWithId.length).fill(false)); // 선택된 권한 초기화
-                setAllSelected(false); // '전체 선택' 상태 초기화
+                setPermissions(permissionsWithId);  
+                setSelectedPermissions(new Array(permissionsWithId.length).fill(false));
+                setAllSelected(false); 
             } catch (error) {
                 console.error('권한 목록을 불러오는 데 실패했습니다:', error);
             }
@@ -82,7 +82,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             if (!user) return;
             try {
                 const userGameList = await fetchUserPermissionGames(user.idx);
-                setUserGames(userGameList);  // 사용자가 보유한 게임 및 권한 상태 업데이트
+                setUserGames(userGameList); 
             } catch (error) {
                 console.error('유저가 보유한 권한 게임을 불러오는 데 실패했습니다:', error);
             }
@@ -104,11 +104,11 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             userGamePermissions.forEach((permId: number) => {
                 const permissionIndex = permissions.findIndex(permission => permission.id === permId);
                 if (permissionIndex !== -1) {
-                    currentPermissions[permissionIndex] = true;  // 권한 선택
+                    currentPermissions[permissionIndex] = true;  
                 }
             });
 
-            setSelectedPermissions(currentPermissions);  // 권한 선택 상태 업데이트
+            setSelectedPermissions(currentPermissions); 
         } catch (error) {
             console.error('권한 불러오기 중 오류 발생:', error);
         }
@@ -128,15 +128,15 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     // '전체 선택' 체크박스를 클릭했을 때의 처리 함수
     const handleSelectAll = () => {
         const newSelection = selectedPermissions.map(() => !allSelected);
-        setSelectedPermissions(newSelection);  // 권한 선택 상태 업데이트
-        setAllSelected(!allSelected);  // 전체 선택 상태 반영
+        setSelectedPermissions(newSelection); 
+        setAllSelected(!allSelected);
     };
 
     // 개별 권한 체크박스를 클릭했을 때의 처리 함수
     const handlePermissionChange = (index: number) => {
         const newSelection = [...selectedPermissions];
-        newSelection[index] = !newSelection[index];  // 선택된 권한을 반전
-        setSelectedPermissions(newSelection);  // 권한 선택 상태 업데이트
+        newSelection[index] = !newSelection[index];
+        setSelectedPermissions(newSelection);
     };
 
     // 선택한 권한을 삭제하는 함수
@@ -152,13 +152,13 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             for (const id of selectedIds) {
                 await deletePermissions({ userId: user.idx, gameId: Number(selectedGameId), permissionId: id });
             }
-            setSelectedPermissions(new Array(permissions.length).fill(false));  // 권한 선택 초기화
-            setAllSelected(false);  // 전체 선택 초기화
+            setSelectedPermissions(new Array(permissions.length).fill(false)); 
+            setAllSelected(false);
             alert(`${t('selected_per_delete')}`);
             window.location.reload();
         } catch (error) {
             console.error('권한 삭제 중 오류 발생:', error);
-            alert(`${t('deleted_per_failed')}`);  // 권한 삭제 실패 알림
+            alert(`${t('deleted_per_failed')}`);
         }
     };
 
@@ -175,14 +175,14 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
         const requestBody: any = {
             userId: user.idx,
             gameId: Number(selectedGameId),
-            permissions: selectedIds,
+            permissions: selectedIds,   
         };
 
         try {
             // 권한 저장
             await assignPermissions(requestBody);
             alert(`${t('per_saved')}`);
-            await loadPermissionsForGame(selectedGameId);  // 저장 후 권한 갱신
+            await loadPermissionsForGame(selectedGameId);
             closeModal()
         } catch (error) {
             console.error('권한 저장 중 오류 발생:', error);
@@ -229,7 +229,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
                     </select>
                 </div>
 
-                {/* '전체 선택' 및 '삭제' 버튼 */}
+                {/* '전체 선택' 및 '삭제' 버튼 */}  
                 <div className={UserDetailStyles.perActions}>
                     <button className={UserDetailStyles.gameButton1} onClick={handleSelectAll}>
                         {allSelected ? `${t('allselect_off')}` : `${t('all_select')}`}

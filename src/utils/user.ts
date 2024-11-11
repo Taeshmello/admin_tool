@@ -98,6 +98,18 @@ export const fetchPermissionsForGame = async (userId: number, gameId: string): P
         return response.data; // 권한 ID 배열 반환
     } catch (error) {
         console.error('게임 권한 조회 중 오류 발생:', error);
-        throw error; // 오류 재발생
+        throw error;
     }
 };
+
+
+export const userPermissionsCheck = async (): Promise<any> => {
+    try{
+        const response = await axios.get("http://localhost:5000/auth/login-permission",{withCredentials: true})
+        return response.data;
+    } catch(error) {
+        console.error("사용자 권한을 가져오는 중 오류 발생:",error);
+        // window.location.href = '/';
+        return null;
+    }
+}

@@ -59,6 +59,7 @@ const Category = () => {
         loadCategoryData();
     }, [setCategories, setGames]);
 
+    // 카테고리 삭제 함수
     const handleDelete = async (GC_idx: number) => {
         const confirmDelete = window.confirm(`${t('check_category_delete')}`);
         if (confirmDelete) {
