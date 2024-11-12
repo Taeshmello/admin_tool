@@ -109,7 +109,22 @@ export const userPermissionsCheck = async (): Promise<any> => {
         return response.data;
     } catch(error) {
         console.error("사용자 권한을 가져오는 중 오류 발생:",error);
-        // window.location.href = '/';
+        window.location.href = '/';
         return null;
+    }
+}
+
+
+export const userGameList = async (): Promise<any> => {
+    try{
+        const response = await axios.get("http://localhost:5000/auth/per-games",
+            {withCredentials: true})
+            console.log(response.data)
+            return response.data;
+           
+    }catch(error){
+        alert(`게임 권한 불러오기 오류${error}`)
+        window.location.href = '/';
+        return null
     }
 }

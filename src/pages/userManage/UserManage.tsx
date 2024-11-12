@@ -1,9 +1,10 @@
 import React, { useEffect} from 'react';
 import UserManageStyle from './UserManage.module.css';
-import { fetchUserData, fetchGameGenres, fetchGames } from '../../utils/api';
+import { fetchUserData, fetchGameGenres} from '../../utils/api';
 import UserDetail from '../../modal/userManage/UserDetail';
 import { useTranslation } from 'react-i18next';
 import { atom, useAtom } from 'jotai';
+import { userGameList } from '../../utils/user';
 
 interface User {
     idx: number;
@@ -12,13 +13,13 @@ interface User {
     game: string;
 }   
 
-interface Game {
-    name: string;
+interface Genre {
     genre_name: string;
 }
 
-interface Genre {
-    genre_name: string;
+
+interface userGames{
+    game_name:string;
 }
 
 
@@ -28,10 +29,10 @@ const searchTermAtom = atom<string>('');
 const selectedUserAtom = atom<User | null>(null);
 const isModalOpenAtom = atom<boolean>(false);
 const genresAtom = atom<Genre[]>([]);
-const gamesAtom = atom<Game[]>([]);
+
 const selectedGenreAtom = atom<string>('');
 const selectedGameAtom = atom<string>('');
-
+const userGamesAtom = atom<userGames[]>([]);
 const UserManage: React.FC = () => {
     const { t } = useTranslation();
     const [users, setUsers] = useAtom(usersAtom);
@@ -40,10 +41,9 @@ const UserManage: React.FC = () => {
     const [selectedUser, setSelectedUser] = useAtom(selectedUserAtom);
     const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
     const [genres, setGenres] = useAtom(genresAtom);
-    const [games, setGames] = useAtom(gamesAtom);
     const [selectedGenre, setSelectedGenre] = useAtom(selectedGenreAtom);
     const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
-
+    const [userGames, setUserGames] = useAtom(userGamesAtom);
     useEffect(() => {
         const loadUserData = async () => {
             try {
@@ -59,29 +59,37 @@ const UserManage: React.FC = () => {
             }
         };
 
-        loadUserData();
+        loadUserData(); 
     }, []);
 
     useEffect(() => {
         const loadGameData = async () => {
             try {
                 const genresData = await fetchGameGenres();
-                const gamesData = await fetchGames();
+               
                 if (Array.isArray(genresData)) {
                     setGenres(genresData);
                 } else {
                     console.error("게임 장르 데이터 형식 오류:", genresData);
-                }
-                if (Array.isArray(gamesData)) {
-                    setGames(gamesData);
-                } else {
-                    console.error("게임 데이터 형식 오류:", gamesData);
                 }
             } catch (error) {
                 console.error("게임 데이터 불러오기 오류:", error);
             }
         };
 
+        const loadUserGameData = async() => {
+            try {
+                const userGamesData = await userGameList();
+                if(Array.isArray(userGamesData)){
+                    setUserGames(userGamesData)
+                }else{
+                    console.error("유저 게임 데이터 형식 오류:",userGamesData)
+                }
+            }catch(error){
+                console.error("유저 게임 데이터 불러오기 오류:",error)
+            }
+        }
+        loadUserGameData()
         loadGameData();
     }, []);
 
@@ -125,10 +133,10 @@ const UserManage: React.FC = () => {
                         onChange={(e) => setSelectedGame(e.target.value)}
                         value={selectedGame}
                     >
-                        <option value="">{t('all')}</option>
-                        {games.map((game, index) => (
-                            <option key={index} value={game.name}>
-                                {game.name}
+                        <option value="">{t('all')}</option>    
+                        {userGames.map((game, index) => (
+                            <option key={index} value={game.game_name}>
+                                {game.game_name}
                             </option>
                         ))}
                     </select>

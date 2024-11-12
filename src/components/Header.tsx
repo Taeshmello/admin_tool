@@ -30,15 +30,15 @@ const Header = () => {
       }
     };  
     
-    // const fetchPermissions = async () => {
-    //   try{
-    //     const permissionsData = await userPermissionsCheck()
-    //     console.log(permissionsData)
-    //   }catch(error){
-    //     console.error("권한 불러오기 실패")
-    //   }
-    // }
-    // fetchPermissions()
+    const fetchPermissions = async () => {
+      try{
+        const permissionsData = await userPermissionsCheck()
+          
+      }catch(error){
+        console.error("권한 불러오기 실패")
+      }
+    }
+    fetchPermissions()
     fetchUser();
   }, [cookies.accessToken, setCookie, removeCookie]);
 
