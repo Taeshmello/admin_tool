@@ -33,7 +33,7 @@ const SideBar: React.FC = () => {
               <ul className="sub-menu">
                 <li>
                   <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
-                  <a href="Category">{t('category_management')}</a>
+                  <a href="Category" className='categoryLink'>{t('category_management')}</a>
                 </li>
                 <li>
                   <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />

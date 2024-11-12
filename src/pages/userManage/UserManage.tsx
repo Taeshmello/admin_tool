@@ -10,7 +10,7 @@ interface User {
     id: string;
     signup_date: string;
     game: string;
-}
+}   
 
 interface Game {
     name: string;

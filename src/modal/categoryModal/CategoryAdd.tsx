@@ -21,7 +21,7 @@ interface CategoryProps {
 
 // 카테고리 추가 컴포넌트
 export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
-    // 상태 변수 정의
+   
     const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
     const [games, setGames] = useAtom(gamesAtom);
     const [category, setCategory] = useAtom(categoryAtom);
@@ -31,9 +31,9 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
     useEffect(() => {
         const loadGameData = async () => {
             try {
-                const gamesData = await fetchGames();  // 게임 목록 fetch
+                const gamesData = await fetchGames();
                 if (Array.isArray(gamesData)) {
-                    setGames(gamesData);  // 성공적으로 불러온 게임 목록을 상태에 설정
+                    setGames(gamesData);
                 } else {
                     console.error("게임 데이터 형식 오류:", gamesData);
                 }
@@ -55,8 +55,8 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
         try {
             // 서버에 카테고리 추가 요청
             const response = await axios.post("http://localhost:5000/category/insert", {
-                game_id: selectedGame,  // 선택된 게임 ID
-                category: category,  // 입력된 카테고리명
+                game_id: selectedGame,  
+                category: category, 
             }, {
                 headers: {
                     "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
                 const result = response.data;
                 console.log("카테고리 생성 성공:", result);
                 alert(`${t('category_created')}`);
-                location.reload();  // 페이지 새로고침 (카테고리 목록 갱신)
+                location.reload();
             }
         } catch (error) {
             console.error("카테고리 생성 오류:", error);

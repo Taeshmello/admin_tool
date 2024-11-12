@@ -58,7 +58,7 @@ const Header = () => {
       })
       .catch((error) => {
         console.error("언어 변경 중 오류 발생:", error);
-      });
+      }); 
   };
   return (
     <header className="header"> 
