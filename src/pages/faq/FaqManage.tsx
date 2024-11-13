@@ -154,7 +154,7 @@ const FaqManage = () => {
                                 <th>{t('post_number')}</th>
                                 <th>{t('game_name')}</th>
                                 <th>{t('category_name')}</th>
-                                <th>{t('language')}({t('default_language')})</th>
+                                <th>{t('title')}</th>
                                 <th>{t('registration_date')}</th>
                                 <th>{t('option')}</th>
                             </tr>

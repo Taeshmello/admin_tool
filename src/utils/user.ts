@@ -9,10 +9,10 @@ export const assignPermissions = async (data: { user_Idx: number; gameId: string
             },
         });
 
-        return response.data; // 응답 데이터 반환
+        return response.data; 
     } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
-        throw error; // 오류 재발생
+        throw error; 
     }
 };
 
@@ -25,10 +25,10 @@ export const deletePermissions = async (requestBody: { userId: number; gameId: n
             },
         });
 
-        return response.data; // 응답 데이터 반환
+        return response.data;
     } catch (error) {
         console.error('권한 삭제 요청 실패:', error);
-        throw error; // 오류 재발생
+        throw error; 
     }
 };
 
@@ -39,13 +39,13 @@ export const fetchUserPermissions = async (userId: number, gameId: number, permi
             headers: {
                 'Content-Type': 'application/json',
             },
-            withCredentials: true, // credentials: "include" 대체
+            withCredentials: true, 
         });
 
-        return response.data; // 응답 데이터 반환
+        return response.data;
     } catch (error) {
         console.error('사용자 권한 조회 중 오류 발생:', error);
-        throw error; // 오류 재발생
+        throw error; 
     }
 };
 
@@ -59,7 +59,7 @@ export const fetchUserData = async (): Promise<any> => {
             withCredentials: true,
         });
 
-        return response.data; // 응답 데이터 반환
+        return response.data; 
     } catch (error) {
         console.error('사용자 정보를 가져오는 중 오류 발생:', error);
         return null;
@@ -76,7 +76,7 @@ export const userStatusCheck = async (): Promise<any> => {
             withCredentials: true,
         });
 
-        return response.data; // 응답 데이터 반환
+        return response.data; 
     } catch (error) {
         console.error('사용자 상태를 가져오는 중 오류 발생:', error);
         return null;
@@ -91,11 +91,11 @@ export const fetchPermissionsForGame = async (userId: number, gameId: string): P
             headers: {
                 'Content-Type': 'application/json',
             },
-            withCredentials: true, // credentials: "include" 대체
+            withCredentials: true,
         });
 
-        // 응답 데이터는 permission_id들의 배열이므로 그 값을 반환
-        return response.data; // 권한 ID 배열 반환
+        
+        return response.data;
     } catch (error) {
         console.error('게임 권한 조회 중 오류 발생:', error);
         throw error;
@@ -109,7 +109,7 @@ export const userPermissionsCheck = async (): Promise<any> => {
         return response.data;
     } catch(error) {
         console.error("사용자 권한을 가져오는 중 오류 발생:",error);
-        window.location.href = '/';
+        
         return null;
     }
 }
@@ -124,7 +124,6 @@ export const userGameList = async (): Promise<any> => {
            
     }catch(error){
         alert(`게임 권한 불러오기 오류${error}`)
-        window.location.href = '/';
         return null
     }
 }

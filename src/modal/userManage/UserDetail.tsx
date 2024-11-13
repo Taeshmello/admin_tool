@@ -125,21 +125,21 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
         }
     };
 
-    // '전체 선택' 체크박스를 클릭했을 때의 처리 함수
+   
     const handleSelectAll = () => {
         const newSelection = selectedPermissions.map(() => !allSelected);
         setSelectedPermissions(newSelection); 
         setAllSelected(!allSelected);
     };
 
-    // 개별 권한 체크박스를 클릭했을 때의 처리 함수
+   
     const handlePermissionChange = (index: number) => {
         const newSelection = [...selectedPermissions];
         newSelection[index] = !newSelection[index];
         setSelectedPermissions(newSelection);
     };
 
-    // 선택한 권한을 삭제하는 함수
+   
     const handleDeletePermissions = async () => {
         if (!user || !selectedGameId) return;
 
@@ -148,7 +148,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
             .map(permission => permission.id);
 
         try {
-            // 선택한 권한들 삭제
+          
             for (const id of selectedIds) {
                 await deletePermissions({ userId: user.idx, gameId: Number(selectedGameId), permissionId: id });
             }

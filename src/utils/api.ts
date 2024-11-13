@@ -37,7 +37,7 @@ export const userStatusCheck = async (): Promise<any> => {
     }
 };
 
-// 인증된 API 요청을 위한 함수
+// at 전달 함수
 export const fetchData = async (accessToken: string): Promise<any> => {
     try {
         const response = await axios.get("http://localhost:5000/auth/access-token", {
@@ -48,7 +48,7 @@ export const fetchData = async (accessToken: string): Promise<any> => {
         });
         return response.data;
     } catch (error) {
-        console.error("protected data를 가져오는 중 오류 발생:", error);
+        console.error(error);
         window.location.href = '/';
     }
 };

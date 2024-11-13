@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fetchCategories, deleteCategoryItem } from "../../utils/category";
+import { fetchCategories, deleteCategoryItem, fetchCategoryDetails } from "../../utils/category";
 import { fetchGames } from "../../utils/api";
 import { CategoryAdd } from "../../modal/categoryModal/CategoryAdd";
 import { CategoryEdit } from "../../modal/categoryModal/CategoryEdit";
@@ -24,6 +24,7 @@ const isModalOpenAtom = atom<boolean>(false);
 const isEditModalOpenAtom = atom<boolean>(false);
 const gamesAtom = atom<Games[]>([]);
 const selectedGameAtom = atom<string>("");
+const selectedBoardItemAtom = atom<Category | null>(null);
 
 const Category = () => {
     const [categories, setCategories] = useAtom(categoriesAtom);
@@ -32,7 +33,7 @@ const Category = () => {
     const [games, setGames] = useAtom(gamesAtom);
     const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
     const { t } = useTranslation();
-
+    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedBoardItemAtom)
     useEffect(() => {
         const loadCategoryData = async () => {
             try {
@@ -59,6 +60,18 @@ const Category = () => {
         loadCategoryData();
     }, [setCategories, setGames]);
 
+
+
+    const handleEdit = async (GC_idx: number) =>{
+        try{
+            const boardItem = await fetchCategoryDetails(GC_idx);
+            setSelectedBoardItem(boardItem);
+            setIsEditModalOpen(true)
+        }catch(error){
+            console.error("카테고리 조회 오류:",error);
+            alert('카테고리 조회 실패')
+        }
+    }
     // 카테고리 삭제 함수
     const handleDelete = async (GC_idx: number) => {
         const confirmDelete = window.confirm(`${t('check_category_delete')}`);
@@ -76,7 +89,6 @@ const Category = () => {
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
-    const openEdit = () => setIsEditModalOpen(true);
     const closeEdit = () => setIsEditModalOpen(false);
 
     const filteredCategories = selectedGame 
@@ -128,7 +140,7 @@ const Category = () => {
                                     <td>{category.category}</td>
                                     <td>{created_date}</td>
                                     <td>
-                                        <button className={styles.info} onClick={openEdit}>{t('info')}</button>
+                                        <button className={styles.info} onClick={()=> handleEdit(category.GC_idx)}>{t('info')}</button>
                                         <button className={styles.deleteBtn} onClick={() => handleDelete(category.GC_idx)}>{t('delete')}</button>
                                     </td>
                                 </tr>
@@ -138,7 +150,7 @@ const Category = () => {
                 </table>
             </div>
             {isModalOpen && <CategoryAdd closeModal={closeModal} />}
-            {isEditModalOpen && <CategoryEdit closeEdit={closeEdit} />}
+            {isEditModalOpen && <CategoryEdit closeEdit={closeEdit} boardItem = {selectedBoardItem} />}
         </div>
     );
 }

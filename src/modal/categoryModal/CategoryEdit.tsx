@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import styles from './CategoryEdit.module.css';
-import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
+import { fetchGames} from "../../utils/faq.ts";
 import { useTranslation } from "react-i18next";
 import { atom, useAtom } from 'jotai';
+import axios from "axios";
 
 interface Game {
     id: number;
@@ -10,24 +11,25 @@ interface Game {
 }
 
 interface Category {
-    category_name: string;
+    GC_idx: number;
+    game_name: string;
+    category: string;
+    created_at: string;
 }
 
 interface FaqEditProps {
     closeEdit: () => void;
+    boardItem: Category;
 }
 
 const gamesAtom = atom<Game[]>([]);
 const selectedGameAtom = atom<number | null>(null);
-const categoriesAtom = atom<Category[]>([]);
-const selectedCategoryAtom = atom<string | null>(null);
 const titleAtom = atom<string>('');
 
-export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
+export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
     const [games, setGames] = useAtom(gamesAtom);
     const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
-    const [categories, setCategories] = useAtom(categoriesAtom);
-    const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
+
     const [title, setTitle] = useAtom(titleAtom);
     const { t } = useTranslation();
 
@@ -47,25 +49,38 @@ export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
         loadGameData();
     }, [setGames]);
 
-    useEffect(() => {
-        const loadCategoryData = async () => {
-            if (selectedGame) {
-                try {
-                    const categoryData = await fetchCategoriesByGameId(selectedGame);
-                    if (Array.isArray(categoryData)) {
-                        setCategories(categoryData);
-                    } else {
-                        console.error("카테고리 데이터 형식 오류:", categoryData);
-                    }
-                } catch (error) {
-                    console.error("카테고리 데이터 불러오기 오류:", error);
-                }
-            } else {
-                setCategories([]);
+
+    const handleUpdate = async () => {
+        if(selectedGame === null){
+            alert(`${t('plz_fill_space')}`)
+            return
+        }
+
+        const updatedData = {
+            board_num: boardItem.GC_idx,
+            category: title
+        }
+
+        try {
+            const response = await axios.put(`http://localhost:5000/category/update`,updatedData,{
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if(response.status === 200){
+                alert(`${t("category_edited")}`);
+                closeEdit()
+            }else {
+                console.error("카테고리 수정 실패:",response.data);
+                alert(`${t("category_edited_failed")} ${response.data.error}`);
             }
-        };
-        loadCategoryData();
-    }, [selectedGame, setCategories]);
+        } catch(error) {
+            console.error("카테고리 수정 중 오류:",error)
+            console.log(updatedData)
+            alert(`${t("category_edited+error")}`)
+        }
+    }
+
 
     return (
         <div className={styles.modal}>
@@ -84,20 +99,7 @@ export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
                         </option>
                     ))}
                 </select>
-                <select
-                    name="category"
-                    className={styles.select}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    value={selectedCategory ?? ""}
-                    disabled={!selectedGame}
-                >
-                    <option value="">{t('category_select')}</option>
-                    {categories.map((cat) => (
-                        <option key={cat.category_name} value={cat.category_name}>
-                            {cat.category_name}
-                        </option>
-                    ))}
-                </select>
+                
                 <input
                     type="text"
                     className={styles.writeTitleInput}
@@ -107,7 +109,7 @@ export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit }) => {
                 />
                 <div className={styles.btnContainer}>
                     <button className={styles.close} onClick={closeEdit}>{t('close')}</button>
-                    <button className={styles.save}>{t('save')}</button>
+                    <button className={styles.save}onClick={handleUpdate}>{t('save')}</button>
                 </div>
             </div>
         </div>
