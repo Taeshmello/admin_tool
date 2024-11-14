@@ -7,24 +7,15 @@ import styles from './Category.module.css';
 import { useTranslation } from "react-i18next";
 import { atom, useAtom } from 'jotai';
 
-interface Category {
-    GC_idx: number;
-    game_name: string;
-    category: string;
-    created_at: string;
-}
-
-interface Games {
-    name: string;
-}
+import {Categories, Games} from '../../atoms/store'
 
 
-const categoriesAtom = atom<Category[]>([]);
+const categoriesAtom = atom<Categories[]>([]);
 const isModalOpenAtom = atom<boolean>(false);
 const isEditModalOpenAtom = atom<boolean>(false);
 const gamesAtom = atom<Games[]>([]);
 const selectedGameAtom = atom<string>("");
-const selectedBoardItemAtom = atom<Category | null>(null);
+const selectedBoardItemAtom = atom<Categories | null>(null);
 
 const Category = () => {
     const [categories, setCategories] = useAtom(categoriesAtom);
@@ -43,11 +34,11 @@ const Category = () => {
                 console.error("카테고리 데이터 불러오기 오류:", error);
             }
         };
-        const loadGameData = async () => {
+        const loadGameData = async () => {  
             try {
                 const gamesData = await fetchGames();
-                if (Array.isArray(gamesData)) {
-                    setGames(gamesData);
+                if (Array.isArray(gamesData)) { 
+                    setGames(gamesData);    
                 } else {
                     console.error("게임 데이터 형식 오류:", gamesData);
                 }

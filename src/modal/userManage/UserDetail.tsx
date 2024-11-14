@@ -9,36 +9,13 @@ import {
 } from "../../utils/api";
 import { fetchPermissionsForGame } from '../../utils/user';
 import { useTranslation } from "react-i18next";
-import { atom, useAtom } from 'jotai';
-
-interface User {
-    idx: number;
-    id: string;
-}
-
-interface Permission {
-    permissions: string;
-    id: number;
-}
-
+import {useAtom } from 'jotai';
+import { Permission, loginedUser, UserGame } from "../../atoms/store";
+import { gamesAtom, permissionsAtom, selectedPermissionsAtom, allSelectedAtom, selectedGameIdAtom, userGamesAtom } from "../../atoms/store";
 interface DetailProps {
     closeModal: () => void;
-    user: User | null;
+    user: loginedUser | null;
 }
-interface UserGame {
-    game_name: string;
-    permission_name: string;
-}
-
-
-const gamesAtom = atom<{ name: string; id: string }[]>([]);
-const permissionsAtom = atom<Permission[]>([]);
-const selectedPermissionsAtom = atom<boolean[]>([]);
-const allSelectedAtom = atom<boolean>(false);
-const selectedGameIdAtom = atom<string>('');
-const userGamesAtom = atom<UserGame[]>([]);
-
-
 const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     const [games, setGames] = useAtom(gamesAtom);
     const [permissions, setPermissions] = useAtom(permissionsAtom);
@@ -46,7 +23,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
     const [allSelected, setAllSelected] = useAtom(allSelectedAtom);
     const [selectedGameId, setSelectedGameId] = useAtom(selectedGameIdAtom);
     const [userGames, setUserGames] = useAtom(userGamesAtom);
-    const { t } = useTranslation();
+    const { t } = useTranslation(); 
 
     useEffect(() => {
         // 게임 목록을 불러오는 함수
