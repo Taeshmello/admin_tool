@@ -2,33 +2,20 @@ import React, { useEffect } from "react";
 import styles from './CategoryEdit.module.css';
 import { fetchGames} from "../../utils/faq.ts";
 import { useTranslation } from "react-i18next";
-import { atom, useAtom } from 'jotai';
+import {  useAtom } from 'jotai';
 import axios from "axios";
+import { Categories } from "../../atoms/store.ts";
+import { gamesAtom, selectedGameIdxAtom, titleAtom } from "../../atoms/store.ts";
 
-interface Game {
-    id: number;
-    name: string;
-}
-
-interface Category {
-    GC_idx: number;
-    game_name: string;
-    category: string;
-    created_at: string;
-}
 
 interface FaqEditProps {
     closeEdit: () => void;
-    boardItem: Category;
+    boardItem: Categories;
 }
-
-const gamesAtom = atom<Game[]>([]);
-const selectedGameAtom = atom<number | null>(null);
-const titleAtom = atom<string>('');
 
 export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
     const [games, setGames] = useAtom(gamesAtom);
-    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameIdxAtom);
 
     const [title, setTitle] = useAtom(titleAtom);
     const { t } = useTranslation();

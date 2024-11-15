@@ -4,43 +4,27 @@ import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem, fetchServiceC
 import MenuEdit from '../../modal/communityMenuModal/MenuEdit';
 import MenuAdd from '../../modal/communityMenuModal/MenuAdd';
 import { useTranslation } from 'react-i18next';
-import { atom, useAtom } from 'jotai';
-
-interface Board {
-    CM_idx: number;
-    service_code: string;
-    Classify: number;
-    SectionCode: string;
-    LanguageCode: string;
-    Title: string;
-    CreatedAt: string;
-    UserStatus: string;
-}
-
-interface userStatus {
-    check_status: string;
-}
-
-interface ServiceCode {
-    service_code: string;
-}
+import {useAtom } from 'jotai';
+import { 
+    ForumMenuBoardAtom,
+    filteredForumMenuBoardAtom,
+    statusAtom,
+    selectedForumMenuItemAtom,
+    serviceCodeAtom,
+    selectedServiceCodeAtom,
+    isModalOpenAtom,
+    isAddOpenAtom} from '../../atoms/store';
 
 
-const boardAtom = atom<Board[]>([]);
-const filteredBoardAtom = atom<Board[]>([]);
-const statusAtom = atom<userStatus[]>([]);
-const isModalOpenAtom = atom<boolean>(false);
-const selectedMenuItemAtom = atom<Board | null>(null);
-const isAddOpenAtom = atom<boolean>(false);
-const serviceCodeAtom = atom<ServiceCode[]>([]);
-const selectedServiceCodeAtom = atom<string>('');
+
+
 
 const ForumMenuManage: React.FC = () => {
-    const [board, setBoard] = useAtom(boardAtom);
-    const [filteredBoard, setFilteredBoard] = useAtom(filteredBoardAtom);
+    const [board, setBoard] = useAtom(ForumMenuBoardAtom);
+    const [filteredBoard, setFilteredBoard] = useAtom(filteredForumMenuBoardAtom);
     const [status, setStatus] = useAtom(statusAtom);
     const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
-    const [selectedMenuItem, setSelectedBoardMenuItem] = useAtom(selectedMenuItemAtom);
+    const [selectedMenuItem, setSelectedBoardMenuItem] = useAtom(selectedForumMenuItemAtom);
     const [isAddOpen, setIsAddOpen] = useAtom(isAddOpenAtom);
     const [serviceCode, setServiceCode] = useAtom(serviceCodeAtom);
     const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceCodeAtom);

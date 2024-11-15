@@ -4,34 +4,24 @@ import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts";
 import Editor from "../../components/Editor.tsx";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { atom, useAtom } from 'jotai';
+import {useAtom } from 'jotai';
+import { categoriesAtom, gamesAtom, selectedGameIdxAtom, titleAtom, detailAtom, selectedCategoryAtom } from "../../atoms/store.ts";
 
-interface Game {
-    id: number;
-    name: string;
-}
-
-interface Category {
-    category_name: string;  
-}
 
 interface WriteProps {
     closeModal: () => void;
 }
 
 
-const categoriesAtom = atom<Category[]>([]);
-const selectedCategoryAtom = atom<string | null>(null);
-const gamesAtom = atom<Game[]>([]);
-const selectedGameAtom = atom<number | null>(null);
-const titleAtom = atom<string>('');
-const detailAtom = atom<string>('');
+
+
+
 
 export const Write: React.FC<WriteProps> = ({ closeModal }) => {
     const [categories, setCategories] = useAtom(categoriesAtom);
     const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
     const [games, setGames] = useAtom(gamesAtom);
-    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameIdxAtom);
     const [title, setTitle] = useAtom(titleAtom);
     const [detail, setDetail] = useAtom(detailAtom);
     const { t } = useTranslation();
@@ -88,7 +78,7 @@ export const Write: React.FC<WriteProps> = ({ closeModal }) => {
 
             if (response.status === 200) {
                 alert(`${t("faq_created")}`);
-                location.reload(); // Consider refactoring this to a better state management approach
+                location.reload();
             } else {
                 console.error("게시물 작성 실패:", response.statusText);
             }

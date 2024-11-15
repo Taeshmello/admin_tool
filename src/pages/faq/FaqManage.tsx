@@ -5,40 +5,25 @@ import { fetchBoard, deleteBoardItem, fetchBoardItem } from '../../utils/faq';
 import { Write } from '../../modal/faqModal/FaqAdd';
 import { FaqEdit } from '../../modal/faqModal/FaqEdit';
 import { useTranslation } from 'react-i18next';
-import { atom, useAtom } from 'jotai';
-
-interface Game {
-    name: string;
-    genre_name: string;
-}
-
-interface Board {
-    board_num: number;
-    games: string;
-    category_name: string;  
-    title: string;
-    created_at: string;
-    detail: string;
-}
-
-const searchTermAtom = atom<string>('');
-const boardAtom = atom<Board[]>([]);
-const filteredBoardAtom = atom<Board[]>([]);
-const gamesAtom = atom<Game[]>([]);
-const selectedGameAtom = atom<string>('');
-const isModalOpenAtom = atom<boolean>(false);
-const isEditOpenAtom = atom<boolean>(false);
-const selectedBoardItemAtom = atom<Board | null>(null);
+import {useAtom } from 'jotai';
+import { searchTermAtom, 
+    FaqboardAtom,
+    filteredFaqBoardAtom, 
+    gamesAtom,
+    selectedGameAtom,
+    isModalOpenAtom,
+    isEditModalOpenAtom,
+    selectedFaqBoardItemAtom } from '../../atoms/store';
 
 const FaqManage = () => {
     const [searchTerm, setSearchTerm] = useAtom(searchTermAtom);
-    const [board, setBoard] = useAtom(boardAtom);
-    const [filteredBoard, setFilteredBoard] = useAtom(filteredBoardAtom);
+    const [board, setBoard] = useAtom(FaqboardAtom);
+    const [filteredBoard, setFilteredBoard] = useAtom(filteredFaqBoardAtom);
     const [games, setGames] = useAtom(gamesAtom);
     const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
     const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
-    const [isEditOpen, setIsEditOpen] = useAtom(isEditOpenAtom);
-    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedBoardItemAtom);
+    const [isEditOpen, setIsEditOpen] = useAtom(isEditModalOpenAtom);
+    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedFaqBoardItemAtom);
     const { t } = useTranslation();
 
 

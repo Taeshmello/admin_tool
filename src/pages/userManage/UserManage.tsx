@@ -3,36 +3,21 @@ import UserManageStyle from './UserManage.module.css';
 import { fetchUserData, fetchGameGenres} from '../../utils/api';
 import UserDetail from '../../modal/userManage/UserDetail';
 import { useTranslation } from 'react-i18next';
-import { atom, useAtom } from 'jotai';
+import {useAtom } from 'jotai';
 import { userGameList } from '../../utils/user';
-
-interface User {
-    idx: number;
-    id: string;
-    signup_date: string;
-    game: string;
-}   
-
-interface Genre {
-    genre_name: string;
-}
-
-
-interface userGames{
-    game_name:string;
-}
+import { 
+    usersAtom,
+    filteredUsersAtom,
+    searchTermAtom,
+    selectedUserAtom,
+    isModalOpenAtom,
+    genresAtom,
+    selectedGenreAtom,
+    selectedGameAtom,
+    userGamesAtom
+ } from '../../atoms/store';
 
 
-const usersAtom = atom<User[]>([]);
-const filteredUsersAtom = atom<User[]>([]);
-const searchTermAtom = atom<string>('');
-const selectedUserAtom = atom<User | null>(null);
-const isModalOpenAtom = atom<boolean>(false);
-const genresAtom = atom<Genre[]>([]);
-
-const selectedGenreAtom = atom<string>('');
-const selectedGameAtom = atom<string>('');
-const userGamesAtom = atom<userGames[]>([]);
 const UserManage: React.FC = () => {
     const { t } = useTranslation();
     const [users, setUsers] = useAtom(usersAtom);

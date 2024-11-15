@@ -3,9 +3,9 @@ import MenuEditStyle from './MenuEdit.module.css';
 import { fetchBoardUserStatus, fetchBoardAdminStatus } from '../../utils/menu';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { atom, useAtom } from 'jotai';
-
-interface Board {
+import {useAtom } from 'jotai';
+import { statusAtom,adminStatusAtom, selectedUserStatusAtom, selectedAdminStatusAtom } from '../../atoms/store';
+interface ForumMenuDetailBoard {
     CM_idx: number;
     service_code: string;
     SectionCode: string;
@@ -15,24 +15,15 @@ interface Board {
     AdminStatus: string;
 }
 
-interface UserStatus {
-    check_status: string;
-}
-
-interface AdminStatus {
-    admin_status: string;
-}
 
 interface EditProps {
     closeModal: () => void;
-    menuItem: Board;
+    menuItem: ForumMenuDetailBoard;
 }
 
 
-const statusAtom = atom<UserStatus[]>([]);
-const adminStatusAtom = atom<AdminStatus[]>([]);
-const selectedUserStatusAtom = atom<string | null>(null);
-const selectedAdminStatusAtom = atom<string | null>(null);
+
+
 
 const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
     const [status, setStatus] = useAtom(statusAtom);

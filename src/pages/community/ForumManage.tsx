@@ -6,37 +6,27 @@ import Reply from '../../modal/forumModal/Reply';
 import ForumEdit from '../../modal/forumModal/ForumEdit';
 import { fetchForum } from '../../utils/forum';
 import { useTranslation } from 'react-i18next';
-import { atom, useAtom } from 'jotai';
-
-interface Forum {
-    FB_idx: number;
-    ServiceCode: string;
-    Category: string;
-    LanguageCode: string;
-    Title: string;
-    HaveFile: string;
-    UserId: string;
-    UserIp: string;
-    CreatedAt: string;
-    UserStatus: string;
-}
+import { useAtom } from 'jotai';
+import {
+    forumsAtom,
+    isAddOpenAtom,
+    isEditModalOpenAtom,
+    isCommentOpenAtom,
+    isReplyOpenAtom,
+    selectedFBidxAtom,
+    selectedForumBoardItemAtom
+} from '../../atoms/store';
 
 
-const forumsAtom = atom<Forum[]>([]);
-const isAddOpenAtom = atom<boolean>(false);
-const isEditOpenAtom = atom<boolean>(false);
-const isCommentOpenAtom = atom<boolean>(false);
-const isReplyOpenAtom = atom<boolean>(false);
-const selectedFBidxAtom = atom<number | null>(null);
-const selectedBoardItemAtom = atom<Forum | null>(null);
+
 const ForumManage: React.FC = () => {
     const [forums, setForums] = useAtom(forumsAtom);
     const [isAddOpen, setIsAddOpen] = useAtom(isAddOpenAtom);
-    const [isEditOpen, setIsEditOpen] = useAtom(isEditOpenAtom);
+    const [isEditOpen, setIsEditOpen] = useAtom(isEditModalOpenAtom);
     const [isCommentOpen, setIsCommentOpen] = useAtom(isCommentOpenAtom);
     const [isReplyOpen, setIsReplyOpen] = useAtom(isReplyOpenAtom);
     const [selectedFBidx, setSelectedFBidx] = useAtom(selectedFBidxAtom);
-    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedBoardItemAtom);
+    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedForumBoardItemAtom);
     const { t } = useTranslation();
 
     const handleEdit = async (FB_idx: number) => {
@@ -45,7 +35,7 @@ const ForumManage: React.FC = () => {
             if (response.ok) {
                 const boardItem = await response.json();
                 setSelectedBoardItem(boardItem);
-                setIsEditOpen(true); 
+                setIsEditOpen(true);
             } else {
                 alert('게시물 조회에 실패했습니다.');
             }
@@ -54,7 +44,7 @@ const ForumManage: React.FC = () => {
             alert('게시물 조회에 실패했습니다.');
         }
     };
-    
+
 
     useEffect(() => {
         const loadForums = async () => {
@@ -77,7 +67,7 @@ const ForumManage: React.FC = () => {
         setIsAddOpen(false);
     };
 
- 
+
     const closeEdit = () => {
         setIsEditOpen(false);
     };
@@ -137,7 +127,7 @@ const ForumManage: React.FC = () => {
                                     <td>{forum.UserIp}</td>
                                     <td>{forum.CreatedAt}</td>
                                     <td>
-                                        <button className={styles.editBtn} onClick={()=> handleEdit(forum.FB_idx)}>{t('edit')}</button>
+                                        <button className={styles.editBtn} onClick={() => handleEdit(forum.FB_idx)}>{t('edit')}</button>
                                         <button className={styles.replyBtn} onClick={() => openReply(forum.FB_idx)}>{t('reply')}</button>
                                         <button className={styles.commentBtn} onClick={() => openComment(forum.FB_idx)}>{t('comment_check')}</button>
                                     </td>

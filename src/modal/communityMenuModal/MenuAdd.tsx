@@ -3,41 +3,21 @@ import { fetchBoardAdminStatus, fetchBoardUserStatus, fetchServiceCode, fetchMen
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { atom, useAtom } from 'jotai';
-
-interface UserStatus {
-    check_status: string;
-}
-
-interface AdminStatus {
-    admin_status: string;
-}
-
-interface ServiceCode {
-    service_idx: number;
-    service_code: string;
-}
-
-interface MenuName {
-    section: number;
-    menu_name: string;
-    menu_code: string;
-    lang_code: string;
-}
-
+import { useAtom } from 'jotai';
+import {
+    statusAtom,
+    adminStatusAtom,
+    serviceCodeAtom,
+    menuNameAtom,
+    selectedUserStatusAtom,
+    selectedAdminStatusAtom,
+    selectedServiceIdxCodeAtom,
+    selectedMenuNameAtom
+} from '../../atoms/store';
 interface AddProps {
     closeAdd: () => void;
 }
 
-
-const statusAtom = atom<UserStatus[]>([]);
-const adminStatusAtom = atom<AdminStatus[]>([]);
-const serviceCodeAtom = atom<ServiceCode[]>([]);
-const menuNameAtom = atom<MenuName[]>([]);
-const selectedUserStatusAtom = atom<string | undefined>(undefined);
-const selectedAdminStatusAtom = atom<string | undefined>(undefined);
-const selectedServiceCodeAtom = atom<number | null>(null);
-const selectedMenuNameAtom = atom<number[]>([]);
 
 const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
     const [status, setStatus] = useAtom(statusAtom);
@@ -46,7 +26,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
     const [menuName, setMenuName] = useAtom(menuNameAtom);
     const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
     const [selectedAdminStatus, setSelectedAdminStatus] = useAtom(selectedAdminStatusAtom);
-    const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceCodeAtom);
+    const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceIdxCodeAtom);
     const [selectedMenuName, setSelectedMenuName] = useAtom(selectedMenuNameAtom);
     const { t } = useTranslation();
 
@@ -120,7 +100,7 @@ const MenuAdd: React.FC<AddProps> = ({ closeAdd }) => {
                 ServiceCode: selectedServiceCode,
                 Classify: selectedMenuName[0],
                 SectionCode: selectedMenuName[2],
-                LanguageCode: selectedMenuName[3], 
+                LanguageCode: selectedMenuName[3],
                 Title: selectedMenuName[1],
                 AdminStatus: selectedAdminStatus,
                 UserStatus: selectedUserStatus,

@@ -4,16 +4,9 @@ import axios from 'axios';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts"; 
 import DetailEditor from "../../components/DetailEditor.tsx";
 import { useTranslation } from "react-i18next";
-import { atom, useAtom } from 'jotai';
+import {useAtom } from 'jotai';
+import { categoriesAtom, selectedCategoryAtom, gamesAtom, selectedGameIdxAtom, titleAtom, detailAtom } from "../../atoms/store.ts";
 
-interface Game {
-    id: number;
-    name: string;
-}
-
-interface Category {
-    category_name: string;
-}
 
 interface Board {
     board_num: number; 
@@ -28,18 +21,13 @@ interface FaqEditProps {
     boardItem: Board;
 }
 
-const categoriesAtom = atom<Category[]>([]);
-const selectedCategoryAtom = atom<string | null>(null);
-const gamesAtom = atom<Game[]>([]);
-const selectedGameAtom = atom<number | null>(null);
-const titleAtom = atom<string>("");
-const detailAtom = atom<string>("");
+
 
 export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
     const [categories, setCategories] = useAtom(categoriesAtom);
     const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
     const [games, setGames] = useAtom(gamesAtom);
-    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameIdxAtom);
     const [title, setTitle] = useAtom(titleAtom);
     const [detail, setDetail] = useAtom(detailAtom);
     const { t } = useTranslation();

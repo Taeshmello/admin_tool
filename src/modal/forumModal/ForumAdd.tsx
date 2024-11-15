@@ -7,7 +7,6 @@ import ForumEditor from "../../components/ForumEditor";
 import { useCookies } from 'react-cookie';
 import { refreshAccessToken, fetchData } from "../../utils/api";
 import axios from "axios";
-// import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 interface ForumAddProp {
@@ -35,7 +34,7 @@ interface userStatus {
 
 const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
     const [languages, setLanguages] = useState<languages[]>([]);
-    const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+    const [cookies, setCookie] = useCookies(['accessToken']);
     const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
     const [selecetedLanguage, setSelectedLanguage] = useState<string[]>([]);
     const [serviceCode, setServiceCode] = useState<serviceCode[]>([]);
@@ -117,7 +116,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
         loadLanguageData();
         loadServiceCode();
         loadStatusData();
-    }, [selectedServiceCode, cookies.accessToken, setCookie, removeCookie])
+    }, [selectedServiceCode, cookies.accessToken, setCookie])
 
     const handleSubmit = async () => {
         if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {

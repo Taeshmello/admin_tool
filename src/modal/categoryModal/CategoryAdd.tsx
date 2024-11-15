@@ -3,26 +3,19 @@ import './CategoryAdd.css';
 import { fetchGames } from "../../utils/faq.ts";
 import { useTranslation } from "react-i18next";
 import axios from 'axios';
-import { atom, useAtom } from 'jotai';
-
-interface Game {
-    id: number;
-    name: string;
-}
-
-
-const gamesAtom = atom<Game[]>([]);
-const selectedGameAtom = atom<number | null>(null);
-const categoryAtom = atom<string>("");
+import { useAtom } from 'jotai';
+import {
+    selectedGameIdxAtom,
+    categoryAtom,
+    gamesAtom
+} from "../../atoms/store.ts";
 
 interface CategoryProps {
     closeModal: () => void;
 }
-
-
 export const CategoryAdd: React.FC<CategoryProps> = ({ closeModal }) => {
 
-    const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
+    const [selectedGame, setSelectedGame] = useAtom(selectedGameIdxAtom);
     const [games, setGames] = useAtom(gamesAtom);
     const [category, setCategory] = useAtom(categoryAtom);
     const { t } = useTranslation();

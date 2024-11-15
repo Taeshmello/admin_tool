@@ -3,23 +3,19 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { fetchData, refreshAccessToken } from "../../utils/api";
 import { useCookies } from 'react-cookie';
-import { atom, useAtom } from 'jotai';
+import {useAtom } from 'jotai';
 import axios from 'axios';
+import { fileAtom, detailAtom, userInfoAtom } from "../../atoms/store";
 
 interface ForumReplyProp {
     closeReply: () => void;
     FB_idx: number;
 }
 
-
-const fileAtom = atom<File | null>(null);
-const detailsAtom = atom<string>("");
-const userInfoAtom = atom<{ name: string } | null>(null);
-
 const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
     const { t } = useTranslation();
     const [file, setFile] = useAtom(fileAtom);
-    const [details, setDetails] = useAtom(detailsAtom);
+    const [details, setDetails] = useAtom(detailAtom);
     const [cookies, setCookie] = useCookies(['accessToken']);
     const [userInfo, setUserInfo] = useAtom(userInfoAtom);
 

@@ -2,11 +2,8 @@ import commentStyles from "./Comment.module.css";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { fetchComments } from "../../utils/forum";
-import { atom, useAtom } from 'jotai';
-
-
-const commentsAtom = atom<any[]>([]);
-
+import {useAtom } from 'jotai';
+import { commentsAtom } from "../../atoms/store";
 interface ForumCommentProp {
     closeComment: () => void;
     FB_idx: number;

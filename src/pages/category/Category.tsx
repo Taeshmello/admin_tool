@@ -5,17 +5,17 @@ import { CategoryAdd } from "../../modal/categoryModal/CategoryAdd";
 import { CategoryEdit } from "../../modal/categoryModal/CategoryEdit";
 import styles from './Category.module.css';
 import { useTranslation } from "react-i18next";
-import { atom, useAtom } from 'jotai';
+import {useAtom } from 'jotai';
+import { 
+    categoriesAtom,
+    isEditModalOpenAtom,
+    isModalOpenAtom,
+    gamesAtom,
+    selectedGameAtom,
+    selectedCategoryBoardItemAtom
+} from "../../atoms/store";
 
-import {Categories, Games} from '../../atoms/store'
 
-
-const categoriesAtom = atom<Categories[]>([]);
-const isModalOpenAtom = atom<boolean>(false);
-const isEditModalOpenAtom = atom<boolean>(false);
-const gamesAtom = atom<Games[]>([]);
-const selectedGameAtom = atom<string>("");
-const selectedBoardItemAtom = atom<Categories | null>(null);
 
 const Category = () => {
     const [categories, setCategories] = useAtom(categoriesAtom);
@@ -24,7 +24,7 @@ const Category = () => {
     const [games, setGames] = useAtom(gamesAtom);
     const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
     const { t } = useTranslation();
-    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedBoardItemAtom)
+    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedCategoryBoardItemAtom)
     useEffect(() => {
         const loadCategoryData = async () => {
             try {
