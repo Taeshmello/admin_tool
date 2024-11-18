@@ -4,9 +4,17 @@ import axios from 'axios';
 import { fetchGames, fetchCategoriesByGameId } from "../../utils/faq.ts"; 
 import DetailEditor from "../../components/DetailEditor.tsx";
 import { useTranslation } from "react-i18next";
-import {useAtom } from 'jotai';
-import { categoriesAtom, selectedCategoryAtom, gamesAtom, selectedGameIdxAtom, titleAtom, detailAtom } from "../../atoms/store.ts";
-
+import {useAtom} from 'jotai';
+import {
+    selectedCategoryAtom, 
+    gamesAtom, 
+    selectedGameIdxAtom, 
+    titleAtom, 
+    detailAtom 
+} from "../../atoms/store.ts";
+import { 
+    categoriesAtom
+} from "../../atoms/category.ts";
 
 interface Board {
     board_num: number; 

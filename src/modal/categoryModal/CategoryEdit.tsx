@@ -4,8 +4,14 @@ import { fetchGames} from "../../utils/faq.ts";
 import { useTranslation } from "react-i18next";
 import {  useAtom } from 'jotai';
 import axios from "axios";
-import { Categories } from "../../atoms/store.ts";
-import { gamesAtom, selectedGameIdxAtom, titleAtom } from "../../atoms/store.ts";
+import { 
+    Categories 
+} from "../../atoms/category.ts";
+import { 
+    gamesAtom, 
+    selectedGameIdxAtom, 
+    titleAtom 
+} from "../../atoms/store.ts";
 
 
 interface FaqEditProps {

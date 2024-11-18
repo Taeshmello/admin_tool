@@ -4,7 +4,13 @@ import { fetchBoardUserStatus, fetchBoardAdminStatus } from '../../utils/menu';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import {useAtom } from 'jotai';
-import { statusAtom,adminStatusAtom, selectedUserStatusAtom, selectedAdminStatusAtom } from '../../atoms/store';
+import { statusAtom,
+    adminStatusAtom, 
+    selectedUserStatusAtom, 
+    selectedAdminStatusAtom 
+} from '../../atoms/store';
+
+
 interface ForumMenuDetailBoard {
     CM_idx: number;
     service_code: string;

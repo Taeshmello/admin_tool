@@ -6,14 +6,18 @@ import { Write } from '../../modal/faqModal/FaqAdd';
 import { FaqEdit } from '../../modal/faqModal/FaqEdit';
 import { useTranslation } from 'react-i18next';
 import {useAtom } from 'jotai';
-import { searchTermAtom, 
-    FaqboardAtom,
-    filteredFaqBoardAtom, 
+import { 
+    searchTermAtom, 
     gamesAtom,
     selectedGameAtom,
     isModalOpenAtom,
     isEditModalOpenAtom,
-    selectedFaqBoardItemAtom } from '../../atoms/store';
+  } from '../../atoms/store';
+import { 
+    FaqboardAtom, 
+    filteredFaqBoardAtom, 
+    selectedFaqBoardItemAtom 
+} from '../../atoms/faq';
 
 const FaqManage = () => {
     const [searchTerm, setSearchTerm] = useAtom(searchTermAtom);

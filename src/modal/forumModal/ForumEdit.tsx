@@ -6,7 +6,7 @@ import { fetchLanguage } from '../../utils/forum';
 import { fetchMenuName, fetchBoardUserStatus } from '../../utils/menu'
 import { atom, useAtom } from 'jotai';
 import axios from 'axios';
-
+import { statusAtom, detailAtom } from '../../atoms/store';
 interface languages {
     Lang_idx: number;
     Lang: string;
@@ -36,14 +36,11 @@ interface MenuName {
     lang_code: string;
 }
 
-interface UserStatus {
-    check_status: string;
-}
-const statusAtom = atom<UserStatus[]>([]);
+
 const selectedMenuNameAtom = atom<string | null>(null);
 const menuNameAtom = atom<MenuName[]>([]);
 const selectedUserStatusAtom = atom<string | null>(null);
-const detailAtom = atom<string>(""  );
+
 
 const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
     const { t } = useTranslation();

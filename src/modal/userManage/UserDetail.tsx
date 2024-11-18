@@ -10,8 +10,9 @@ import {
 import { fetchPermissionsForGame } from '../../utils/user';
 import { useTranslation } from "react-i18next";
 import {useAtom } from 'jotai';
-import { Permission, loginedUser, UserGame } from "../../atoms/store";
-import { gamesAtom, permissionsAtom, selectedPermissionsAtom, allSelectedAtom, selectedGameIdAtom, userGamesAtom } from "../../atoms/store";
+import { Permission, loginedUser} from "../../atoms/user";
+import { permissionsAtom, selectedPermissionsAtom, allSelectedAtom, selectedGameIdAtom, userGamesAtom } from "../../atoms/user";
+import { gamesAtom } from "../../atoms/store";
 interface DetailProps {
     closeModal: () => void;
     user: loginedUser | null;

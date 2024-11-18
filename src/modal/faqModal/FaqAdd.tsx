@@ -5,8 +5,16 @@ import Editor from "../../components/Editor.tsx";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import {useAtom } from 'jotai';
-import { categoriesAtom, gamesAtom, selectedGameIdxAtom, titleAtom, detailAtom, selectedCategoryAtom } from "../../atoms/store.ts";
-
+import {  
+    gamesAtom, 
+    selectedGameIdxAtom, 
+    titleAtom, 
+    detailAtom, 
+    selectedCategoryAtom 
+} from "../../atoms/store.ts";
+import { 
+    categoriesAtom 
+} from "../../atoms/category.ts";
 
 interface WriteProps {
     closeModal: () => void;

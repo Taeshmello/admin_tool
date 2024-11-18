@@ -1,22 +1,22 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import UserManageStyle from './UserManage.module.css';
-import { fetchUserData, fetchGameGenres} from '../../utils/api';
+import { fetchUserData, fetchGameGenres } from '../../utils/api';
 import UserDetail from '../../modal/userManage/UserDetail';
 import { useTranslation } from 'react-i18next';
-import {useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { userGameList } from '../../utils/user';
-import { 
+import {
     usersAtom,
     filteredUsersAtom,
-    searchTermAtom,
+
     selectedUserAtom,
-    isModalOpenAtom,
+
     genresAtom,
     selectedGenreAtom,
-    selectedGameAtom,
-    userGamesAtom
- } from '../../atoms/store';
 
+    userGamesAtom
+} from '../../atoms/user';
+import { searchTermAtom, isModalOpenAtom, selectedGameAtom } from '../../atoms/store';
 
 const UserManage: React.FC = () => {
     const { t } = useTranslation();
@@ -44,14 +44,14 @@ const UserManage: React.FC = () => {
             }
         };
 
-        loadUserData(); 
+        loadUserData();
     }, []);
 
     useEffect(() => {
         const loadGameData = async () => {
             try {
                 const genresData = await fetchGameGenres();
-               
+
                 if (Array.isArray(genresData)) {
                     setGenres(genresData);
                 } else {
@@ -62,16 +62,16 @@ const UserManage: React.FC = () => {
             }
         };
 
-        const loadUserGameData = async() => {
+        const loadUserGameData = async () => {
             try {
                 const userGamesData = await userGameList();
-                if(Array.isArray(userGamesData)){
+                if (Array.isArray(userGamesData)) {
                     setUserGames(userGamesData)
-                }else{
-                    console.error("유저 게임 데이터 형식 오류:",userGamesData)
+                } else {
+                    console.error("유저 게임 데이터 형식 오류:", userGamesData)
                 }
-            }catch(error){
-                console.error("유저 게임 데이터 불러오기 오류:",error)
+            } catch (error) {
+                console.error("유저 게임 데이터 불러오기 오류:", error)
             }
         }
         loadUserGameData()
@@ -98,7 +98,7 @@ const UserManage: React.FC = () => {
         <div className={UserManageStyle.pageContainer}>
             <div className={UserManageStyle.pageContent}>
                 <div className={UserManageStyle.userContainer}>
-                <h3 className={UserManageStyle.searchTitle}>{t('search')}</h3>
+                    <h3 className={UserManageStyle.searchTitle}>{t('search')}</h3>
                     <select
                         name="genre"
                         className={UserManageStyle.genreSearch}
@@ -118,7 +118,7 @@ const UserManage: React.FC = () => {
                         onChange={(e) => setSelectedGame(e.target.value)}
                         value={selectedGame}
                     >
-                        <option value="">{t('all')}</option>    
+                        <option value="">{t('all')}</option>
                         {userGames.map((game, index) => (
                             <option key={index} value={game.game_name}>
                                 {game.game_name}
@@ -126,9 +126,9 @@ const UserManage: React.FC = () => {
                         ))}
                     </select>
                     <div className={UserManageStyle.userSearch}>
-                        
+
                         <input
-                        className={UserManageStyle.searchInput}
+                            className={UserManageStyle.searchInput}
                             type="text"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}

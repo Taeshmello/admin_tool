@@ -5,16 +5,17 @@ import { CategoryAdd } from "../../modal/categoryModal/CategoryAdd";
 import { CategoryEdit } from "../../modal/categoryModal/CategoryEdit";
 import styles from './Category.module.css';
 import { useTranslation } from "react-i18next";
-import {useAtom } from 'jotai';
-import { 
-    categoriesAtom,
+import { useAtom } from 'jotai';
+import {
     isEditModalOpenAtom,
     isModalOpenAtom,
     gamesAtom,
     selectedGameAtom,
-    selectedCategoryBoardItemAtom
 } from "../../atoms/store";
-
+import { 
+    categoriesAtom, 
+    selectedCategoryBoardItemAtom 
+} from "../../atoms/category";
 
 
 const Category = () => {
@@ -34,11 +35,11 @@ const Category = () => {
                 console.error("카테고리 데이터 불러오기 오류:", error);
             }
         };
-        const loadGameData = async () => {  
+        const loadGameData = async () => {
             try {
                 const gamesData = await fetchGames();
-                if (Array.isArray(gamesData)) { 
-                    setGames(gamesData);    
+                if (Array.isArray(gamesData)) {
+                    setGames(gamesData);
                 } else {
                     console.error("게임 데이터 형식 오류:", gamesData);
                 }
@@ -53,13 +54,13 @@ const Category = () => {
 
 
 
-    const handleEdit = async (GC_idx: number) =>{
-        try{
+    const handleEdit = async (GC_idx: number) => {
+        try {
             const boardItem = await fetchCategoryDetails(GC_idx);
             setSelectedBoardItem(boardItem);
             setIsEditModalOpen(true)
-        }catch(error){
-            console.error("카테고리 조회 오류:",error);
+        } catch (error) {
+            console.error("카테고리 조회 오류:", error);
             alert('카테고리 조회 실패')
         }
     }
@@ -82,8 +83,8 @@ const Category = () => {
     const closeModal = () => setIsModalOpen(false);
     const closeEdit = () => setIsEditModalOpen(false);
 
-    const filteredCategories = selectedGame 
-        ? categories.filter(category => category.game_name === selectedGame) 
+    const filteredCategories = selectedGame
+        ? categories.filter(category => category.game_name === selectedGame)
         : categories;
 
     return (
@@ -107,7 +108,7 @@ const Category = () => {
                     </div>
                     <button className={styles.categoryAdd} onClick={openModal}>{t('add_category')}</button>
                 </div>
-                
+
                 <table className={styles.boardTable}>
                     <thead>
                         <tr>
@@ -131,7 +132,7 @@ const Category = () => {
                                     <td>{category.category}</td>
                                     <td>{created_date}</td>
                                     <td>
-                                        <button className={styles.info} onClick={()=> handleEdit(category.GC_idx)}>{t('info')}</button>
+                                        <button className={styles.info} onClick={() => handleEdit(category.GC_idx)}>{t('info')}</button>
                                         <button className={styles.deleteBtn} onClick={() => handleDelete(category.GC_idx)}>{t('delete')}</button>
                                     </td>
                                 </tr>
@@ -141,7 +142,7 @@ const Category = () => {
                 </table>
             </div>
             {isModalOpen && <CategoryAdd closeModal={closeModal} />}
-            {isEditModalOpen && <CategoryEdit closeEdit={closeEdit} boardItem = {selectedBoardItem} />}
+            {isEditModalOpen && <CategoryEdit closeEdit={closeEdit} boardItem={selectedBoardItem} />}
         </div>
     );
 }

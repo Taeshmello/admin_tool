@@ -4,18 +4,19 @@ import { fetchMenuBoard, fetchBoardUserStatus, fetchMenuBoardItem, fetchServiceC
 import MenuEdit from '../../modal/communityMenuModal/MenuEdit';
 import MenuAdd from '../../modal/communityMenuModal/MenuAdd';
 import { useTranslation } from 'react-i18next';
-import {useAtom } from 'jotai';
-import { 
+import { useAtom } from 'jotai';
+import { isModalOpenAtom } from '../../atoms/store';
+import {
+    statusAtom,
+    isAddOpenAtom
+} from '../../atoms/store';
+import {
     ForumMenuBoardAtom,
     filteredForumMenuBoardAtom,
-    statusAtom,
     selectedForumMenuItemAtom,
     serviceCodeAtom,
-    selectedServiceCodeAtom,
-    isModalOpenAtom,
-    isAddOpenAtom} from '../../atoms/store';
-
-
+    selectedServiceCodeAtom
+} from '../../atoms/menu';
 
 
 

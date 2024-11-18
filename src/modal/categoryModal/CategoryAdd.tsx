@@ -6,9 +6,11 @@ import axios from 'axios';
 import { useAtom } from 'jotai';
 import {
     selectedGameIdxAtom,
-    categoryAtom,
     gamesAtom
 } from "../../atoms/store.ts";
+import { 
+    categoryAtom 
+} from "../../atoms/category.ts";
 
 interface CategoryProps {
     closeModal: () => void;

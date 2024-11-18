@@ -8,12 +8,14 @@ import {
     statusAtom,
     adminStatusAtom,
     serviceCodeAtom,
-    menuNameAtom,
     selectedUserStatusAtom,
     selectedAdminStatusAtom,
-    selectedServiceIdxCodeAtom,
-    selectedMenuNameAtom
 } from '../../atoms/store';
+import {
+    selectedServiceIdxCodeAtom, 
+    menuNameAtom, 
+    selectedMenuNameAtom 
+} from '../../atoms/menu';
 interface AddProps {
     closeAdd: () => void;
 }
