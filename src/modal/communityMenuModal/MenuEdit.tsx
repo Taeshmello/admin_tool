@@ -27,10 +27,6 @@ interface EditProps {
     menuItem: ForumMenuDetailBoard;
 }
 
-
-
-
-
 const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
     const [status, setStatus] = useAtom(statusAtom);
     const [adminStatus, setAdminStatus] = useAtom(adminStatusAtom);

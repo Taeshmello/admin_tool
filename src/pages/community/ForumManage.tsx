@@ -9,14 +9,15 @@ import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import {
     forumsAtom,
-    isAddOpenAtom,
-    isEditModalOpenAtom,
     isCommentOpenAtom,
     isReplyOpenAtom,
     selectedFBidxAtom,
     selectedForumBoardItemAtom
+} from '../../atoms/forum';
+import { 
+    isAddOpenAtom,
+    isEditModalOpenAtom 
 } from '../../atoms/store';
-
 
 
 const ForumManage: React.FC = () => {

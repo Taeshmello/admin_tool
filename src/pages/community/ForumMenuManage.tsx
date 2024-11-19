@@ -8,14 +8,14 @@ import { useAtom } from 'jotai';
 import { isModalOpenAtom } from '../../atoms/store';
 import {
     statusAtom,
-    isAddOpenAtom
 } from '../../atoms/store';
 import {
     ForumMenuBoardAtom,
     filteredForumMenuBoardAtom,
     selectedForumMenuItemAtom,
     serviceCodeAtom,
-    selectedServiceCodeAtom
+    selectedServiceCodeAtom,
+    isAddOpenAtom
 } from '../../atoms/menu';
 
 

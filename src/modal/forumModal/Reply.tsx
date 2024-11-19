@@ -5,8 +5,8 @@ import { fetchData, refreshAccessToken } from "../../utils/api";
 import { useCookies } from 'react-cookie';
 import {useAtom } from 'jotai';
 import axios from 'axios';
-import { fileAtom, detailAtom, userInfoAtom } from "../../atoms/store";
-
+import {detailAtom} from "../../atoms/store";
+import { fileAtom, userInfoAtom } from "../../atoms/forum";
 interface ForumReplyProp {
     closeReply: () => void;
     FB_idx: number;
@@ -20,7 +20,7 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
     const [userInfo, setUserInfo] = useAtom(userInfoAtom);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
+        if (e.target.files && e.target.files[0]) {  
             setFile(e.target.files[0]);
         }
     };

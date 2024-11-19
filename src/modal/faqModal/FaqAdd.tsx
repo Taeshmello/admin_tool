@@ -9,12 +9,13 @@ import {
     gamesAtom, 
     selectedGameIdxAtom, 
     titleAtom, 
-    detailAtom, 
+    
     selectedCategoryAtom 
 } from "../../atoms/store.ts";
 import { 
-    categoriesAtom 
+    categoriesAtom,
 } from "../../atoms/category.ts";
+import { detailAtom } from "../../atoms/faq.ts";
 
 interface WriteProps {
     closeModal: () => void;
