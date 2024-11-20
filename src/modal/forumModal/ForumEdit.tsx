@@ -22,11 +22,13 @@ interface Forum {
     Category: string;
     LanguageCode: string;
     Title: string;
+    contents:string;
     HaveFile: string;
     UserId: string;
     UserIp: string;
     CreatedAt: string;
     UserStatus: string;
+
 }
 
 interface ForumEditProp {
@@ -71,7 +73,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
             }
         };
 
-        const loadStatusData = async () => {
+        const loadStatusData = async () => {    
             try {
                 const statusData = await fetchBoardUserStatus();
                 if (statusData && Array.isArray(statusData)) {
