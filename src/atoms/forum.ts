@@ -18,6 +18,12 @@ interface languages {
 interface menu {
     sectionCode: string;
 }
+interface MenuName {
+    section: number;
+    menu_name: string;
+    menu_code: string;
+    lang_code: string;
+}
 //Forummanage page(ForumManage.tsx)
 export const forumsAtom = atom<Forum[]>([]);
 export const isCommentOpenAtom = atom<boolean>(false);
@@ -35,6 +41,13 @@ export const commentsAtom = atom<any[]>([]);
 
 //ForumAdd modal (ForumAdd.tsx)
 export const languagesAtom = atom<languages[]>([]);
-
 export const selectedLanguagesAtom = atom<string[]>([]);
-export const menuAtom = atom<menu[]>([]);   
+export const menuAtom = atom<menu[]>([]);
+export const selectedMenuAtom = atom<string | null>(null)
+
+
+
+//ForumEdit modal (ForumEdit.tsx)
+export const selectedMenuNameAtom = atom<string | null>(null)
+export const menuNameAtom = atom<MenuName[]>([])
+

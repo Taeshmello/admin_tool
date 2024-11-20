@@ -4,13 +4,18 @@ import { useState, useEffect } from 'react';
 import ForumEditEditor from '../../components/ForumEditEditor';
 import { fetchLanguage } from '../../utils/forum';
 import { fetchMenuName, fetchBoardUserStatus } from '../../utils/menu'
-import { atom, useAtom } from 'jotai';
+import {useAtom } from 'jotai';
 import axios from 'axios';
-import { statusAtom, detailAtom } from '../../atoms/store';
-interface languages {
-    Lang_idx: number;
-    Lang: string;
-}
+import { statusAtom, detailAtom, selectedUserStatusAtom } from '../../atoms/store';
+import {
+    selectedMenuNameAtom,
+    menuNameAtom,
+    languagesAtom,
+    selectedLanguagesAtom
+} from '../../atoms/forum';
+
+
+
 interface Forum {
     FB_idx: number;
     ServiceCode: string;
@@ -29,23 +34,10 @@ interface ForumEditProp {
     boardItem: Forum;
 }
 
-interface MenuName {
-    section: number;
-    menu_name: string;
-    menu_code: string;
-    lang_code: string;
-}
-
-
-const selectedMenuNameAtom = atom<string | null>(null);
-const menuNameAtom = atom<MenuName[]>([]);
-const selectedUserStatusAtom = atom<string | null>(null);
-
-
 const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
     const { t } = useTranslation();
-    const [languages, setLanguages] = useState<languages[]>([]);
-    const [selecetedLanguage, setSelectedLanguage] = useState<string[]>([]);
+    const [languages, setLanguages] = useAtom(languagesAtom)
+    const [selecetedLanguage, setSelectedLanguage] = useAtom(selectedLanguagesAtom)
     const [selectedMenuName, setSelectedMenuName] = useAtom(selectedMenuNameAtom);
     const [menuName, setMenuName] = useAtom(menuNameAtom);
     const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
@@ -95,7 +87,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
         loadStatusData();
         loadLanguageData();
         loadMenuName();
-    }, [boardItem,setMenuName, setLanguages, setStatus]);
+    }, [boardItem, setMenuName, setLanguages, setStatus]);
 
     const handleCheckboxChange = (lang: string) => {
         setSelectedLanguage(prevSelectedLanguages => {
@@ -136,7 +128,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                 UserStatus: selectedUserStatus,
             });
 
-            
+
 
             if (response.status === 200) {
                 alert(`${t("forum_update_complete")}`);
@@ -148,7 +140,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
         } catch (error) {
             console.error("게시물 수정 중 오류:", error);
         }
-        
+
     };
 
     return (
@@ -206,7 +198,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                     </select>
 
                     <input
-                    type='text'
+                        type='text'
                         className={EditStyles.title}
                         placeholder={t("input_title")}
                         value={title}
@@ -214,9 +206,9 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                     />
                 </div>
 
-                <ForumEditEditor 
-                    detail={detail} 
-                    setDetail={setDetail} 
+                <ForumEditEditor
+                    detail={detail}
+                    setDetail={setDetail}
                 />
                 <div className={EditStyles.btnContainer}>
                     <button className={EditStyles.close} onClick={handleClose}>{t('close')}</button>

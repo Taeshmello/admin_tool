@@ -77,7 +77,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
     const updatedData = {
         CM_idx: menuItem.CM_idx,
         AdminStatus: selectedAdminStatus,
-        UserStatus: selectedUserStatus,
+        UserStatus: selectedUserStatus, 
     };
 
     const handleUpdate = async () => {

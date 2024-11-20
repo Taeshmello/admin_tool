@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAtom } from "jotai";
 import styles from "./ForumAdd.module.css"
 import { fetchLanguage, fetchMenuByServiceCodeId } from "../../utils/forum";
 import { fetchServiceCode, fetchBoardUserStatus } from "../../utils/menu";
@@ -8,46 +9,41 @@ import { useCookies } from 'react-cookie';
 import { refreshAccessToken, fetchData } from "../../utils/api";
 import axios from "axios";
 import 'react-datepicker/dist/react-datepicker.css';
+import {
+    languagesAtom,
+    selectedLanguagesAtom,
+    menuAtom,
+    userInfoAtom,
+    selectedMenuAtom
+} from "../../atoms/forum";
+import {
+    serviceCodeAtom,
+    selectedServiceCodeIdxAtom,
+    titleAtom,
+    detailAtom,
+    selectedUserStatusAtom,
+    statusAtom
+} from "../../atoms/store";
 
 interface ForumAddProp {
     closeAdd: () => void
 }
 
-interface languages {
-    Lang_idx: number;
-    Lang: string;
-}
-
-interface serviceCode {
-    service_idx: number;
-    service_code: string;
-}
-
-interface menu {
-    sectionCode: string;
-
-}
-
-interface userStatus {
-    check_status: string;
-}
-
 const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
-    const [languages, setLanguages] = useState<languages[]>([]);
+    const [languages, setLanguages] = useAtom(languagesAtom);
+    const [selecetedLanguage, setSelectedLanguage] = useAtom(selectedLanguagesAtom);
     const [cookies, setCookie] = useCookies(['accessToken']);
-    const [userInfo, setUserInfo] = useState<{ name: string } | null>(null);
-    const [selecetedLanguage, setSelectedLanguage] = useState<string[]>([]);
-    const [serviceCode, setServiceCode] = useState<serviceCode[]>([]);
-    const [selectedServiceCode, setSelectedServiceCode] = useState<number | null>(null);
-    const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
-    const [menu, setMenu] = useState<menu[]>([]);
-    const [selectedUserStatus, setSelectedUserStatus] = useState<string | null>("");
-    const [status, setStatus] = useState<userStatus[]>([]);
+    const [userInfo, setUserInfo] = useAtom(userInfoAtom);
+    const [serviceCode, setServiceCode] = useAtom(serviceCodeAtom);
+    const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceCodeIdxAtom);
+    const [selectedMenu, setSelectedMenu] = useAtom(selectedMenuAtom);
+    const [menu, setMenu] = useAtom(menuAtom);
+    const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
+    const [status, setStatus] = useAtom(statusAtom);
     const { t } = useTranslation();
-    const [title, setTitle] = useState<string>('');
-    const [detail, setDetail] = useState<string>('');
-
-
+    const [title, setTitle] = useAtom(titleAtom);
+    const [detail, setDetail] = useAtom(detailAtom);
+    
     useEffect(() => {
         const loadLanguageData = async () => {
             try {
@@ -79,7 +75,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                         setMenu(menuData)
                     }
                 } catch (error) {
-                    console.error("메뉴 데이터 불러오기 오류:", error)  
+                    console.error("메뉴 데이터 불러오기 오류:", error)
                 }
             } else {
                 setMenu([]);
@@ -127,7 +123,6 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
 
         try {
             const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx;
-
             const response = await axios.post("http://localhost:5000/forum/insert", {
                 ServiceCode: selectedServiceCode,
                 Category: selectedMenu,
@@ -136,10 +131,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                 contents: detail,
                 UserId: userInfo?.name || 'unknown',
                 UserStatus: selectedUserStatus
-
             });
-
-
             if (response.status === 200) {
                 alert(`${t("forum_add_complete")}`)
                 location.reload()
@@ -210,7 +202,7 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     minDate={startDate}
                 />
                 </div> */}
-                
+
                 <div className={styles.languageContainer}>
                     {languages.map((lang, index) => (
                         <div key={index}>
@@ -246,7 +238,6 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
                     <ForumEditor detail={detail} setDetail={setDetail} />
                 </div>
                 <div className={styles.btnContainer}>
-
                     <button className={styles.close} onClick={closeAdd}>{t('close')}</button>
                     <button className={styles.save} onClick={handleSubmit}>{t('save')}</button>
                 </div>
