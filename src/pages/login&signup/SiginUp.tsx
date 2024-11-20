@@ -83,15 +83,15 @@ const SignUp: React.FC = () => {
 
           <div className={SignUpStyle.signUpContainer}>
             <h4 ><a href="/" className={SignUpStyle.siginIn}>Do you already have an account?</a></h4>
-            
+
           </div>
 
           <button type="submit" className={SignUpStyle.loginButton}>Sign Up</button>
         </form>
       </div>
       {Array.from({ length: 20 }).map((_, index) => (
-                <div key={index} className={`${SignUpStyle.star} ${SignUpStyle[`star${index}`]}`}></div>
-            ))}
+        <div key={index} className={`${SignUpStyle.star} ${SignUpStyle[`star${index}`]}`}></div>
+      ))}
     </div>
   );
 };

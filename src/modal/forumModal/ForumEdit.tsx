@@ -14,8 +14,6 @@ import {
     selectedLanguagesAtom
 } from '../../atoms/forum';
 
-
-
 interface Forum {
     FB_idx: number;
     ServiceCode: string;
@@ -102,7 +100,6 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
             }
         });
     };
-
     const handleClose = () => {
         setIsClosing(true);
         setTimeout(() => {
@@ -115,11 +112,9 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
             alert(`${t('plz_fill_space')}`);
             return;
         }
-
         try {
             const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx;
             const isFixed = "N";
-
             const response = await axios.put("http://localhost:5000/forum/update", {
                 FB_idx: boardItem.FB_idx,
                 Category: selectedMenuName,
@@ -129,9 +124,6 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
                 isFixed: isFixed,
                 UserStatus: selectedUserStatus,
             });
-
-
-
             if (response.status === 200) {
                 alert(`${t("forum_update_complete")}`);
                 closeEdit();
@@ -142,9 +134,7 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
         } catch (error) {
             console.error("게시물 수정 중 오류:", error);
         }
-
     };
-
     return (
         <div className={`${EditStyles.modal} ${isClosing ? EditStyles.closing : ''}`}>
             <div className={EditStyles.modalContent}>

@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { fetchData, refreshAccessToken } from "../../utils/api";
 import { useCookies } from 'react-cookie';
-import {useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import axios from 'axios';
-import {detailAtom} from "../../atoms/store";
+import { detailAtom } from "../../atoms/store";
 import { fileAtom, userInfoAtom } from "../../atoms/forum";
 interface ForumReplyProp {
     closeReply: () => void;
@@ -20,7 +20,7 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
     const [userInfo, setUserInfo] = useAtom(userInfoAtom);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {  
+        if (e.target.files && e.target.files[0]) {
             setFile(e.target.files[0]);
         }
     };
@@ -46,7 +46,7 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
 
     const handleSubmit = async () => {
         const formData = new FormData();
-        
+
         formData.append("FB_idx", FB_idx.toString());
         formData.append("UserId", userInfo?.name || "");
         formData.append("NickName", userInfo?.name || "");
@@ -65,9 +65,9 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
             });
 
             if (response.status === 200) {
-                closeReply(); 
+                closeReply();
             } else {
-               
+
             }
         } catch (error) {
             console.error("에러 발생:", error);
@@ -89,7 +89,7 @@ const Reply: React.FC<ForumReplyProp> = ({ closeReply, FB_idx }) => {
 
                 <div className={ReplyStyles.forGroup}>
                     <label>{t('image')}</label>
-                    <div className={ReplyStyles.imageUpload}>   
+                    <div className={ReplyStyles.imageUpload}>
                         <img
                             src={file ? URL.createObjectURL(file) : "/asset/no_image.jpg"}
                             className={ReplyStyles.imagePreview}

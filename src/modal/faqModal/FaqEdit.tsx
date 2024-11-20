@@ -60,10 +60,6 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
                 console.error("게임 데이터 불러오기 오류:", error);
             }
         };
-        loadGameData();
-    }, [boardItem, setGames, setSelectedGame, setTitle, setDetail, setSelectedCategory]);
-
-    useEffect(() => {
         const loadCategoryData = async () => {
             if (selectedGame) {
                 try {
@@ -85,7 +81,18 @@ export const FaqEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
             }
         };
         loadCategoryData();
-    }, [selectedGame, boardItem.category_name, setCategories, setSelectedCategory]);
+        loadGameData();
+    }, [
+        boardItem, 
+        setGames, 
+        setSelectedGame, 
+        setTitle, 
+        setDetail, 
+        setSelectedCategory, 
+        selectedGame, 
+        boardItem.category_name, 
+        setCategories
+    ]);
 
     const handleSave = async () => {
         if (selectedGame === null || selectedCategory === null || !title) {

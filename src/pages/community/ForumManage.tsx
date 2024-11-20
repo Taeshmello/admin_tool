@@ -14,9 +14,9 @@ import {
     selectedFBidxAtom,
     selectedForumBoardItemAtom
 } from '../../atoms/forum';
-import { 
+import {
     isAddOpenAtom,
-    isEditModalOpenAtom 
+    isEditModalOpenAtom
 } from '../../atoms/store';
 
 

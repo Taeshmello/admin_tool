@@ -12,9 +12,9 @@ import {
     gamesAtom,
     selectedGameAtom,
 } from "../../atoms/store";
-import { 
-    categoriesAtom, 
-    selectedCategoryBoardItemAtom 
+import {
+    categoriesAtom,
+    selectedCategoryBoardItemAtom
 } from "../../atoms/category";
 
 

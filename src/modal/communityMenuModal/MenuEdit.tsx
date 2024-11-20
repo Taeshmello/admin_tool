@@ -9,18 +9,7 @@ import { statusAtom,
     selectedUserStatusAtom, 
     selectedAdminStatusAtom 
 } from '../../atoms/store';
-
-
-interface ForumMenuDetailBoard {
-    CM_idx: number;
-    service_code: string;
-    SectionCode: string;
-    LanguageCode: string;
-    Title: string;
-    UserStatus: string;
-    AdminStatus: string;
-}
-
+import { ForumMenuDetailBoard } from '../../atoms/menu';
 
 interface EditProps {
     closeModal: () => void;
@@ -73,11 +62,11 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
         setSelectedUserStatus(menuItem.UserStatus);
         setSelectedAdminStatus(menuItem.AdminStatus);
     }, [menuItem, setSelectedUserStatus, setSelectedAdminStatus]);
-
+    
     const updatedData = {
         CM_idx: menuItem.CM_idx,
         AdminStatus: selectedAdminStatus,
-        UserStatus: selectedUserStatus, 
+        UserStatus: selectedUserStatus,
     };
 
     const handleUpdate = async () => {

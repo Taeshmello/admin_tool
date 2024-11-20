@@ -113,14 +113,11 @@ const ForumAdd: React.FC<ForumAddProp> = ({ closeAdd }) => {
         loadServiceCode();
         loadStatusData();
     }, [selectedServiceCode, cookies.accessToken, setCookie])
-
     const handleSubmit = async () => {
         if (!selectedMenu || !selectedServiceCode || !selecetedLanguage.length || !selectedUserStatus || !title || !detail) {
             alert(`${t('plz_fill_space')}`);
             return;
         }
-
-
         try {
             const selectedLanguageCode = languages.find(lang => lang.Lang === selecetedLanguage[0])?.Lang_idx;
             const response = await axios.post("http://localhost:5000/forum/insert", {

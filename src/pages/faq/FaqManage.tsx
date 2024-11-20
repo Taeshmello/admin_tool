@@ -5,18 +5,18 @@ import { fetchBoard, deleteBoardItem, fetchBoardItem } from '../../utils/faq';
 import { Write } from '../../modal/faqModal/FaqAdd';
 import { FaqEdit } from '../../modal/faqModal/FaqEdit';
 import { useTranslation } from 'react-i18next';
-import {useAtom } from 'jotai';
-import { 
-    searchTermAtom, 
+import { useAtom } from 'jotai';
+import {
+    searchTermAtom,
     gamesAtom,
     selectedGameAtom,
     isModalOpenAtom,
     isEditModalOpenAtom,
-  } from '../../atoms/store';
-import { 
-    FaqboardAtom, 
-    filteredFaqBoardAtom, 
-    selectedFaqBoardItemAtom 
+} from '../../atoms/store';
+import {
+    FaqboardAtom,
+    filteredFaqBoardAtom,
+    selectedFaqBoardItemAtom
 } from '../../atoms/faq';
 
 const FaqManage = () => {
@@ -34,8 +34,8 @@ const FaqManage = () => {
     const handleEdit = async (boardNum: number) => {
         try {
             const boardItem = await fetchBoardItem(boardNum);
-            setSelectedBoardItem(boardItem); 
-            setIsEditOpen(true); 
+            setSelectedBoardItem(boardItem);
+            setIsEditOpen(true);
         } catch (error) {
             console.error("게시물 조회 오류:", error);
             alert('게시물 조회에 실패했습니다.');
@@ -150,7 +150,7 @@ const FaqManage = () => {
                         </thead>
                         <tbody>
                             {filteredBoard.map((boardItem, index) => {
-                                const created_date = boardItem.created_at   
+                                const created_date = boardItem.created_at
                                     ? new Date(boardItem.created_at).toLocaleString('ko-KR', { timeZone: 'UTC' })
                                     : ' ';
                                 return (
@@ -161,14 +161,14 @@ const FaqManage = () => {
                                         <td className={FaqManageStyle.title}>{boardItem.title}</td>
                                         <td className={FaqManageStyle.created_at}>{created_date}</td>
                                         <td className={FaqManageStyle.btnTable}>
-                                            <button 
-                                                className={FaqManageStyle.editBtn} 
+                                            <button
+                                                className={FaqManageStyle.editBtn}
                                                 onClick={() => handleEdit(boardItem.board_num)}
                                             >
                                                 {t('info')}
                                             </button>
-                                            <button 
-                                                className={FaqManageStyle.deleteBtn} 
+                                            <button
+                                                className={FaqManageStyle.deleteBtn}
                                                 onClick={() => handleDelete(boardItem.board_num)}
                                             >
                                                 {t('delete')}

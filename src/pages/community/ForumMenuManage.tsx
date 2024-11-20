@@ -69,19 +69,21 @@ const ForumMenuManage: React.FC = () => {
                 console.error("상태 데이터 불러오기 오류:", error);
             }
         };
-
-        loadStatusData();
-        loadMenuData();
-        loadServiceCodeData();
-    }, [setBoard, setFilteredBoard, setServiceCode, setStatus]);
-
-    useEffect(() => {
         const filtered = board.filter(item => {
             const matchesServiceCode = selectedServiceCode ? item.service_code === selectedServiceCode : true;
             return matchesServiceCode;
         });
         setFilteredBoard(filtered);
-    }, [board, selectedServiceCode, setFilteredBoard]);
+        loadStatusData();
+        loadMenuData();
+        loadServiceCodeData();
+    }, [setBoard,
+        setFilteredBoard,
+        setServiceCode,
+        setStatus, board,
+        selectedServiceCode,
+        setFilteredBoard]);
+
 
     const handelEdit = async (CM_idx: number) => {
         try {
@@ -114,8 +116,7 @@ const ForumMenuManage: React.FC = () => {
                         <select
                             onChange={(e) => setSelectedServiceCode(e.target.value)}
                             value={selectedServiceCode}
-                            className={ForumMenuManageStyle.scContainer}
-                        >
+                            className={ForumMenuManageStyle.scContainer}>
                             <option value="">All</option>
                             {serviceCode.map((sc, index) => (
                                 <option key={index} value={sc.service_code}>
@@ -124,10 +125,8 @@ const ForumMenuManage: React.FC = () => {
                             ))}
                         </select>
                     </div>
-
                     <button className={ForumMenuManageStyle.add} onClick={openAdd}>{t('add_menu')}</button>
                 </div>
-
                 <div className={ForumMenuManageStyle.tableContainer}>
                     <table className={ForumMenuManageStyle.boardTable}>
                         <thead>

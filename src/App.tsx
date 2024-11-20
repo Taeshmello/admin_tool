@@ -29,7 +29,7 @@ function App() {
             <Route path="ForumManage" element={<ForumManage />} />
             <Route path='faqmanage' element={<FaqManage />} />
             <Route path='Category' element={<Category />} />
-            </Route>
+          </Route>
         </Routes>
       </Provider>
 

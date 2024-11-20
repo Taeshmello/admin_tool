@@ -35,7 +35,6 @@ export const selectedForumBoardItemAtom = atom<Forum | null>(null);
 export const fileAtom = atom<File | null>(null)
 export const userInfoAtom = atom<{ name: string } | null>(null)
 
-
 //Comment modal (Comment.tsx)
 export const commentsAtom = atom<any[]>([]);
 
@@ -44,8 +43,6 @@ export const languagesAtom = atom<languages[]>([]);
 export const selectedLanguagesAtom = atom<string[]>([]);
 export const menuAtom = atom<menu[]>([]);
 export const selectedMenuAtom = atom<string | null>(null)
-
-
 
 //ForumEdit modal (ForumEdit.tsx)
 export const selectedMenuNameAtom = atom<string | null>(null)

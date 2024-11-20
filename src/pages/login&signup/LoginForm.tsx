@@ -15,7 +15,7 @@ const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['accessToken']);
-  
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const response = await axios.post("http://localhost:5000/auth/login", data, {
@@ -41,10 +41,10 @@ const LoginForm: React.FC = () => {
       }
     } catch (error: any) {
       console.error("로그인 요청 실패:", error);
-      
-      
+
+
       if (error.response && error.response.data && error.response.data.error) {
-        alert(error.response.data.error); 
+        alert(error.response.data.error);
       } else {
         alert("There was a problem communicating with the server.");
       }

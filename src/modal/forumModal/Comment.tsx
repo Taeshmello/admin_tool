@@ -2,7 +2,7 @@ import commentStyles from "./Comment.module.css";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { fetchComments } from "../../utils/forum";
-import {useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { commentsAtom } from "../../atoms/forum";
 interface ForumCommentProp {
     closeComment: () => void;
@@ -26,7 +26,6 @@ const Comment: React.FC<ForumCommentProp> = ({ closeComment, FB_idx }) => {
         };
         loadComments();
     }, [FB_idx, setComments]);
-
     return (
         <div className={commentStyles.modal}>
             <div className={commentStyles.modalContent}>

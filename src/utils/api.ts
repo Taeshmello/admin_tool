@@ -22,7 +22,7 @@ export const fetchUserData = async (): Promise<any> => {
     } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류 발생:", error);
         return null;
-    }   
+    }
 };
 
 // 유저 상태 체크 함수
@@ -68,7 +68,7 @@ export const fetchGameGenres = async (): Promise<any> => {
 export const fetchGames = async (): Promise<any> => {
     try {
         const response = await axios.get('http://localhost:5000/auth/games');
-        return response.data;   
+        return response.data;
     } catch (error) {
         console.error("게임 데이터를 가져오는 중 오류 발생:", error);
         throw error;
@@ -157,14 +157,14 @@ export const fetchUserPermissionGames = async (userId: number): Promise<any> => 
     }
 };
 
-export const fetchUserPermissionGamesDetail = async (userId: number, gameId:number):Promise<any> => {
-    try{
-        const response = await axios.get(`http://localhost:5000/auth/permissions-details/${userId}/${gameId}`,{
+export const fetchUserPermissionGamesDetail = async (userId: number, gameId: number): Promise<any> => {
+    try {
+        const response = await axios.get(`http://localhost:5000/auth/permissions-details/${userId}/${gameId}`, {
             withCredentials: true,
         });
         return response.data;
-    } catch(error) {
-        console.error("사용자 게임 권한 세부 정보를 가져오는 중 오류 발생:",error);
+    } catch (error) {
+        console.error("사용자 게임 권한 세부 정보를 가져오는 중 오류 발생:", error);
         throw error
     }
 }

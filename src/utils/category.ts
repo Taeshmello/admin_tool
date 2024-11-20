@@ -19,11 +19,11 @@ export const deleteCategoryItem = async (GC_idx: number) => {
 };
 
 
-export const fetchCategoryDetails = async (GC_idx:number) => {
+export const fetchCategoryDetails = async (GC_idx: number) => {
     try {
         const response = await axios.get(`http://localhost:5000/category/details/${GC_idx}`)
         return response.data
-    } catch(error){
+    } catch (error) {
         throw new Error("게시물 조회에 실패")
     }
 }
