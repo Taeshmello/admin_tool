@@ -13,13 +13,14 @@ import {
     isModalOpenAtom,
     isEditModalOpenAtom,
 } from '../../atoms/store';
+
 import {
     FaqboardAtom,
     filteredFaqBoardAtom,
     selectedFaqBoardItemAtom
 } from '../../atoms/faq';
 
-const FaqManage = () => {
+const FaqManage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useAtom(searchTermAtom);
     const [board, setBoard] = useAtom(FaqboardAtom);
     const [filteredBoard, setFilteredBoard] = useAtom(filteredFaqBoardAtom);
@@ -183,7 +184,7 @@ const FaqManage = () => {
             </div>
             {isModalOpen && <Write closeModal={closeModal} />}
             {isEditOpen && selectedBoardItem && (
-                <FaqEdit closeEdit={closeEdit} boardItem={selectedBoardItem} />
+                <FaqEdit closeEdit={closeEdit} boardItem = {selectedBoardItem} />
             )}
         </div>
     );

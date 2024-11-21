@@ -16,9 +16,7 @@ import {
     serviceCodeAtom,
     selectedServiceCodeAtom,
     isAddOpenAtom
-} from '../../atoms/menu';
-
-
+} from '../../atoms/menu'; 
 
 const ForumMenuManage: React.FC = () => {
     const [board, setBoard] = useAtom(ForumMenuBoardAtom);
@@ -28,8 +26,9 @@ const ForumMenuManage: React.FC = () => {
     const [selectedMenuItem, setSelectedBoardMenuItem] = useAtom(selectedForumMenuItemAtom);
     const [isAddOpen, setIsAddOpen] = useAtom(isAddOpenAtom);
     const [serviceCode, setServiceCode] = useAtom(serviceCodeAtom);
-    const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceCodeAtom);
+    const [selectedServiceCode, setSelectedServiceCode] = useAtom(selectedServiceCodeAtom); 
     const { t } = useTranslation();
+    
 
     useEffect(() => {
         const loadMenuData = async () => {

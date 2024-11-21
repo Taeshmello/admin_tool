@@ -17,15 +17,14 @@ import {
     selectedCategoryBoardItemAtom
 } from "../../atoms/category";
 
-
-const Category = () => {
+const Category:React.FC = () => {
     const [categories, setCategories] = useAtom(categoriesAtom);
     const [isModalOpen, setIsModalOpen] = useAtom(isModalOpenAtom);
     const [isEditModalOpen, setIsEditModalOpen] = useAtom(isEditModalOpenAtom);
     const [games, setGames] = useAtom(gamesAtom);
     const [selectedGame, setSelectedGame] = useAtom(selectedGameAtom);
     const { t } = useTranslation();
-    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedCategoryBoardItemAtom)
+    const [selectedBoardItem, setSelectedBoardItem] = useAtom(selectedCategoryBoardItemAtom);
     useEffect(() => {
         const loadCategoryData = async () => {
             try {
@@ -47,7 +46,6 @@ const Category = () => {
                 console.error("게임 데이터 불러오기 오류:", error);
             }
         };
-
         loadGameData();
         loadCategoryData();
     }, [setCategories, setGames]);
@@ -83,9 +81,8 @@ const Category = () => {
     const closeModal = () => setIsModalOpen(false);
     const closeEdit = () => setIsEditModalOpen(false);
 
-    const filteredCategories = selectedGame
-        ? categories.filter(category => category.game_name === selectedGame)
-        : categories;
+    const filteredCategories = selectedGame 
+    ? categories.filter(category => category.game_name === selectedGame) : categories;
 
     return (
         <div className={styles.pageContainer}>

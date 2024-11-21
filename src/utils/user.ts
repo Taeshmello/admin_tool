@@ -12,6 +12,7 @@ export const assignPermissions = async (data: { user_Idx: number; gameId: string
         return response.data;
     } catch (error) {
         console.error('API 호출 중 오류 발생:', error);
+
         throw error;
     }
 };
@@ -79,6 +80,7 @@ export const userStatusCheck = async (): Promise<any> => {
         return response.data;
     } catch (error) {
         console.error('사용자 상태를 가져오는 중 오류 발생:', error);
+        window.location.href = '/'
         return null;
     }
 };
@@ -106,10 +108,11 @@ export const fetchPermissionsForGame = async (userId: number, gameId: string): P
 export const userPermissionsCheck = async (): Promise<any> => {
     try {
         const response = await axios.get("http://localhost:5000/auth/login-permission", { withCredentials: true })
+
         return response.data;
     } catch (error) {
         console.error("사용자 권한을 가져오는 중 오류 발생:", error);
-
+        window.location.href = '/'
         return null;
     }
 }
@@ -119,11 +122,12 @@ export const userGameList = async (): Promise<any> => {
     try {
         const response = await axios.get("http://localhost:5000/auth/per-games",
             { withCredentials: true })
-        console.log(response.data)
+
         return response.data;
 
     } catch (error) {
         alert(`게임 권한 불러오기 오류${error}`)
+        window.location.href = '/'
         return null
     }
 }

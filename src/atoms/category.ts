@@ -11,3 +11,4 @@ export interface Categories {
 export const categoriesAtom = atom<Categories[]>([]);
 export const selectedCategoryBoardItemAtom = atom<Categories | null>(null);
 export const categoryAtom = atom<string>("");
+export const selectedCategoryAtom = atom<string | null>(null)

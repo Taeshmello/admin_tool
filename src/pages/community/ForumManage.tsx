@@ -19,7 +19,6 @@ import {
     isEditModalOpenAtom
 } from '../../atoms/store';
 
-
 const ForumManage: React.FC = () => {
     const [forums, setForums] = useAtom(forumsAtom);
     const [isAddOpen, setIsAddOpen] = useAtom(isAddOpenAtom);

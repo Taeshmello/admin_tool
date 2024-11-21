@@ -11,7 +11,13 @@ import { fetchPermissionsForGame } from '../../utils/user';
 import { useTranslation } from "react-i18next";
 import { useAtom } from 'jotai';
 import { Permission, loginedUser } from "../../atoms/user";
-import { permissionsAtom, selectedPermissionsAtom, allSelectedAtom, selectedGameIdAtom, userGamesAtom } from "../../atoms/user";
+import { 
+    permissionsAtom, 
+    selectedPermissionsAtom, 
+    allSelectedAtom, 
+    selectedGameIdAtom, 
+    userGamesAtom 
+} from "../../atoms/user";
 import { gamesAtom } from "../../atoms/store";
 interface DetailProps {
     closeModal: () => void;
@@ -30,7 +36,7 @@ const UserDetail: React.FC<DetailProps> = ({ closeModal, user }) => {
         // 게임 목록을 불러오는 함수
         const loadGames = async () => {
             try {
-                const gameList = await fetchGames();
+                const gameList = await fetchGames();    
                 setGames(gameList);
             } catch (error) {
                 console.error('게임 목록을 불러오는 데 실패했습니다:', error);

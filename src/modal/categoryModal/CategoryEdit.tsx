@@ -14,12 +14,12 @@ import {
 } from "../../atoms/store.ts";
 
 
-interface FaqEditProps {
+interface CategoryEditProps {
     closeEdit: () => void;
     boardItem: Categories;
 }
 
-export const CategoryEdit: React.FC<FaqEditProps> = ({ closeEdit, boardItem }) => {
+export const CategoryEdit: React.FC<CategoryEditProps> = ({ closeEdit, boardItem }) => {
     const [games, setGames] = useAtom(gamesAtom);
     const [selectedGame, setSelectedGame] = useAtom(selectedGameIdxAtom);
 

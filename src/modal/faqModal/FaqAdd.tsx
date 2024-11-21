@@ -10,10 +10,11 @@ import {
     selectedGameIdxAtom, 
     titleAtom, 
     
-    selectedCategoryAtom 
+    
 } from "../../atoms/store.ts";
 import { 
     categoriesAtom,
+    selectedCategoryAtom 
 } from "../../atoms/category.ts";
 import { detailAtom } from "../../atoms/faq.ts";
 

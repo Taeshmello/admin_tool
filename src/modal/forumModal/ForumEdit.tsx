@@ -13,7 +13,6 @@ import {
     languagesAtom,
     selectedLanguagesAtom
 } from '../../atoms/forum';
-
 interface Forum {
     FB_idx: number;
     ServiceCode: string;
@@ -26,9 +25,7 @@ interface Forum {
     UserIp: string;
     CreatedAt: string;
     UserStatus: string;
-
 }
-
 interface ForumEditProp {
     closeEdit: () => void
     boardItem: Forum;
@@ -87,7 +84,12 @@ const ForumEdit: React.FC<ForumEditProp> = ({ closeEdit, boardItem }) => {
         loadStatusData();
         loadLanguageData();
         loadMenuName();
-    }, [boardItem, setMenuName, setLanguages, setStatus]);
+    }, [
+        boardItem, 
+        setMenuName, 
+        setLanguages, 
+        setStatus
+    ]);
 
     const handleCheckboxChange = (lang: string) => {
         setSelectedLanguage(prevSelectedLanguages => {

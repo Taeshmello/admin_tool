@@ -13,7 +13,7 @@ import { NotFound } from './pages/notFound/NotFound';
 import { Provider } from 'jotai';
 import Waiting from './pages/wait/Waiting';
 
-function App() {
+const App = () => {
 
   return (
     <CookiesProvider>

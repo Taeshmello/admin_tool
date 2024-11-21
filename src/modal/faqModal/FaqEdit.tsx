@@ -6,23 +6,18 @@ import DetailEditor from "../../components/DetailEditor.tsx";
 import { useTranslation } from "react-i18next";
 import {useAtom} from 'jotai';
 import {
-    selectedCategoryAtom, 
+   
     gamesAtom, 
     selectedGameIdxAtom, 
     titleAtom, 
     detailAtom 
 } from "../../atoms/store.ts";
 import { 
-    categoriesAtom
+    categoriesAtom,
+    selectedCategoryAtom 
 } from "../../atoms/category.ts";
 
-interface Board {
-    board_num: number; 
-    games: number;
-    category_name: string;
-    title: string;
-    detail: string;
-}
+import { Board } from "../../atoms/faq.ts";
 
 interface FaqEditProps {
     closeEdit: () => void;

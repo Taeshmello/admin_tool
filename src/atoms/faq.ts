@@ -7,6 +7,14 @@ interface FaqBoard {
     created_at: string;
     detail: string;
 }
+
+export interface Board {
+    board_num: number; 
+    games: number;
+    category_name: string;
+    title: string;
+    detail: string;
+}
 //FaqManage page(FaqManage.tsx)
 export const FaqboardAtom = atom<FaqBoard[]>([]);
 export const filteredFaqBoardAtom = atom<FaqBoard[]>([]);

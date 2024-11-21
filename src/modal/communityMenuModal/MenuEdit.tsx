@@ -22,24 +22,7 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
     const [selectedUserStatus, setSelectedUserStatus] = useAtom(selectedUserStatusAtom);
     const [selectedAdminStatus, setSelectedAdminStatus] = useAtom(selectedAdminStatusAtom);
     const { t } = useTranslation();
-
-    useEffect(() => {
-        const loadStatusData = async () => {
-            try {
-                const statusData = await fetchBoardUserStatus();
-                if (statusData && Array.isArray(statusData)) {
-                    setStatus(statusData);
-                } else {
-                    console.error("상태 데이터 형식 오류:", statusData);
-                }
-            } catch (error) {
-                console.error("상태 데이터 불러오기 오류:", error);
-            }
-        };
-
-        loadStatusData();
-    }, [setStatus]);
-
+    
     useEffect(() => {
         const loadAdminStatusData = async () => {
             try {
@@ -55,13 +38,27 @@ const MenuEdit: React.FC<EditProps> = ({ closeModal, menuItem }) => {
         };
 
         loadAdminStatusData();
-    }, [setAdminStatus]);
-
-    
-    useEffect(() => {
         setSelectedUserStatus(menuItem.UserStatus);
         setSelectedAdminStatus(menuItem.AdminStatus);
-    }, [menuItem, setSelectedUserStatus, setSelectedAdminStatus]);
+        const loadStatusData = async () => {
+            try {
+                const statusData = await fetchBoardUserStatus();
+                if (statusData && Array.isArray(statusData)) {
+                    setStatus(statusData);
+                } else {
+                    console.error("상태 데이터 형식 오류:", statusData);
+                }
+            } catch (error) {
+                console.error("상태 데이터 불러오기 오류:", error);
+            }
+        };
+
+        loadStatusData();
+    }, [setStatus, 
+        setAdminStatus, 
+        menuItem, 
+        setSelectedUserStatus, 
+        setSelectedAdminStatus]);
     
     const updatedData = {
         CM_idx: menuItem.CM_idx,
