@@ -2,8 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { atom, useAtom } from 'jotai';
 import './SideBar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faCircleQuestion, faLaptop, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faCircleQuestion, faLaptop, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom'; // react-router-dom에서 Link 컴포넌트 import
+
 const activeItemAtom = atom<number | null>(null);
 
 const SideBar: React.FC = () => {
@@ -23,42 +25,44 @@ const SideBar: React.FC = () => {
         <ul>
           <li className="nav-item">
             <span className="nav-text">
-              <a href="userManage"><FontAwesomeIcon icon={faUser} /> {t('user_management')}</a>
+              <Link to="/userManage">
+                <FontAwesomeIcon icon={faUser} /> {t('user_management')}
+              </Link>
             </span>
           </li>
 
           <li className="nav-item" onClick={() => handleNavItemClick(1)}>
-            <span className="nav-text"><FontAwesomeIcon icon={faCircleQuestion} /> {t('customer_service')}</span>
+            <span className="nav-text">
+              <FontAwesomeIcon icon={faCircleQuestion} /> {t('customer_service')}
+            </span>
             {activeItem === 1 && (
               <ul className="sub-menu">
                 <li>
                   <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
-                  <a href="Category" className='categoryLink'>{t('category_management')}</a>
+                  <Link to="/Category" className="categoryLink">{t('category_management')}</Link>
                 </li>
                 <li>
                   <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
-                  <a href="faqmanage">{t('faq_management')}</a>
+                  <Link to="/faqmanage">{t('faq_management')}</Link>
                 </li>
               </ul>
             )}
           </li>
 
           <li className="nav-item" onClick={() => handleNavItemClick(2)}>
-            <span className="nav-text"><FontAwesomeIcon icon={faLaptop} /> {t('main_screen_management')}</span>
+            <span className="nav-text">
+              <FontAwesomeIcon icon={faLaptop} /> {t('main_screen_management')}
+            </span>
             {activeItem === 2 && (
               <ul className="sub-menu">
                 <li>
                   <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
-                  <a href="ForumMenuManage">{t('board_menu_management')}</a>
+                  <Link to="/ForumMenuManage">{t('board_menu_management')}</Link>
                 </li>
                 <li>
                   <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
-                  <a href="ForumManage">{t('board_post_management')}</a>
+                  <Link to="/ForumManage">{t('board_post_management')}</Link>
                 </li>
-                {/* <li>
-                <FontAwesomeIcon icon={faArrowRightToBracket} className='arrowIcon' />
-                  <a href="Department">{t('department_management')}</a>
-                </li> */}
               </ul>
             )}
           </li>
