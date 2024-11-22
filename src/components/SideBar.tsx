@@ -5,8 +5,8 @@ import './SideBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faCircleQuestion, faLaptop, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { activeItemAtom } from '../atoms/store';
 
-const activeItemAtom = atom<number | null>(null);
 
 const SideBar: React.FC = () => {
   const { t } = useTranslation();

@@ -26,6 +26,8 @@ interface ServiceCode {
 interface AdminStatus {
     admin_status: string;
 }
+//사이드바 드롭다운 상태
+export const activeItemAtom = atom<number | null>(null);
 
 //공용
 export const gamesAtom = atom<{ name: string; id: string }[]>([]);
