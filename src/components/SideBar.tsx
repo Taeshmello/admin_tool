@@ -4,7 +4,7 @@ import { atom, useAtom } from 'jotai';
 import './SideBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faCircleQuestion, faLaptop, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom'; // react-router-dom에서 Link 컴포넌트 import
+import { Link } from 'react-router-dom';
 
 const activeItemAtom = atom<number | null>(null);
 
