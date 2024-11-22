@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { atom, useAtom } from 'jotai';
+import {useAtom } from 'jotai';
 import './SideBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faCircleQuestion, faLaptop, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +14,7 @@ const SideBar: React.FC = () => {
 
   const handleNavItemClick = (index: number) => {
     setActiveItem(activeItem === index ? null : index);
-  };
+  };  
 
   return (
     <div className="sidebar-container">
